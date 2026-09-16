@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-<title>Sobhan Dino - Pug62</title>
+<title>Sobhan Dino | Pug62</title>
 
 <style>
 *{
@@ -13,132 +13,143 @@
   -webkit-tap-highlight-color:transparent;
 }
 
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+}
+
 body{
   font-family:Tahoma,Arial,sans-serif;
-  min-height:100vh;
-  overflow:hidden;
-  background:#080b12;
-  color:white;
+  background:#050816;
 }
 
 /* =========================
-   GIFT PAGE
+   GIFT SCREEN
 ========================= */
 
-.giftPage{
+.gift-screen{
   position:fixed;
   inset:0;
   z-index:9999;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
   padding:20px;
+  overflow:hidden;
   background:
-    radial-gradient(circle at 50% 30%,#7c3aed55,transparent 35%),
-    radial-gradient(circle at 20% 80%,#ec489955,transparent 30%),
-    linear-gradient(135deg,#050816,#111827,#050816);
+    radial-gradient(circle at 50% 15%,#7c3aed55,transparent 30%),
+    radial-gradient(circle at 15% 90%,#ec489944,transparent 30%),
+    linear-gradient(135deg,#030712,#111827,#030712);
 }
 
 .stars{
   position:absolute;
   inset:0;
   background-image:
-    radial-gradient(#fff 1px,transparent 1px),
-    radial-gradient(#fff 1px,transparent 1px);
-  background-size:80px 80px,120px 120px;
-  background-position:0 0,40px 50px;
+    radial-gradient(circle,#fff 1px,transparent 1px),
+    radial-gradient(circle,#fff 1px,transparent 1px);
+  background-size:80px 80px,130px 130px;
+  background-position:10px 20px,50px 70px;
   opacity:.25;
-  animation:stars 12s linear infinite;
+  animation:starsMove 15s linear infinite;
 }
 
-@keyframes stars{
+@keyframes starsMove{
   from{transform:translateY(0)}
-  to{transform:translateY(-80px)}
+  to{transform:translateY(80px)}
 }
 
-.giftCard{
+.gift-card{
   position:relative;
   z-index:2;
-  width:min(500px,95vw);
-  padding:42px 25px;
+  width:min(520px,94vw);
+  padding:42px 28px;
   text-align:center;
-  border:1px solid #ffffff25;
-  border-radius:30px;
-  background:#ffffff0d;
-  backdrop-filter:blur(18px);
+  border-radius:32px;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(20px);
   box-shadow:
-    0 30px 100px #0008,
-    inset 0 1px #ffffff20;
-  animation:cardIn .8s ease;
+    0 30px 100px rgba(0,0,0,.65),
+    inset 0 1px rgba(255,255,255,.2);
+  animation:cardIn .8s cubic-bezier(.2,.8,.2,1);
 }
 
 @keyframes cardIn{
   from{
     opacity:0;
-    transform:translateY(40px) scale(.9);
+    transform:translateY(50px) scale(.88);
   }
   to{
     opacity:1;
-    transform:translateY(0) scale(1);
+    transform:none;
   }
 }
 
-.gift{
+.gift-icon{
   font-size:90px;
   display:block;
+  filter:drop-shadow(0 15px 25px rgba(0,0,0,.5));
   animation:giftFloat 2s ease-in-out infinite;
-  filter:drop-shadow(0 15px 20px #0008);
 }
 
 @keyframes giftFloat{
-  0%,100%{transform:translateY(0) rotate(-3deg)}
-  50%{transform:translateY(-15px) rotate(3deg)}
+  0%,100%{
+    transform:translateY(0) rotate(-3deg);
+  }
+  50%{
+    transform:translateY(-14px) rotate(3deg);
+  }
 }
 
-.giftCard h1{
+.gift-card h1{
   margin-top:15px;
-  font-size:31px;
+  color:#fff;
+  font-size:32px;
   font-weight:900;
 }
 
-.giftCard h2{
+.gift-card h2{
   margin-top:10px;
   color:#fbbf24;
   font-size:25px;
 }
 
-.giftText{
+.gift-card p{
   margin:18px auto;
-  line-height:2;
+  max-width:420px;
   color:#ddd;
-  font-size:16px;
+  line-height:2;
+  font-size:15px;
 }
 
-.from{
-  margin:15px 0;
-  color:#aaa;
-  font-size:14px;
+.creator{
+  color:#aaa!important;
+  font-size:13px!important;
 }
 
-.startGift{
+.gift-button{
   width:100%;
+  margin-top:8px;
+  padding:17px;
   border:0;
-  padding:16px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#f59e0b,#ef4444);
-  color:white;
-  font-size:19px;
-  font-weight:900;
+  border-radius:17px;
   cursor:pointer;
-  box-shadow:0 10px 30px #ef444455;
+  color:#fff;
+  font-size:18px;
+  font-weight:900;
+  background:linear-gradient(135deg,#f59e0b,#ef4444);
+  box-shadow:0 12px 35px rgba(239,68,68,.3);
   transition:.2s;
 }
 
-.startGift:hover{
-  transform:translateY(-3px) scale(1.02);
+.gift-button:hover{
+  transform:translateY(-3px);
+  box-shadow:0 18px 45px rgba(239,68,68,.4);
 }
 
-.startGift:active{
+.gift-button:active{
   transform:scale(.97);
 }
 
@@ -147,113 +158,175 @@ body{
 ========================= */
 
 .game{
-  width:100vw;
-  height:100vh;
-  position:relative;
+  position:fixed;
+  inset:0;
   overflow:hidden;
-  background:#f7f7f7;
-  color:#222;
-  transition:.5s;
+  background:
+    linear-gradient(#bfe9ff 0%,#e9f8ff 65%,#fff 100%);
+  transition:background .7s;
 }
 
 body.night .game{
-  background:#111827;
-  color:white;
+  background:
+    linear-gradient(#071225 0%,#111c32 65%,#182438 100%);
 }
 
-.top{
-  height:85px;
+/* HEADER */
+
+.header{
   position:absolute;
   top:0;
   left:0;
   right:0;
+  height:80px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:15px 25px;
-  z-index:50;
-}
-
-.logo{
-  font-weight:900;
-  font-size:23px;
-}
-
-.score{
-  font-weight:900;
-  direction:ltr;
-}
-
-.buttons{
-  display:flex;
-  gap:8px;
-}
-
-.btn{
-  border:0;
-  background:#222;
-  color:#fff;
-  border-radius:12px;
-  padding:10px 13px;
-  cursor:pointer;
-  font-size:16px;
-}
-
-body.night .btn{
-  background:#fff;
-  color:#111;
-}
-
-.volumeBox{
-  position:absolute;
-  top:70px;
-  left:20px;
-  background:white;
-  padding:12px;
-  border-radius:15px;
-  box-shadow:0 10px 30px #0004;
-  display:none;
+  padding:12px 25px;
   z-index:100;
 }
 
-.volumeBox.show{
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.brand-icon{
+  font-size:30px;
+}
+
+.brand-name{
+  color:#172033;
+  font-weight:1000;
+  font-size:21px;
+  letter-spacing:.5px;
+}
+
+body.night .brand-name{
+  color:#fff;
+}
+
+.scores{
+  display:flex;
+  gap:10px;
+}
+
+.score-card{
+  min-width:110px;
+  padding:9px 13px;
+  border-radius:13px;
+  background:rgba(255,255,255,.7);
+  border:1px solid rgba(0,0,0,.08);
+  text-align:center;
+  direction:ltr;
+  box-shadow:0 7px 20px rgba(0,0,0,.08);
+}
+
+body.night .score-card{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  border-color:#ffffff18;
+}
+
+.score-title{
+  display:block;
+  font-size:10px;
+  opacity:.6;
+  margin-bottom:3px;
+}
+
+.score-number{
+  font-size:17px;
+  font-weight:900;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+}
+
+.action{
+  width:42px;
+  height:42px;
+  border:0;
+  border-radius:13px;
+  background:rgba(255,255,255,.8);
+  cursor:pointer;
+  font-size:18px;
+  box-shadow:0 7px 20px rgba(0,0,0,.1);
+  transition:.2s;
+}
+
+.action:hover{
+  transform:translateY(-2px);
+}
+
+body.night .action{
+  background:#ffffff12;
+  color:#fff;
+}
+
+/* VOLUME */
+
+.volume{
+  position:absolute;
+  top:70px;
+  left:25px;
+  padding:14px;
+  width:190px;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 15px 35px #0003;
+  display:none;
+  z-index:200;
+}
+
+.volume.show{
   display:block;
 }
 
-.volumeBox input{
-  width:150px;
+body.night .volume{
+  background:#1d293d;
+  color:#fff;
 }
 
-.sky{
+.volume input{
+  width:100%;
+  margin-top:10px;
+}
+
+/* WORLD */
+
+.world{
   position:absolute;
-  top:85px;
-  bottom:75px;
-  left:0;
-  right:0;
+  inset:80px 0 75px;
   overflow:hidden;
 }
 
+/* SUN */
+
 .sun{
   position:absolute;
+  top:35px;
+  right:10%;
   width:75px;
   height:75px;
   border-radius:50%;
-  background:#ffd43b;
-  right:90px;
-  top:30px;
-  box-shadow:0 0 40px #ffd43b99;
+  background:#ffd84a;
+  box-shadow:0 0 55px #ffd84a99;
 }
 
 .moon{
   display:none;
   position:absolute;
+  top:35px;
+  right:10%;
   width:65px;
   height:65px;
   border-radius:50%;
-  background:#eee;
-  right:90px;
-  top:30px;
-  box-shadow:0 0 35px #fff8;
+  background:#f8fafc;
+  box-shadow:0 0 45px #fff8;
 }
 
 body.night .sun{
@@ -264,14 +337,16 @@ body.night .moon{
   display:block;
 }
 
+/* CLOUDS */
+
 .cloud{
   position:absolute;
-  width:110px;
-  height:30px;
-  border-radius:30px;
-  background:white;
-  opacity:.7;
-  animation:cloud 30s linear infinite;
+  width:130px;
+  height:35px;
+  border-radius:40px;
+  background:#fff;
+  opacity:.72;
+  animation:cloudMove 35s linear infinite;
 }
 
 .cloud:before,
@@ -279,277 +354,412 @@ body.night .moon{
   content:"";
   position:absolute;
   border-radius:50%;
-  background:white;
+  background:#fff;
 }
 
 .cloud:before{
-  width:45px;
-  height:45px;
-  left:20px;
-  top:-20px;
-}
-
-.cloud:after{
   width:50px;
   height:50px;
-  right:15px;
+  left:20px;
   top:-25px;
 }
 
-.cloud1{
-  left:-150px;
-  top:80px;
+.cloud:after{
+  width:60px;
+  height:60px;
+  right:18px;
+  top:-32px;
 }
 
-.cloud2{
+.cloud.one{
+  top:85px;
+  left:-180px;
+}
+
+.cloud.two{
+  top:175px;
   left:-400px;
-  top:160px;
-  animation-delay:-12s;
+  transform:scale(.7);
+  animation-delay:-13s;
+}
+
+@keyframes cloudMove{
+  from{transform:translateX(0)}
+  to{transform:translateX(1400px)}
+}
+
+/* MOUNTAINS */
+
+.mountains{
+  position:absolute;
+  bottom:65px;
+  left:0;
+  width:100%;
+  height:180px;
+  opacity:.35;
+}
+
+.mountain{
+  position:absolute;
+  bottom:0;
+  width:0;
+  height:0;
+  border-left:130px solid transparent;
+  border-right:130px solid transparent;
+  border-bottom:180px solid #80a9bb;
+}
+
+.mountain.m1{left:4%}
+.mountain.m2{
+  left:28%;
+  transform:scale(.8);
+}
+.mountain.m3{
+  left:55%;
+  transform:scale(1.1);
+}
+.mountain.m4{
+  left:82%;
   transform:scale(.7);
 }
 
-@keyframes cloud{
-  from{transform:translateX(0)}
-  to{transform:translateX(1300px)}
+body.night .mountain{
+  border-bottom-color:#27364e;
 }
+
+/* GROUND */
 
 .ground{
   position:absolute;
   bottom:0;
+  left:0;
+  right:0;
   height:75px;
-  width:100%;
-  border-top:4px solid #222;
+  background:
+    linear-gradient(#d8c79b,#c4af78);
+  border-top:4px solid #594f37;
 }
 
 body.night .ground{
-  border-color:white;
+  background:linear-gradient(#26313c,#1c2530);
+  border-color:#718096;
 }
 
-.groundLine{
+.ground-lines{
   position:absolute;
-  top:18px;
+  top:19px;
   width:100%;
   height:7px;
   background:repeating-linear-gradient(
     90deg,
-    #222 0 45px,
-    transparent 45px 80px
+    #685d40 0 50px,
+    transparent 50px 85px
   );
-  animation:groundMove .45s linear infinite;
+  animation:groundMove .5s linear infinite;
 }
 
-body.night .groundLine{
+body.night .ground-lines{
   background:repeating-linear-gradient(
     90deg,
-    white 0 45px,
-    transparent 45px 80px
+    #8794a5 0 50px,
+    transparent 50px 85px
   );
 }
 
 @keyframes groundMove{
   from{transform:translateX(0)}
-  to{transform:translateX(-80px)}
+  to{transform:translateX(-85px)}
 }
 
-/* DINO */
+/* =========================
+   DINO
+========================= */
 
 .dino{
   position:absolute;
-  width:58px;
-  height:70px;
-  left:100px;
+  left:110px;
   bottom:75px;
-  z-index:20;
+  width:68px;
+  height:78px;
+  z-index:50;
 }
 
-.head{
+.dino-shadow{
+  position:absolute;
+  bottom:-8px;
+  left:2px;
+  width:62px;
+  height:10px;
+  background:#0003;
+  border-radius:50%;
+  filter:blur(3px);
+}
+
+.dino-head{
   position:absolute;
   right:8px;
   top:0;
-  width:42px;
-  height:34px;
-  background:#222;
-  border-radius:8px 13px 4px 4px;
+  width:48px;
+  height:38px;
+  background:#1f2937;
+  border-radius:9px 16px 5px 5px;
 }
 
-.body{
+.dino-head:after{
+  content:"";
+  position:absolute;
+  right:-10px;
+  bottom:5px;
+  width:15px;
+  height:6px;
+  background:#1f2937;
+}
+
+.dino-eye{
+  position:absolute;
+  right:9px;
+  top:8px;
+  width:6px;
+  height:6px;
+  background:#fff;
+  border-radius:50%;
+}
+
+.dino-body{
   position:absolute;
   right:0;
-  bottom:10px;
-  width:40px;
-  height:43px;
-  background:#222;
-  border-radius:8px;
+  bottom:12px;
+  width:45px;
+  height:48px;
+  background:#1f2937;
+  border-radius:10px 14px 6px 6px;
 }
 
-.eye{
+.dino-belly{
   position:absolute;
-  right:8px;
-  top:7px;
-  width:5px;
-  height:5px;
+  right:7px;
+  bottom:18px;
+  width:25px;
+  height:27px;
+  background:#374151;
   border-radius:50%;
-  background:white;
 }
 
-.tail{
+.dino-tail{
   position:absolute;
   left:0;
-  bottom:31px;
-  width:28px;
-  height:12px;
-  background:#222;
-  transform:rotate(-25deg);
+  bottom:37px;
+  width:33px;
+  height:13px;
+  background:#1f2937;
+  transform:rotate(-27deg);
   border-radius:10px;
 }
 
-.leg{
+.dino-leg{
   position:absolute;
   bottom:0;
-  width:9px;
-  height:24px;
-  background:#222;
-  border-radius:0 0 5px 5px;
+  width:10px;
+  height:26px;
+  background:#1f2937;
+  border-radius:0 0 6px 6px;
 }
 
-.leg1{right:8px}
-.leg2{right:27px}
+.dino-leg.one{right:8px}
+.dino-leg.two{right:31px}
 
-.jump{
-  animation:jump .65s ease-out;
+.dino.jump{
+  animation:dinoJump .68s cubic-bezier(.2,.7,.3,1);
 }
 
-@keyframes jump{
+@keyframes dinoJump{
   0%{bottom:75px}
-  45%{bottom:240px}
+  42%{bottom:255px}
   100%{bottom:75px}
 }
 
-/* CACTUS */
+/* DUST */
+
+.dust{
+  position:absolute;
+  left:95px;
+  bottom:77px;
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#a88958;
+  opacity:0;
+  z-index:30;
+}
+
+.running .dust{
+  animation:dust .7s infinite;
+}
+
+@keyframes dust{
+  0%{
+    opacity:.7;
+    transform:translate(0,0) scale(.5);
+  }
+  100%{
+    opacity:0;
+    transform:translate(-55px,8px) scale(1.5);
+  }
+}
+
+/* =========================
+   CACTUS
+========================= */
 
 .obstacle{
   position:absolute;
-  right:-100px;
+  right:-120px;
   bottom:75px;
-  z-index:15;
+  z-index:40;
 }
 
 .cactus{
-  width:30px;
-  height:68px;
-  background:#168a4b;
-  border-radius:6px 6px 2px 2px;
+  position:relative;
+  width:34px;
+  height:76px;
+  border-radius:8px 8px 3px 3px;
+  background:linear-gradient(90deg,#087f43,#19a85e);
+  box-shadow:inset 5px 0 rgba(255,255,255,.1);
 }
 
 .cactus:before,
 .cactus:after{
   content:"";
   position:absolute;
-  width:15px;
-  background:#168a4b;
-  border-radius:8px;
+  background:#119452;
+  border-radius:10px;
 }
 
 .cactus:before{
-  height:30px;
-  left:-12px;
-  top:25px;
+  width:17px;
+  height:35px;
+  left:-14px;
+  top:29px;
 }
 
 .cactus:after{
-  height:25px;
-  right:-10px;
+  width:17px;
+  height:29px;
+  right:-12px;
   top:12px;
 }
 
-/* BIRD */
+/* =========================
+   BIRD
+========================= */
 
 .bird{
-  width:60px;
-  height:30px;
   position:relative;
+  width:70px;
+  height:35px;
+  animation:birdFly .35s infinite alternate;
 }
 
-.birdBody{
+@keyframes birdFly{
+  from{transform:translateY(0)}
+  to{transform:translateY(-5px)}
+}
+
+.bird-body{
   position:absolute;
-  left:10px;
-  top:8px;
-  width:35px;
-  height:18px;
-  background:#555;
+  left:12px;
+  top:10px;
+  width:40px;
+  height:20px;
   border-radius:50%;
+  background:#4b5563;
 }
 
-.birdHead{
+.bird-head{
   position:absolute;
   right:0;
-  top:2px;
-  width:20px;
-  height:20px;
-  background:#555;
+  top:3px;
+  width:23px;
+  height:23px;
   border-radius:50%;
+  background:#374151;
 }
 
-.birdWing{
+.bird-eye{
   position:absolute;
-  left:0;
-  top:2px;
-  width:28px;
-  height:12px;
-  background:#555;
-  transform:rotate(25deg);
-}
-
-.birdEye{
-  position:absolute;
-  right:5px;
+  right:6px;
   top:5px;
   width:4px;
   height:4px;
-  background:white;
   border-radius:50%;
+  background:#fff;
 }
 
-/* GAME OVER */
+.bird-wing{
+  position:absolute;
+  left:0;
+  top:2px;
+  width:30px;
+  height:14px;
+  background:#374151;
+  transform:rotate(25deg);
+}
 
-.gameOver{
+/* =========================
+   GAME OVER
+========================= */
+
+.game-over{
   position:absolute;
   inset:0;
-  z-index:200;
-  background:#0009;
+  z-index:500;
   display:flex;
-  justify-content:center;
   align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,.58);
+  backdrop-filter:blur(5px);
 }
 
-.overCard{
-  width:min(420px,90%);
-  background:white;
-  color:#222;
+.over-card{
+  width:min(430px,90%);
   padding:35px 25px;
-  border-radius:25px;
   text-align:center;
-  box-shadow:0 20px 70px #0008;
+  border-radius:27px;
+  background:#fff;
+  box-shadow:0 30px 80px #0008;
+  animation:overIn .4s ease;
 }
 
-.overCard h1{
+@keyframes overIn{
+  from{
+    opacity:0;
+    transform:scale(.8);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+
+.over-card h1{
   font-size:38px;
   margin-bottom:15px;
 }
 
-.overCard p{
+.over-card p{
   margin:10px;
+  font-size:17px;
 }
 
 .restart{
-  margin-top:15px;
+  margin-top:16px;
   border:0;
-  padding:14px 30px;
-  border-radius:14px;
-  background:#111;
-  color:white;
+  border-radius:15px;
+  padding:15px 35px;
+  background:#111827;
+  color:#fff;
   font-size:18px;
-  font-weight:bold;
+  font-weight:900;
   cursor:pointer;
 }
 
@@ -557,50 +767,90 @@ body.night .groundLine{
   display:none!important;
 }
 
-.bottom{
+.footer{
   position:absolute;
-  bottom:13px;
+  bottom:12px;
   left:0;
   right:0;
   text-align:center;
-  font-size:13px;
-  color:#777;
+  color:#555;
+  font-size:12px;
+  z-index:80;
 }
 
-body.night .bottom{
-  color:#bbb;
+body.night .footer{
+  color:#aab4c4;
 }
 
-@media(max-width:600px){
+@media(max-width:650px){
 
-  .top{
-    padding:12px;
+  .header{
     height:70px;
+    padding:9px 10px;
   }
 
-  .logo{
-    font-size:16px;
+  .brand-name{
+    display:none;
   }
 
-  .score{
+  .brand-icon{
+    font-size:26px;
+  }
+
+  .score-card{
+    min-width:72px;
+    padding:7px;
+  }
+
+  .score-title{
+    font-size:8px;
+  }
+
+  .score-number{
     font-size:13px;
   }
 
-  .btn{
-    padding:8px;
-    font-size:14px;
+  .action{
+    width:36px;
+    height:36px;
+    font-size:15px;
+  }
+
+  .world{
+    inset:70px 0 65px;
   }
 
   .dino{
     left:55px;
+    bottom:65px;
   }
 
-  .sun,.moon{
-    right:30px;
+  .ground{
+    height:65px;
   }
 
-  .sky{
-    top:70px;
+  .obstacle{
+    bottom:65px;
+  }
+
+  .dino-shadow{
+    bottom:-8px;
+  }
+
+  .gift-card{
+    padding:32px 20px;
+  }
+
+  .gift-icon{
+    font-size:75px;
+  }
+
+  .gift-card h1{
+    font-size:26px;
+  }
+
+  .gift-card h2{
+    font-size:21px;
   }
 }
 </style>
@@ -609,146 +859,170 @@ body.night .bottom{
 <body>
 
 <!-- =========================
-     GIFT
+     GIFT SCREEN
 ========================= -->
 
-<div class="giftPage" id="giftPage">
+<section class="gift-screen" id="giftScreen">
 
   <div class="stars"></div>
 
-  <div class="giftCard">
+  <div class="gift-card">
 
-    <span class="gift">🎁</span>
+    <span class="gift-icon">🎁</span>
 
     <h1>یک هدیه برای شما</h1>
 
     <h2>اعضای چنل Pug62 ❤️</h2>
 
-    <div class="giftText">
-      این بازی به عنوان یک هدیه کوچک
-      از طرف سبحان برای اعضای دوست‌داشتنی
-      چنل Pug62 ساخته شده است. 🎮
-    </div>
+    <p>
+      این بازی کوچک با عشق از طرف سبحان
+      برای اعضای چنل Pug62 ساخته شده است.
+      آماده‌ای رکورد خودت را بزنی؟ 🦖🔥
+    </p>
 
-    <div class="from">
-      ساخته شده با ❤️ توسط سبحان
-    </div>
+    <p class="creator">
+      ساخته شده توسط سبحان
+    </p>
 
-    <button class="startGift" onclick="openGame()">
+    <button class="gift-button" onclick="openGame()">
       🎁 دریافت هدیه و ورود به بازی
     </button>
 
   </div>
 
-</div>
+</section>
 
 
 <!-- =========================
      GAME
 ========================= -->
 
-<div class="game hidden" id="game">
+<main class="game hidden" id="game">
 
-  <div class="top">
+  <header class="header">
 
-    <div class="logo">
-      🦖 SOBHAN DINO
+    <div class="brand">
+      <div class="brand-icon">🦖</div>
+      <div class="brand-name">SOBHAN DINO</div>
     </div>
 
-    <div class="score">
-      SCORE:
-      <span id="score">00000</span>
-      &nbsp; | &nbsp;
-      HI:
-      <span id="high">00000</span>
+    <div class="scores">
+
+      <div class="score-card">
+        <span class="score-title">SCORE</span>
+        <span class="score-number" id="score">00000</span>
+      </div>
+
+      <div class="score-card">
+        <span class="score-title">BEST</span>
+        <span class="score-number" id="best">00000</span>
+      </div>
+
     </div>
 
-    <div class="buttons">
+    <div class="actions">
 
-      <button class="btn" id="soundBtn" onclick="toggleSound()">
+      <button class="action" id="soundButton" onclick="toggleSound()">
         🔊
       </button>
 
-      <button class="btn" onclick="toggleVolume()">
+      <button class="action" onclick="toggleVolume()">
         🎚️
       </button>
 
-      <button class="btn" onclick="toggleNight()">
+      <button class="action" onclick="toggleNight()">
         🌙
       </button>
 
     </div>
 
-    <div class="volumeBox" id="volumeBox">
+    <div class="volume" id="volumeBox">
 
-      <b>صدای آهنگ</b>
-
-      <br><br>
+      <b>🔊 میزان صدا</b>
 
       <input
-        id="volume"
         type="range"
         min="0"
         max="100"
         value="35"
-        oninput="setVolume(this.value)"
+        id="volumeSlider"
       >
 
     </div>
 
-  </div>
+  </header>
 
 
-  <div class="sky">
+  <section class="world" id="world">
 
     <div class="sun"></div>
     <div class="moon"></div>
 
-    <div class="cloud cloud1"></div>
-    <div class="cloud cloud2"></div>
+    <div class="cloud one"></div>
+    <div class="cloud two"></div>
+
+    <div class="mountains">
+      <div class="mountain m1"></div>
+      <div class="mountain m2"></div>
+      <div class="mountain m3"></div>
+      <div class="mountain m4"></div>
+    </div>
 
     <div id="obstacles"></div>
 
+
+    <!-- DINO -->
+
     <div class="dino" id="dino">
 
-      <div class="head">
-        <div class="eye"></div>
+      <div class="dino-head">
+        <div class="dino-eye"></div>
       </div>
 
-      <div class="body"></div>
+      <div class="dino-body"></div>
 
-      <div class="tail"></div>
+      <div class="dino-belly"></div>
 
-      <div class="leg leg1"></div>
-      <div class="leg leg2"></div>
+      <div class="dino-tail"></div>
+
+      <div class="dino-leg one"></div>
+      <div class="dino-leg two"></div>
+
+      <div class="dino-shadow"></div>
 
     </div>
+
+
+    <div class="dust"></div>
 
     <div class="ground">
-      <div class="groundLine"></div>
+      <div class="ground-lines"></div>
     </div>
 
+  </section>
+
+
+  <div class="footer">
+    Space / ↑ / لمس صفحه = پرش
   </div>
 
-  <div class="bottom">
-    برای پرش Space یا ↑ را بزن — در موبایل روی صفحه لمس کن
-  </div>
 
+  <!-- GAME OVER -->
 
-  <div class="gameOver hidden" id="gameOver">
+  <div class="game-over hidden" id="gameOver">
 
-    <div class="overCard">
+    <div class="over-card">
 
-      <h1>💥 GAME OVER</h1>
+      <h1>💥 Game Over</h1>
 
       <p>
-        امتیاز شما:
+        امتیاز:
         <b id="finalScore">0</b>
       </p>
 
       <p>
-        رکورد:
-        <b id="finalHigh">0</b>
+        بهترین رکورد:
+        <b id="finalBest">0</b>
       </p>
 
       <button class="restart" onclick="restartGame()">
@@ -759,7 +1033,7 @@ body.night .bottom{
 
   </div>
 
-</div>
+</main>
 
 
 <!-- =========================
@@ -767,12 +1041,10 @@ body.night .bottom{
 ========================= -->
 
 <audio id="music" loop preload="auto">
-
   <source
     src="https://dl.musicdel.ir/Music/1404/06/Jafar-Dodakh%20-musicdel.ir.mp3"
     type="audio/mpeg"
   >
-
 </audio>
 
 
@@ -785,8 +1057,8 @@ body.night .bottom{
 const music =
   document.getElementById("music");
 
-const giftPage =
-  document.getElementById("giftPage");
+const giftScreen =
+  document.getElementById("giftScreen");
 
 const game =
   document.getElementById("game");
@@ -797,28 +1069,65 @@ const dino =
 const obstacles =
   document.getElementById("obstacles");
 
-let soundOn = true;
-let volume = .35;
+const scoreEl =
+  document.getElementById("score");
+
+const bestEl =
+  document.getElementById("best");
+
+const gameOver =
+  document.getElementById("gameOver");
 
 let running = false;
 let jumping = false;
 
 let score = 0;
 
-let high =
-  Number(localStorage.getItem("sobhanDinoHigh")) || 0;
+let best =
+  Number(localStorage.getItem("sobhanDinoBest")) || 0;
 
 let speed = 6;
 
-let scoreTimer;
-let obstacleTimer;
+let scoreTimer = null;
+let obstacleTimer = null;
+
+let soundOn = true;
+
+let volume = .35;
+
+let audioContext = null;
+
+
+/* =========================
+   INITIAL
+========================= */
+
+bestEl.textContent =
+  String(best).padStart(5,"0");
+
+music.volume = volume;
+
+
+/* =========================
+   OPEN GAME
+========================= */
+
+function openGame(){
+
+  initAudio();
+
+  giftScreen.classList.add("hidden");
+
+  game.classList.remove("hidden");
+
+  startGame();
+
+}
 
 
 /* =========================
    AUDIO
 ========================= */
-
-let audioContext;
 
 function initAudio(){
 
@@ -833,10 +1142,11 @@ function initAudio(){
   if(audioContext.state === "suspended"){
     audioContext.resume();
   }
+
 }
 
 
-function makeSound(type){
+function sound(type){
 
   if(!soundOn) return;
 
@@ -848,11 +1158,12 @@ function makeSound(type){
   const gain =
     audioContext.createGain();
 
-  osc.connect(gain);
-  gain.connect(audioContext.destination);
-
   const now =
     audioContext.currentTime;
+
+  osc.connect(gain);
+
+  gain.connect(audioContext.destination);
 
 
   if(type === "jump"){
@@ -860,7 +1171,7 @@ function makeSound(type){
     osc.type = "square";
 
     osc.frequency.setValueAtTime(
-      500,now
+      480,now
     );
 
     osc.frequency.exponentialRampToValueAtTime(
@@ -880,12 +1191,13 @@ function makeSound(type){
     );
 
     osc.start(now);
+
     osc.stop(now+.18);
 
   }
 
 
-  if(type === "gameover"){
+  if(type === "over"){
 
     osc.type = "sawtooth";
 
@@ -894,7 +1206,7 @@ function makeSound(type){
     );
 
     osc.frequency.exponentialRampToValueAtTime(
-      60,now+.6
+      55,now+.65
     );
 
     gain.gain.setValueAtTime(
@@ -906,10 +1218,11 @@ function makeSound(type){
     );
 
     gain.gain.exponentialRampToValueAtTime(
-      .001,now+.65
+      .001,now+.7
     );
 
     osc.start(now);
+
     osc.stop(now+.7);
 
   }
@@ -918,24 +1231,7 @@ function makeSound(type){
 
 
 /* =========================
-   OPEN GAME
-========================= */
-
-function openGame(){
-
-  initAudio();
-
-  giftPage.classList.add("hidden");
-
-  game.classList.remove("hidden");
-
-  startGame();
-
-}
-
-
-/* =========================
-   START
+   START GAME
 ========================= */
 
 function startGame(){
@@ -943,17 +1239,18 @@ function startGame(){
   running = true;
 
   score = 0;
+
   speed = 6;
 
   jumping = false;
 
+  scoreEl.textContent = "00000";
+
   obstacles.innerHTML = "";
 
-  document.getElementById("score").textContent =
-    "00000";
+  gameOver.classList.add("hidden");
 
-  document.getElementById("high").textContent =
-    String(high).padStart(5,"0");
+  game.classList.add("running");
 
 
   if(soundOn){
@@ -976,21 +1273,21 @@ function startGame(){
 
       score++;
 
-      document.getElementById("score").textContent =
+      scoreEl.textContent =
         String(score).padStart(5,"0");
 
 
-      if(score > high){
+      if(score > best){
 
-        high = score;
+        best = score;
 
         localStorage.setItem(
-          "sobhanDinoHigh",
-          high
+          "sobhanDinoBest",
+          best
         );
 
-        document.getElementById("high").textContent =
-          String(high).padStart(5,"0");
+        bestEl.textContent =
+          String(best).padStart(5,"0");
 
       }
 
@@ -1021,7 +1318,11 @@ function jump(){
 
   jumping = true;
 
-  makeSound("jump");
+  sound("jump");
+
+  dino.classList.remove("jump");
+
+  void dino.offsetWidth;
 
   dino.classList.add("jump");
 
@@ -1032,7 +1333,7 @@ function jump(){
 
     jumping = false;
 
-  },650);
+  },680);
 
 }
 
@@ -1058,7 +1359,7 @@ document.addEventListener("keydown",(e)=>{
 
 
 /* =========================
-   MOBILE
+   TOUCH
 ========================= */
 
 document.addEventListener(
@@ -1068,9 +1369,13 @@ document.addEventListener(
     if(!running) return;
 
     if(
-      e.target.closest(".btn") ||
-      e.target.closest(".volumeBox")
-    ) return;
+      e.target.closest(".action") ||
+      e.target.closest(".volume")
+    ){
+
+      return;
+
+    }
 
     jump();
 
@@ -1080,7 +1385,7 @@ document.addEventListener(
 
 
 /* =========================
-   OBSTACLE
+   OBSTACLES
 ========================= */
 
 function createObstacle(){
@@ -1095,22 +1400,24 @@ function createObstacle(){
     "obstacle";
 
 
-  const bird =
+  const isBird =
     Math.random() < .22;
 
 
-  if(bird){
+  if(isBird){
 
     obstacle.innerHTML = `
 
       <div class="bird">
 
-        <div class="birdWing"></div>
+        <div class="bird-wing"></div>
 
-        <div class="birdBody"></div>
+        <div class="bird-body"></div>
 
-        <div class="birdHead">
-          <div class="birdEye"></div>
+        <div class="bird-head">
+
+          <div class="bird-eye"></div>
+
         </div>
 
       </div>
@@ -1134,7 +1441,7 @@ function createObstacle(){
   obstacles.appendChild(obstacle);
 
 
-  let x = -100;
+  let position = -120;
 
 
   const move =
@@ -1151,13 +1458,13 @@ function createObstacle(){
       }
 
 
-      x += speed;
+      position += speed;
 
       obstacle.style.right =
-        x + "px";
+        position + "px";
 
 
-      if(collide(dino,obstacle)){
+      if(collision(dino,obstacle)){
 
         clearInterval(move);
 
@@ -1168,7 +1475,8 @@ function createObstacle(){
       }
 
 
-      if(x > window.innerWidth + 150){
+      if(position >
+        window.innerWidth + 180){
 
         clearInterval(move);
 
@@ -1182,8 +1490,10 @@ function createObstacle(){
   obstacleTimer =
     setTimeout(
       createObstacle,
-      Math.max(700,1500-speed*45)
-      + Math.random()*700
+      Math.max(
+        650,
+        1500 - speed*45
+      ) + Math.random()*750
     );
 
 }
@@ -1193,7 +1503,7 @@ function createObstacle(){
    COLLISION
 ========================= */
 
-function collide(a,b){
+function collision(a,b){
 
   const A =
     a.getBoundingClientRect();
@@ -1201,14 +1511,14 @@ function collide(a,b){
   const B =
     b.getBoundingClientRect();
 
-  const p = 9;
+  const padding = 10;
 
 
   return !(
-    A.right-p < B.left ||
-    A.left+p > B.right ||
-    A.bottom-p < B.top ||
-    A.top+p > B.bottom
+    A.right-padding < B.left ||
+    A.left+padding > B.right ||
+    A.bottom-padding < B.top ||
+    A.top+padding > B.bottom
   );
 
 }
@@ -1228,20 +1538,24 @@ function endGame(){
 
   clearTimeout(obstacleTimer);
 
+  game.classList.remove("running");
+
   music.pause();
 
-  makeSound("gameover");
+  sound("over");
 
 
-  document.getElementById("finalScore").textContent =
-    score;
+  document.getElementById(
+    "finalScore"
+  ).textContent = score;
 
-  document.getElementById("finalHigh").textContent =
-    high;
 
-  document
-    .getElementById("gameOver")
-    .classList.remove("hidden");
+  document.getElementById(
+    "finalBest"
+  ).textContent = best;
+
+
+  gameOver.classList.remove("hidden");
 
 }
 
@@ -1252,11 +1566,9 @@ function endGame(){
 
 function restartGame(){
 
-  document
-    .getElementById("gameOver")
-    .classList.add("hidden");
-
   obstacles.innerHTML = "";
+
+  gameOver.classList.add("hidden");
 
   startGame();
 
@@ -1264,7 +1576,7 @@ function restartGame(){
 
 
 /* =========================
-   SOUND
+   SOUND TOGGLE
 ========================= */
 
 function toggleSound(){
@@ -1272,7 +1584,9 @@ function toggleSound(){
   soundOn = !soundOn;
 
 
-  document.getElementById("soundBtn").textContent =
+  document.getElementById(
+    "soundButton"
+  ).textContent =
     soundOn ? "🔊" : "🔇";
 
 
@@ -1306,15 +1620,20 @@ function toggleVolume(){
 }
 
 
-function setVolume(v){
+document
+  .getElementById("volumeSlider")
+  .addEventListener(
+    "input",
+    function(){
 
-  volume =
-    Number(v)/100;
+      volume =
+        Number(this.value)/100;
 
-  music.volume =
-    soundOn ? volume : 0;
+      music.volume =
+        soundOn ? volume : 0;
 
-}
+    }
+  );
 
 
 /* =========================
@@ -1326,16 +1645,6 @@ function toggleNight(){
   document.body.classList.toggle("night");
 
 }
-
-
-/* =========================
-   INITIAL
-========================= */
-
-document.getElementById("high").textContent =
-  String(high).padStart(5,"0");
-
-music.volume = volume;
 
 </script>
 
