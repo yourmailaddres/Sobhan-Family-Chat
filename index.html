@@ -1,806 +1,528 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<title>واتساب سبحان</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Sobhan Dino</title>
 
 <style>
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
-    font-family:Tahoma,Arial,sans-serif;
+    -webkit-tap-highlight-color:transparent;
 }
 
 body{
-    background:#dfe5e8;
-    min-height:100vh;
-}
-
-button,input{
-    font-family:inherit;
-}
-
-.app{
-    width:100%;
-    height:100vh;
-    display:flex;
     overflow:hidden;
-    background:#fff;
+    background:#f7f7f7;
+    font-family:Arial,Tahoma,sans-serif;
+    touch-action:none;
 }
 
-/* LOGIN */
-#authPage{
-    width:100%;
+#game{
+    position:relative;
+    width:100vw;
     height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,#075e54,#128c7e);
+    overflow:hidden;
+    background:#f7f7f7;
 }
 
-.authBox{
-    width:420px;
-    max-width:92%;
-    background:white;
-    border-radius:20px;
-    padding:35px 28px;
-    box-shadow:0 15px 50px rgba(0,0,0,.25);
+/* HEADER */
+
+#header{
+    position:absolute;
+    top:18px;
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:center;
+    gap:35px;
+    z-index:20;
+    font-weight:bold;
+    font-size:18px;
+    color:#555;
+}
+
+#score,
+#highScore{
+    min-width:130px;
     text-align:center;
 }
 
-.logo{
-    width:75px;
-    height:75px;
-    margin:0 auto 15px;
-    border-radius:50%;
-    background:#25d366;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:white;
-    font-size:38px;
-    font-weight:bold;
+/* SKY */
+
+#sky{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        #f7f7f7 0%,
+        #f7f7f7 72%,
+        #eeeeee 72%,
+        #eeeeee 100%
+    );
 }
 
-.authBox h1{
-    color:#075e54;
-    margin-bottom:8px;
-}
+/* SUN */
 
-.authBox p{
-    color:#777;
-    margin-bottom:25px;
-}
-
-.input{
-    width:100%;
-    border:1px solid #ddd;
-    padding:14px;
-    border-radius:10px;
-    margin-bottom:12px;
-    outline:none;
-    font-size:15px;
-}
-
-.input:focus{
-    border-color:#128c7e;
-}
-
-.mainBtn{
-    width:100%;
-    border:0;
-    background:#128c7e;
-    color:#fff;
-    padding:14px;
-    border-radius:10px;
-    cursor:pointer;
-    font-size:16px;
-    margin-top:5px;
-}
-
-.mainBtn:hover{
-    background:#075e54;
-}
-
-.switchAuth{
-    margin-top:18px;
-    color:#128c7e;
-    cursor:pointer;
-    font-size:14px;
-}
-
-.error{
-    color:#d32f2f;
-    margin-top:12px;
-    font-size:14px;
-}
-
-/* APP */
-#appPage{
-    display:none;
-    width:100%;
-    height:100vh;
-}
-
-.sidebar{
-    width:360px;
-    min-width:300px;
-    background:#fff;
-    border-left:1px solid #ddd;
-    display:flex;
-    flex-direction:column;
-}
-
-.sidebarHeader{
+#sun{
+    position:absolute;
+    width:70px;
     height:70px;
-    background:#075e54;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:10px 15px;
+    border-radius:50%;
+    background:#ffd84d;
+    right:12%;
+    top:15%;
+    box-shadow:0 0 35px #ffd84d88;
 }
 
-.myInfo{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    cursor:pointer;
+/* CLOUDS */
+
+.cloud{
+    position:absolute;
+    width:100px;
+    height:25px;
+    border-radius:30px;
+    background:#ddd;
+    opacity:.65;
 }
 
-.avatar{
+.cloud:before,
+.cloud:after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:#ddd;
+}
+
+.cloud:before{
     width:45px;
     height:45px;
-    border-radius:50%;
-    background:#25d366;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:20px;
-    font-weight:bold;
+    left:18px;
+    top:-20px;
+}
+
+.cloud:after{
+    width:55px;
+    height:55px;
+    right:15px;
+    top:-30px;
+}
+
+.c1{
+    top:20%;
+    left:15%;
+}
+
+.c2{
+    top:34%;
+    left:55%;
+    transform:scale(.7);
+}
+
+.c3{
+    top:12%;
+    left:75%;
+    transform:scale(.5);
+}
+
+/* GROUND */
+
+#ground{
+    position:absolute;
+    left:0;
+    bottom:22%;
+    width:100%;
+    height:4px;
+    background:#555;
+}
+
+#groundLines{
+    position:absolute;
+    left:0;
+    bottom:calc(22% - 25px);
+    width:100%;
+    height:35px;
     overflow:hidden;
 }
 
-.avatar img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
+.line{
+    position:absolute;
+    height:3px;
+    background:#777;
 }
 
-.headerButtons{
-    display:flex;
-    gap:5px;
+/* PLAYER */
+
+#dino{
+    position:absolute;
+    width:58px;
+    height:65px;
+    bottom:calc(22% + 5px);
+    left:12%;
+    z-index:10;
 }
 
-.iconBtn{
-    border:0;
-    background:transparent;
-    color:white;
-    font-size:22px;
-    width:40px;
+.dino-body{
+    position:absolute;
+    width:38px;
     height:40px;
-    cursor:pointer;
-    border-radius:50%;
+    background:#333;
+    right:5px;
+    bottom:5px;
+    border-radius:5px 12px 4px 4px;
 }
 
-.iconBtn:hover{
-    background:rgba(255,255,255,.15);
+.dino-head{
+    position:absolute;
+    width:38px;
+    height:30px;
+    background:#333;
+    right:0;
+    top:0;
+    border-radius:7px 10px 2px 2px;
 }
 
-.searchBox{
-    padding:10px;
-    background:#f0f2f5;
-}
-
-.searchInput{
-    width:100%;
-    border:0;
-    outline:none;
-    padding:12px 15px;
-    border-radius:20px;
+.dino-head:after{
+    content:"";
+    position:absolute;
+    width:5px;
+    height:5px;
     background:white;
-    font-size:14px;
-}
-
-.users{
-    overflow-y:auto;
-    flex:1;
-}
-
-.user{
-    height:72px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:10px 14px;
-    cursor:pointer;
-    border-bottom:1px solid #eee;
-}
-
-.user:hover{
-    background:#f5f5f5;
-}
-
-.user.active{
-    background:#e9edef;
-}
-
-.userInfo{
-    flex:1;
-    min-width:0;
-}
-
-.userName{
-    font-size:15px;
-    font-weight:bold;
-    color:#222;
-    margin-bottom:5px;
-}
-
-.userStatus{
-    font-size:12px;
-    color:#777;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-
-.onlineDot{
-    width:9px;
-    height:9px;
     border-radius:50%;
-    background:#25d366;
-    display:inline-block;
-    margin-left:4px;
+    right:8px;
+    top:7px;
 }
 
-/* CHAT */
-.chat{
-    flex:1;
+.dino-neck{
+    position:absolute;
+    width:12px;
+    height:25px;
+    background:#333;
+    right:27px;
+    top:20px;
+}
+
+.leg{
+    position:absolute;
+    width:8px;
+    height:25px;
+    background:#333;
+    bottom:0;
+}
+
+.leg1{
+    right:28px;
+}
+
+.leg2{
+    right:10px;
+}
+
+.tail{
+    position:absolute;
+    width:35px;
+    height:8px;
+    background:#333;
+    left:0;
+    bottom:22px;
+    transform:rotate(-18deg);
+    transform-origin:right;
+}
+
+/* CACTUS */
+
+.cactus{
+    position:absolute;
+    bottom:calc(22% + 5px);
+    width:25px;
+    height:55px;
+    z-index:9;
+}
+
+.cactus-main{
+    position:absolute;
+    width:15px;
+    height:55px;
+    background:#333;
+    left:5px;
+    bottom:0;
+    border-radius:3px;
+}
+
+.cactus-arm{
+    position:absolute;
+    width:11px;
+    height:30px;
+    background:#333;
+    border-radius:3px;
+}
+
+.cactus-arm.left{
+    left:-3px;
+    top:25px;
+}
+
+.cactus-arm.right{
+    right:-3px;
+    top:12px;
+}
+
+/* BIRD */
+
+.bird{
+    position:absolute;
+    width:45px;
+    height:25px;
+    z-index:8;
+}
+
+.bird-body{
+    position:absolute;
+    width:18px;
+    height:10px;
+    background:#555;
+    left:13px;
+    top:8px;
+}
+
+.wing{
+    position:absolute;
+    width:22px;
+    height:8px;
+    border-top:4px solid #555;
+}
+
+.wing.left{
+    left:0;
+    top:2px;
+    transform:rotate(20deg);
+}
+
+.wing.right{
+    right:0;
+    top:2px;
+    transform:rotate(-20deg);
+}
+
+/* START SCREEN */
+
+#startScreen,
+#gameOver{
+    position:absolute;
+    inset:0;
+    z-index:50;
     display:flex;
+    justify-content:center;
+    align-items:center;
     flex-direction:column;
-    background:#efeae2;
-    position:relative;
+    background:#f7f7f7dd;
+    backdrop-filter:blur(4px);
 }
 
-.chatHeader{
-    height:70px;
-    background:#075e54;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    padding:10px 15px;
-    gap:12px;
-}
-
-.chatUser{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex:1;
-}
-
-.chatName{
-    font-weight:bold;
-}
-
-.chatStatus{
-    font-size:12px;
-    margin-top:4px;
-    opacity:.8;
-}
-
-.backBtn{
-    display:none;
-}
-
-.messages{
-    flex:1;
-    overflow-y:auto;
-    padding:20px 7%;
-    background-color:#efeae2;
-    background-image:
-    radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);
-    background-size:18px 18px;
-}
-
-.emptyChat{
-    height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    color:#777;
-    font-size:15px;
-}
-
-.message{
-    display:flex;
-    margin-bottom:8px;
-}
-
-.message.mine{
-    justify-content:flex-start;
-}
-
-.message.theirs{
-    justify-content:flex-end;
-}
-
-.bubble{
-    max-width:70%;
-    padding:8px 10px 5px;
-    border-radius:8px;
-    font-size:14px;
-    line-height:1.6;
-    box-shadow:0 1px 1px rgba(0,0,0,.08);
-    word-break:break-word;
-}
-
-.mine .bubble{
-    background:#d9fdd3;
-    border-top-right-radius:2px;
-}
-
-.theirs .bubble{
-    background:#fff;
-    border-top-left-radius:2px;
-}
-
-.messageTime{
-    font-size:10px;
-    color:#777;
-    margin-right:8px;
-    float:left;
-    direction:ltr;
-}
-
-.check{
-    color:#53a8e2;
-    margin-right:3px;
-}
-
-.messageInputArea{
-    min-height:65px;
-    background:#f0f2f5;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 15px;
-}
-
-.messageInput{
-    flex:1;
-    border:0;
-    outline:none;
-    border-radius:25px;
-    padding:13px 18px;
-    font-size:14px;
-}
-
-.sendBtn{
-    width:48px;
-    height:48px;
-    border:0;
-    border-radius:50%;
-    background:#128c7e;
-    color:white;
-    font-size:21px;
-    cursor:pointer;
-}
-
-.sendBtn:hover{
-    background:#075e54;
-}
-
-.noChat{
-    flex:1;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    color:#777;
-    text-align:center;
-}
-
-.noChat .bigLogo{
-    width:110px;
-    height:110px;
-    border-radius:50%;
-    background:#25d366;
-    color:white;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.title{
     font-size:55px;
-    margin-bottom:20px;
-}
-
-.noChat h2{
-    color:#555;
+    font-weight:900;
+    color:#222;
     margin-bottom:10px;
 }
 
-/* MODAL */
-.modal{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.5);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:1000;
+.subtitle{
+    color:#666;
+    margin-bottom:25px;
+    font-size:18px;
 }
 
-.modalBox{
-    width:420px;
-    max-width:92%;
-    background:#fff;
-    border-radius:15px;
-    padding:25px;
-}
-
-.modalBox h2{
-    margin-bottom:20px;
-    color:#075e54;
-}
-
-.modalActions{
-    display:flex;
-    gap:10px;
-    margin-top:15px;
-}
-
-.cancelBtn,
-.saveBtn,
-.logoutBtn{
-    flex:1;
+button{
     border:0;
-    padding:12px;
-    border-radius:9px;
+    background:#333;
+    color:white;
+    padding:14px 32px;
+    border-radius:10px;
+    font-size:18px;
     cursor:pointer;
 }
 
-.cancelBtn{
-    background:#eee;
+button:active{
+    transform:scale(.96);
 }
 
-.saveBtn{
-    background:#128c7e;
-    color:#fff;
+.hidden{
+    display:none!important;
 }
 
-.logoutBtn{
-    background:#d32f2f;
-    color:#fff;
-    margin-top:10px;
+#finalScore{
+    font-size:20px;
+    margin-bottom:20px;
+    color:#444;
 }
 
 /* MOBILE */
-@media(max-width:750px){
 
-    .sidebar{
-        width:100%;
-        min-width:0;
+#mobileHint{
+    position:absolute;
+    bottom:30px;
+    width:100%;
+    text-align:center;
+    color:#888;
+    font-size:14px;
+    z-index:30;
+}
+
+@media(max-width:600px){
+
+    #header{
+        font-size:14px;
+        gap:10px;
     }
 
-    .chat{
-        display:none;
+    #score,
+    #highScore{
+        min-width:105px;
     }
 
-    #appPage.chatOpen .sidebar{
-        display:none;
+    .title{
+        font-size:40px;
     }
 
-    #appPage.chatOpen .chat{
-        display:flex;
-        width:100%;
-    }
-
-    .backBtn{
+    #mobileHint{
         display:block;
     }
+}
 
-    .messages{
-        padding:15px 4%;
+@media(min-width:601px){
+    #mobileHint{
+        display:none;
     }
+}
 
-    .bubble{
-        max-width:85%;
-    }
+/* NIGHT */
+
+.night #sky{
+    background:linear-gradient(
+        #182235 0%,
+        #182235 72%,
+        #111820 72%,
+        #111820 100%
+    );
+}
+
+.night #sun{
+    background:#eee;
+    box-shadow:0 0 20px #fff8;
+}
+
+.night .cloud{
+    background:#303b4d;
+}
+
+.night .cloud:before,
+.night .cloud:after{
+    background:#303b4d;
+}
+
+.night #ground{
+    background:#aaa;
+}
+
+.night #groundLines .line{
+    background:#777;
+}
+
+.night .title{
+    color:white;
+}
+
+.night #startScreen,
+.night #gameOver{
+    background:#182235dd;
+}
+
+.night .subtitle,
+.night #finalScore{
+    color:#ddd;
+}
+
+.night #mobileHint{
+    color:#aaa;
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUTH -->
-<div id="authPage">
+<div id="game">
 
-    <div class="authBox">
+    <div id="sky"></div>
 
-        <div class="logo">س</div>
+    <div id="sun"></div>
 
-        <h1>واتساب سبحان</h1>
-        <p id="authDescription">وارد حساب خود شوید</p>
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+    <div class="cloud c3"></div>
 
-        <div id="registerFields" style="display:none">
+    <div id="header">
+        <div id="score">امتیاز: 00000</div>
+        <div id="highScore">رکورد: 00000</div>
+    </div>
 
-            <input
-                id="fullName"
-                class="input"
-                type="text"
-                placeholder="نام شما"
-            >
+    <div id="ground"></div>
+    <div id="groundLines"></div>
 
-            <input
-                id="username"
-                class="input"
-                type="text"
-                placeholder="نام کاربری"
-            >
+    <!-- DINO -->
 
-        </div>
+    <div id="dino">
 
-        <input
-            id="email"
-            class="input"
-            type="email"
-            placeholder="ایمیل"
-            autocomplete="email"
-        >
+        <div class="tail"></div>
 
-        <input
-            id="password"
-            class="input"
-            type="password"
-            placeholder="رمز عبور"
-            autocomplete="current-password"
-        >
+        <div class="dino-body"></div>
 
-        <button id="authButton" class="mainBtn">
-            ورود
-        </button>
+        <div class="dino-neck"></div>
 
-        <div
-            id="switchAuth"
-            class="switchAuth"
-        >
-            حساب ندارید؟ ثبت‌نام کنید
-        </div>
+        <div class="dino-head"></div>
 
-        <div id="authError" class="error"></div>
+        <div class="leg leg1"></div>
+        <div class="leg leg2"></div>
 
     </div>
 
-</div>
+    <div id="mobileHint">
+        برای پرش روی صفحه ضربه بزن
+    </div>
 
+    <!-- START -->
 
-<!-- MAIN APP -->
-<div id="appPage">
+    <div id="startScreen">
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-
-        <div class="sidebarHeader">
-
-            <div class="myInfo" onclick="openProfile()">
-
-                <div class="avatar" id="myAvatar">
-                    س
-                </div>
-
-                <div>
-                    <div id="myName">کاربر</div>
-                </div>
-
-            </div>
-
-            <div class="headerButtons">
-
-                <button
-                    class="iconBtn"
-                    onclick="openProfile()"
-                    title="پروفایل"
-                >
-                    ⚙
-                </button>
-
-                <button
-                    class="iconBtn"
-                    onclick="logout()"
-                    title="خروج"
-                >
-                    ↪
-                </button>
-
-            </div>
-
+        <div class="title">
+            🦖 DINO
         </div>
 
-        <div class="searchBox">
-
-            <input
-                id="searchInput"
-                class="searchInput"
-                type="text"
-                placeholder="🔎 جستجوی کاربر..."
-                oninput="searchUsers()"
-            >
-
+        <div class="subtitle">
+            بازی Dino - ساخته شده برای Sobhan
         </div>
 
-        <div id="usersList" class="users">
-
-        </div>
-
-    </aside>
-
-
-    <!-- CHAT -->
-    <main class="chat">
-
-        <div id="noChat" class="noChat">
-
-            <div class="bigLogo">س</div>
-
-            <h2>واتساب سبحان</h2>
-
-            <p>
-                یک کاربر را انتخاب کنید تا گفتگو شروع شود
-            </p>
-
-        </div>
-
-
-        <div
-            id="chatContent"
-            style="display:none;flex:1;flex-direction:column;"
-        >
-
-            <div class="chatHeader">
-
-                <button
-                    class="iconBtn backBtn"
-                    onclick="closeMobileChat()"
-                >
-                    ←
-                </button>
-
-                <div class="chatUser">
-
-                    <div
-                        class="avatar"
-                        id="chatAvatar"
-                    >
-                        س
-                    </div>
-
-                    <div>
-
-                        <div
-                            class="chatName"
-                            id="chatName"
-                        >
-                            کاربر
-                        </div>
-
-                        <div
-                            class="chatStatus"
-                            id="chatStatus"
-                        >
-                            آفلاین
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div
-                id="messages"
-                class="messages"
-            >
-            </div>
-
-
-            <div class="messageInputArea">
-
-                <input
-                    id="messageInput"
-                    class="messageInput"
-                    type="text"
-                    placeholder="پیام خود را بنویسید..."
-                    autocomplete="off"
-                >
-
-                <button
-                    class="sendBtn"
-                    onclick="sendMessage()"
-                >
-                    ➤
-                </button>
-
-            </div>
-
-        </div>
-
-    </main>
-
-</div>
-
-
-<!-- PROFILE MODAL -->
-<div
-    id="profileModal"
-    class="modal"
-    onclick="if(event.target===this) closeProfile()"
->
-
-    <div class="modalBox">
-
-        <h2>پروفایل من</h2>
-
-        <input
-            id="profileFullName"
-            class="input"
-            placeholder="نام"
-        >
-
-        <input
-            id="profileUsername"
-            class="input"
-            placeholder="نام کاربری"
-        >
-
-        <input
-            id="profileAvatar"
-            class="input"
-            placeholder="لینک عکس پروفایل (اختیاری)"
-        >
-
-        <input
-            id="profileStatus"
-            class="input"
-            placeholder="وضعیت"
-        >
-
-        <div class="modalActions">
-
-            <button
-                class="cancelBtn"
-                onclick="closeProfile()"
-            >
-                لغو
-            </button>
-
-            <button
-                class="saveBtn"
-                onclick="saveProfile()"
-            >
-                ذخیره
-            </button>
-
-        </div>
-
-        <button
-            class="logoutBtn"
-            onclick="logout()"
-        >
-            خروج از حساب
+        <button id="startButton">
+            شروع بازی
         </button>
 
-        <div
-            id="profileError"
-            class="error"
-        ></div>
+    </div>
+
+    <!-- GAME OVER -->
+
+    <div id="gameOver" class="hidden">
+
+        <div class="title">
+            GAME OVER
+        </div>
+
+        <div id="finalScore">
+            امتیاز: 0
+        </div>
+
+        <button id="restartButton">
+            دوباره بازی کن
+        </button>
 
     </div>
 
@@ -809,1397 +531,606 @@ button,input{
 
 <script>
 
-/* =========================================
-   SUPABASE
-========================================= */
+/* =========================
+   GAME VARIABLES
+========================= */
 
-const SUPABASE_URL =
-    "https://rahpltlgzcobmenuoiqd.supabase.co";
+const game =
+document.getElementById("game");
 
-const SUPABASE_KEY =
-    "sb_publishable_2ZdKdM9fIF53_jnKrdgWnA_ixsn6hbA";
+const dino =
+document.getElementById("dino");
 
-const supabaseClient =
-    supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
+const scoreText =
+document.getElementById("score");
+
+const highScoreText =
+document.getElementById("highScore");
+
+const startScreen =
+document.getElementById("startScreen");
+
+const gameOverScreen =
+document.getElementById("gameOver");
+
+const finalScore =
+document.getElementById("finalScore");
+
+const startButton =
+document.getElementById("startButton");
+
+const restartButton =
+document.getElementById("restartButton");
+
+const groundLines =
+document.getElementById("groundLines");
+
+
+let running=false;
+
+let score=0;
+
+let highScore=
+Number(localStorage.getItem("sobhanDinoHighScore") || 0);
+
+let speed=7;
+
+let gravity=.8;
+
+let velocityY=0;
+
+let dinoY=0;
+
+let jumping=false;
+
+let lastTime=0;
+
+let obstacleTimer=0;
+
+let birdTimer=0;
+
+let groundTimer=0;
+
+let nightTimer=0;
+
+let obstacles=[];
+
+let birds=[];
+
+
+/* =========================
+   HIGH SCORE
+========================= */
+
+function updateHighScore(){
+
+    highScoreText.textContent =
+        "رکورد: " +
+        String(highScore).padStart(5,"0");
+
+}
+
+updateHighScore();
+
+
+/* =========================
+   START
+========================= */
+
+function startGame(){
+
+    startScreen.classList.add("hidden");
+
+    gameOverScreen.classList.add("hidden");
+
+    running=true;
+
+    score=0;
+
+    speed=7;
+
+    velocityY=0;
+
+    dinoY=0;
+
+    jumping=false;
+
+    obstacleTimer=0;
+
+    birdTimer=0;
+
+    nightTimer=0;
+
+    obstacles.forEach(
+        x=>x.remove()
     );
 
-
-/* =========================================
-   VARIABLES
-========================================= */
-
-let currentUser = null;
-let currentProfile = null;
-let selectedUser = null;
-let realtimeChannel = null;
-let profileChannel = null;
-let authMode = "login";
-
-
-/* =========================================
-   DOM
-========================================= */
-
-const authPage =
-    document.getElementById("authPage");
-
-const appPage =
-    document.getElementById("appPage");
-
-const authButton =
-    document.getElementById("authButton");
-
-const switchAuth =
-    document.getElementById("switchAuth");
-
-const registerFields =
-    document.getElementById("registerFields");
-
-const authDescription =
-    document.getElementById("authDescription");
-
-const authError =
-    document.getElementById("authError");
-
-const emailInput =
-    document.getElementById("email");
-
-const passwordInput =
-    document.getElementById("password");
-
-const fullNameInput =
-    document.getElementById("fullName");
-
-const usernameInput =
-    document.getElementById("username");
-
-
-/* =========================================
-   AUTH MODE
-========================================= */
-
-switchAuth.onclick = function(){
-
-    authError.textContent = "";
-
-    if(authMode === "login"){
-
-        authMode = "register";
-
-        registerFields.style.display = "block";
-
-        authButton.textContent = "ثبت‌نام";
-
-        authDescription.textContent =
-            "حساب جدید خود را بسازید";
-
-        switchAuth.textContent =
-            "حساب دارید؟ وارد شوید";
-
-    }else{
-
-        authMode = "login";
-
-        registerFields.style.display = "none";
-
-        authButton.textContent = "ورود";
-
-        authDescription.textContent =
-            "وارد حساب خود شوید";
-
-        switchAuth.textContent =
-            "حساب ندارید؟ ثبت‌نام کنید";
-    }
-
-};
-
-
-/* =========================================
-   AUTH BUTTON
-========================================= */
-
-authButton.onclick = async function(){
-
-    authError.textContent = "";
-
-    const email =
-        emailInput.value.trim();
-
-    const password =
-        passwordInput.value;
-
-    if(!email || !password){
-
-        authError.textContent =
-            "ایمیل و رمز عبور را وارد کنید.";
-
-        return;
-    }
-
-    authButton.disabled = true;
-
-    try{
-
-        if(authMode === "login"){
-
-            const { error } =
-                await supabaseClient.auth.signInWithPassword({
-                    email,
-                    password
-                });
-
-            if(error) throw error;
-
-        }else{
-
-            const fullName =
-                fullNameInput.value.trim();
-
-            const username =
-                usernameInput.value.trim()
-                    .toLowerCase()
-                    .replace(/\s/g,"");
-
-            if(!fullName || !username){
-
-                throw new Error(
-                    "نام و نام کاربری را وارد کنید."
-                );
-            }
-
-            const { data, error } =
-                await supabaseClient.auth.signUp({
-
-                    email,
-                    password,
-
-                    options:{
-                        data:{
-                            full_name:fullName,
-                            username:username
-                        }
-                    }
-
-                });
-
-            if(error) throw error;
-
-            if(data.user){
-
-                await createOrUpdateProfile(
-                    data.user,
-                    fullName,
-                    username
-                );
-            }
-
-            alert(
-                "ثبت‌نام انجام شد. اگر تأیید ایمیل فعال باشد، ایمیل خود را تأیید کنید."
-            );
-        }
-
-    }catch(error){
-
-        console.error(error);
-
-        authError.textContent =
-            translateError(error.message);
-
-    }finally{
-
-        authButton.disabled = false;
-
-    }
-
-};
-
-
-/* =========================================
-   AUTH STATE
-========================================= */
-
-supabaseClient.auth.onAuthStateChange(
-    async (event, session)=>{
-
-        if(session && session.user){
-
-            currentUser =
-                session.user;
-
-            await startApplication();
-
-        }else{
-
-            currentUser = null;
-
-            showAuth();
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   INITIAL SESSION
-========================================= */
-
-async function checkSession(){
-
-    const { data } =
-        await supabaseClient.auth.getSession();
-
-    if(data.session){
-
-        currentUser =
-            data.session.user;
-
-        await startApplication();
-
-    }else{
-
-        showAuth();
-
-    }
-
-}
-
-
-/* =========================================
-   SHOW AUTH
-========================================= */
-
-function showAuth(){
-
-    authPage.style.display =
-        "flex";
-
-    appPage.style.display =
-        "none";
-
-}
-
-
-/* =========================================
-   START APP
-========================================= */
-
-async function startApplication(){
-
-    authPage.style.display =
-        "none";
-
-    appPage.style.display =
-        "flex";
-
-    await loadMyProfile();
-
-    await loadUsers();
-
-    subscribeMessages();
-
-    subscribeProfiles();
-
-    await updateOnlineStatus(true);
-
-}
-
-
-/* =========================================
-   PROFILE
-========================================= */
-
-async function createOrUpdateProfile(
-    user,
-    fullName,
-    username
-){
-
-    const { error } =
-        await supabaseClient
-        .from("profiles")
-        .upsert({
-
-            id:user.id,
-
-            full_name:
-                fullName ||
-                user.user_metadata?.full_name ||
-                "کاربر",
-
-            username:
-                username ||
-                user.user_metadata?.username ||
-                null,
-
-            is_online:true,
-
-            last_seen:new Date().toISOString()
-
-        });
-
-    if(error){
-
-        console.error(
-            "Profile error:",
-            error
-        );
-
-    }
-
-}
-
-
-async function loadMyProfile(){
-
-    if(!currentUser) return;
-
-    let { data, error } =
-        await supabaseClient
-        .from("profiles")
-        .select("*")
-        .eq("id",currentUser.id)
-        .maybeSingle();
-
-    if(error){
-
-        console.error(error);
-
-        return;
-
-    }
-
-    if(!data){
-
-        await createOrUpdateProfile(
-
-            currentUser,
-
-            currentUser.user_metadata?.full_name ||
-                "کاربر",
-
-            currentUser.user_metadata?.username ||
-                null
-
-        );
-
-        const result =
-            await supabaseClient
-            .from("profiles")
-            .select("*")
-            .eq("id",currentUser.id)
-            .maybeSingle();
-
-        data =
-            result.data;
-    }
-
-    currentProfile =
-        data;
-
-    updateMyUI();
-
-}
-
-
-function updateMyUI(){
-
-    if(!currentProfile) return;
-
-    const name =
-        currentProfile.full_name ||
-        currentProfile.username ||
-        "کاربر";
-
-    document.getElementById(
-        "myName"
-    ).textContent = name;
-
-    setAvatar(
-        document.getElementById("myAvatar"),
-        currentProfile
+    birds.forEach(
+        x=>x.remove()
     );
 
-}
+    obstacles=[];
 
+    birds=[];
 
-/* =========================================
-   AVATAR
-========================================= */
+    game.classList.remove("night");
 
-function setAvatar(element, profile){
+    updateScore();
 
-    if(!element) return;
+    lastTime=performance.now();
 
-    if(profile && profile.avatar_url){
-
-        element.innerHTML =
-            `<img src="${escapeAttribute(profile.avatar_url)}"
-             onerror="this.parentElement.textContent='س'">`;
-
-    }else{
-
-        const name =
-            profile?.full_name ||
-            profile?.username ||
-            "س";
-
-        element.textContent =
-            name.charAt(0).toUpperCase();
-
-    }
+    requestAnimationFrame(gameLoop);
 
 }
 
 
-/* =========================================
-   LOAD USERS
-========================================= */
+/* =========================
+   SCORE
+========================= */
 
-async function loadUsers(search=""){
+function updateScore(){
 
-    if(!currentUser) return;
-
-    let query =
-        supabaseClient
-        .from("profiles")
-        .select("*")
-        .neq("id",currentUser.id)
-        .order("is_online",{ascending:false})
-        .order("full_name",{ascending:true})
-        .limit(100);
-
-    if(search){
-
-        query =
-            query.or(
-                `username.ilike.%${escapeFilter(search)}%,full_name.ilike.%${escapeFilter(search)}%`
-            );
-
-    }
-
-    const { data, error } =
-        await query;
-
-    if(error){
-
-        console.error(error);
-
-        return;
-
-    }
-
-    renderUsers(data || []);
+    scoreText.textContent =
+        "امتیاز: " +
+        String(Math.floor(score))
+        .padStart(5,"0");
 
 }
 
 
-function renderUsers(users){
+/* =========================
+   JUMP
+========================= */
 
-    const list =
-        document.getElementById("usersList");
+function jump(){
 
-    if(!users.length){
-
-        list.innerHTML =
-            `<div style="padding:30px;text-align:center;color:#777">
-                کاربری پیدا نشد
-            </div>`;
-
+    if(!running){
         return;
     }
 
-    list.innerHTML = "";
+    if(!jumping){
 
-    users.forEach(user=>{
+        velocityY=16;
 
-        const div =
-            document.createElement("div");
-
-        div.className =
-            "user" +
-            (
-                selectedUser &&
-                selectedUser.id === user.id
-                ? " active"
-                : ""
-            );
-
-        const avatar =
-            document.createElement("div");
-
-        avatar.className =
-            "avatar";
-
-        setAvatar(avatar,user);
-
-        const info =
-            document.createElement("div");
-
-        info.className =
-            "userInfo";
-
-        const name =
-            document.createElement("div");
-
-        name.className =
-            "userName";
-
-        name.innerHTML =
-            (user.is_online
-                ? `<span class="onlineDot"></span>`
-                : "") +
-            escapeHTML(
-                user.full_name ||
-                user.username ||
-                "کاربر"
-            );
-
-        const status =
-            document.createElement("div");
-
-        status.className =
-            "userStatus";
-
-        status.textContent =
-            user.is_online
-            ? "آنلاین"
-            : user.status ||
-              "آخرین بازدید مشخص نیست";
-
-        info.appendChild(name);
-        info.appendChild(status);
-
-        div.appendChild(avatar);
-        div.appendChild(info);
-
-        div.onclick = () =>
-            openChat(user);
-
-        list.appendChild(div);
-
-    });
-
-}
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-let searchTimer;
-
-function searchUsers(){
-
-    clearTimeout(searchTimer);
-
-    searchTimer =
-        setTimeout(()=>{
-
-            const value =
-                document.getElementById(
-                    "searchInput"
-                ).value.trim();
-
-            loadUsers(value);
-
-        },300);
-
-}
-
-
-/* =========================================
-   OPEN CHAT
-========================================= */
-
-async function openChat(user){
-
-    selectedUser =
-        user;
-
-    appPage.classList.add(
-        "chatOpen"
-    );
-
-    document.getElementById(
-        "noChat"
-    ).style.display = "none";
-
-    document.getElementById(
-        "chatContent"
-    ).style.display = "flex";
-
-    document.getElementById(
-        "chatName"
-    ).textContent =
-        user.full_name ||
-        user.username ||
-        "کاربر";
-
-    document.getElementById(
-        "chatStatus"
-    ).textContent =
-        user.is_online
-        ? "آنلاین"
-        : "آفلاین";
-
-    setAvatar(
-        document.getElementById(
-            "chatAvatar"
-        ),
-        user
-    );
-
-    await loadMessages();
-
-    await markMessagesRead();
-
-    document.getElementById(
-        "messageInput"
-    ).focus();
-
-}
-
-
-/* =========================================
-   CLOSE MOBILE CHAT
-========================================= */
-
-function closeMobileChat(){
-
-    appPage.classList.remove(
-        "chatOpen"
-    );
-
-    selectedUser = null;
-
-}
-
-
-/* =========================================
-   LOAD MESSAGES
-========================================= */
-
-async function loadMessages(){
-
-    if(!currentUser || !selectedUser)
-        return;
-
-    const { data, error } =
-        await supabaseClient
-        .from("messages")
-        .select("*")
-        .or(
-            `and(sender_id.eq.${currentUser.id},receiver_id.eq.${selectedUser.id}),and(sender_id.eq.${selectedUser.id},receiver_id.eq.${currentUser.id})`
-        )
-        .order("created_at",{ascending:true});
-
-    if(error){
-
-        console.error(
-            "Messages error:",
-            error
-        );
-
-        showMessageError(
-            "خطا در دریافت پیام‌ها"
-        );
-
-        return;
+        jumping=true;
 
     }
 
-    renderMessages(data || []);
-
 }
 
 
-/* =========================================
-   RENDER MESSAGES
-========================================= */
+/* =========================
+   CREATE CACTUS
+========================= */
 
-function renderMessages(messages){
+function createCactus(){
 
-    const box =
-        document.getElementById(
-            "messages"
-        );
-
-    box.innerHTML = "";
-
-    if(!messages.length){
-
-        box.innerHTML =
-            `<div class="emptyChat">
-                هنوز پیامی وجود ندارد.<br>
-                اولین پیام را بفرستید 👋
-            </div>`;
-
-        return;
-
-    }
-
-    messages.forEach(message=>{
-
-        addMessageToUI(
-            message,
-            false
-        );
-
-    });
-
-    scrollMessages();
-
-}
-
-
-/* =========================================
-   ADD MESSAGE
-========================================= */
-
-function addMessageToUI(
-    message,
-    scroll=true
-){
-
-    const box =
-        document.getElementById(
-            "messages"
-        );
-
-    const empty =
-        box.querySelector(
-            ".emptyChat"
-        );
-
-    if(empty)
-        empty.remove();
-
-    const wrapper =
+    const cactus =
         document.createElement("div");
 
-    const mine =
-        message.sender_id ===
-        currentUser.id;
+    cactus.className="cactus";
 
-    wrapper.className =
-        "message " +
-        (mine ? "mine" : "theirs");
+    cactus.innerHTML=`
+        <div class="cactus-main"></div>
+        <div class="cactus-arm left"></div>
+        <div class="cactus-arm right"></div>
+    `;
 
-    const bubble =
-        document.createElement("div");
+    cactus.style.left =
+        window.innerWidth + 40 + "px";
 
-    bubble.className =
-        "bubble";
+    game.appendChild(cactus);
 
-    const text =
-        document.createElement("span");
-
-    text.textContent =
-        message.message;
-
-    const time =
-        document.createElement("span");
-
-    time.className =
-        "messageTime";
-
-    time.textContent =
-        formatTime(
-            message.created_at
-        );
-
-    if(mine){
-
-        const check =
-            document.createElement("span");
-
-        check.className =
-            "check";
-
-        check.textContent =
-            message.is_read
-            ? "✓✓"
-            : "✓";
-
-        time.appendChild(check);
-
-    }
-
-    bubble.appendChild(text);
-    bubble.appendChild(time);
-
-    wrapper.appendChild(bubble);
-
-    box.appendChild(wrapper);
-
-    if(scroll)
-        scrollMessages();
+    obstacles.push(cactus);
 
 }
 
 
-/* =========================================
-   SEND MESSAGE
-========================================= */
+/* =========================
+   CREATE BIRD
+========================= */
 
-async function sendMessage(){
+function createBird(){
 
-    if(!currentUser ||
-       !selectedUser)
-        return;
+    const bird =
+        document.createElement("div");
 
-    const input =
-        document.getElementById(
-            "messageInput"
+    bird.className="bird";
+
+    bird.innerHTML=`
+        <div class="bird-body"></div>
+        <div class="wing left"></div>
+        <div class="wing right"></div>
+    `;
+
+    const height =
+        30 +
+        Math.random()*100;
+
+    bird.style.left =
+        window.innerWidth + 40 + "px";
+
+    bird.style.bottom =
+        (22 + height/10) + "%";
+
+    game.appendChild(bird);
+
+    birds.push(bird);
+
+}
+
+
+/* =========================
+   GROUND
+========================= */
+
+function createGroundLine(){
+
+    const line =
+        document.createElement("div");
+
+    line.className="line";
+
+    line.style.width =
+        (20 + Math.random()*70) + "px";
+
+    line.style.left =
+        window.innerWidth + "px";
+
+    groundLines.appendChild(line);
+
+}
+
+
+/* =========================
+   COLLISION
+========================= */
+
+function collision(a,b){
+
+    const ar =
+        a.getBoundingClientRect();
+
+    const br =
+        b.getBoundingClientRect();
+
+    const padding=8;
+
+    return !(
+        ar.right-padding < br.left ||
+        ar.left+padding > br.right ||
+        ar.bottom-padding < br.top ||
+        ar.top+padding > br.bottom
+    );
+
+}
+
+
+/* =========================
+   GAME OVER
+========================= */
+
+function endGame(){
+
+    running=false;
+
+    if(
+        Math.floor(score) >
+        highScore
+    ){
+
+        highScore =
+            Math.floor(score);
+
+        localStorage.setItem(
+            "sobhanDinoHighScore",
+            highScore
         );
 
-    const text =
-        input.value.trim();
-
-    if(!text)
-        return;
-
-    input.disabled = true;
-
-    const { data, error } =
-        await supabaseClient
-        .from("messages")
-        .insert({
-
-            sender_id:
-                currentUser.id,
-
-            receiver_id:
-                selectedUser.id,
-
-            message:text,
-
-            is_read:false
-
-        })
-        .select()
-        .single();
-
-    input.disabled = false;
-
-    if(error){
-
-        console.error(error);
-
-        alert(
-            "پیام ارسال نشد:\n" +
-            error.message
-        );
-
-        return;
+        updateHighScore();
 
     }
 
-    input.value = "";
+    finalScore.textContent =
+        "امتیاز: " +
+        Math.floor(score);
 
-    /*
-      Realtime معمولاً خودش پیام را
-      به صفحه اضافه می‌کند.
-    */
+    gameOverScreen.classList.remove(
+        "hidden"
+    );
 
-    if(data){
+}
 
-        const exists =
-            document.querySelector(
-                `[data-message-id="${data.id}"]`
-            );
 
-        if(!exists){
+/* =========================
+   GAME LOOP
+========================= */
 
-            addMessageToUI(
-                data,
-                true
-            );
+function gameLoop(time){
+
+    if(!running){
+        return;
+    }
+
+    const delta =
+        Math.min(
+            (time-lastTime)/16.67,
+            2
+        );
+
+    lastTime=time;
+
+
+    /* SCORE */
+
+    score += .12 * delta;
+
+    updateScore();
+
+
+    /* SPEED */
+
+    speed +=
+        .0008 * delta;
+
+
+    /* DINO PHYSICS */
+
+    if(jumping){
+
+        velocityY -=
+            gravity * delta;
+
+        dinoY +=
+            velocityY * delta;
+
+
+        if(dinoY <= 0){
+
+            dinoY=0;
+
+            velocityY=0;
+
+            jumping=false;
 
         }
 
     }
 
-    input.focus();
+    dino.style.transform =
+        `translateY(${-dinoY}px)`;
+
+
+    /* OBSTACLES */
+
+    obstacleTimer -= delta;
+
+    if(obstacleTimer <= 0){
+
+        createCactus();
+
+        obstacleTimer =
+            75 +
+            Math.random()*80 -
+            Math.min(speed*2,35);
+
+    }
+
+
+    /* BIRDS */
+
+    birdTimer -= delta;
+
+    if(
+        score > 100 &&
+        birdTimer <= 0
+    ){
+
+        createBird();
+
+        birdTimer =
+            180 +
+            Math.random()*220;
+
+    }
+
+
+    /* MOVE CACTUS */
+
+    obstacles =
+        obstacles.filter(
+            cactus=>{
+
+                const x =
+                    parseFloat(
+                        cactus.style.left
+                    );
+
+                const newX =
+                    x -
+                    speed*delta;
+
+                cactus.style.left =
+                    newX + "px";
+
+
+                if(
+                    collision(
+                        dino,
+                        cactus
+                    )
+                ){
+
+                    endGame();
+
+                }
+
+
+                if(newX < -80){
+
+                    cactus.remove();
+
+                    return false;
+
+                }
+
+                return true;
+
+            }
+        );
+
+
+    /* MOVE BIRDS */
+
+    birds =
+        birds.filter(
+            bird=>{
+
+                const x =
+                    parseFloat(
+                        bird.style.left
+                    );
+
+                const newX =
+                    x -
+                    speed*delta*1.15;
+
+                bird.style.left =
+                    newX + "px";
+
+
+                if(
+                    collision(
+                        dino,
+                        bird
+                    )
+                ){
+
+                    endGame();
+
+                }
+
+
+                if(newX < -80){
+
+                    bird.remove();
+
+                    return false;
+
+                }
+
+                return true;
+
+            }
+        );
+
+
+    /* GROUND LINES */
+
+    groundTimer -= delta;
+
+    if(groundTimer <= 0){
+
+        createGroundLine();
+
+        groundTimer=20;
+
+    }
+
+
+    Array.from(
+        groundLines.children
+    ).forEach(
+        line=>{
+
+            const x =
+                parseFloat(
+                    line.style.left
+                );
+
+            const newX =
+                x -
+                speed*delta;
+
+            line.style.left =
+                newX+"px";
+
+
+            if(newX < -150){
+
+                line.remove();
+
+            }
+
+        }
+    );
+
+
+    /* DAY / NIGHT */
+
+    nightTimer +=
+        delta;
+
+    if(
+        Math.floor(score)%500 === 0 &&
+        Math.floor(score)>0
+    ){
+
+        game.classList.add("night");
+
+    }
+
+    if(
+        Math.floor(score)%500 === 250
+    ){
+
+        game.classList.remove("night");
+
+    }
+
+
+    requestAnimationFrame(
+        gameLoop
+    );
 
 }
 
 
-/* =========================================
-   ENTER SEND
-========================================= */
+/* =========================
+   CONTROLS
+========================= */
 
-document.getElementById(
-    "messageInput"
-).addEventListener(
+document.addEventListener(
     "keydown",
-    function(event){
+    event=>{
 
-        if(event.key === "Enter"){
+        if(
+            event.code === "Space" ||
+            event.code === "ArrowUp"
+        ){
 
             event.preventDefault();
 
-            sendMessage();
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   REALTIME MESSAGES
-========================================= */
-
-function subscribeMessages(){
-
-    if(realtimeChannel){
-
-        supabaseClient
-        .removeChannel(
-            realtimeChannel
-        );
-
-    }
-
-    realtimeChannel =
-        supabaseClient
-        .channel(
-            "sobhan-messages-" +
-            currentUser.id
-        )
-        .on(
-
-            "postgres_changes",
-
-            {
-                event:"INSERT",
-                schema:"public",
-                table:"messages"
-            },
-
-            payload=>{
-
-                const message =
-                    payload.new;
-
-                if(!currentUser)
-                    return;
-
-                const related =
-                    (
-                        message.sender_id ===
-                        currentUser.id &&
-                        selectedUser &&
-                        message.receiver_id ===
-                        selectedUser.id
-                    )
-                    ||
-                    (
-                        message.receiver_id ===
-                        currentUser.id &&
-                        selectedUser &&
-                        message.sender_id ===
-                        selectedUser.id
-                    );
-
-                if(related){
-
-                    const duplicate =
-                        [...document.querySelectorAll(
-                            ".message"
-                        )].some(el=>{
-
-                            return el.dataset &&
-                                   el.dataset.id ==
-                                   message.id;
-
-                        });
-
-                    if(!duplicate){
-
-                        addMessageToUI(
-                            message,
-                            true
-                        );
-
-                    }
-
-                    if(
-                        message.receiver_id ===
-                        currentUser.id
-                    ){
-
-                        markMessagesRead();
-
-                    }
-
-                }
-
-            }
-
-        )
-        .subscribe();
-
-}
-
-
-/* =========================================
-   READ MESSAGES
-========================================= */
-
-async function markMessagesRead(){
-
-    if(!currentUser ||
-       !selectedUser)
-        return;
-
-    const { error } =
-        await supabaseClient
-        .from("messages")
-        .update({
-            is_read:true
-        })
-        .eq(
-            "sender_id",
-            selectedUser.id
-        )
-        .eq(
-            "receiver_id",
-            currentUser.id
-        )
-        .eq(
-            "is_read",
-            false
-        );
-
-    if(error)
-        console.error(error);
-
-}
-
-
-/* =========================================
-   ONLINE STATUS
-========================================= */
-
-async function updateOnlineStatus(isOnline){
-
-    if(!currentUser)
-        return;
-
-    const { error } =
-        await supabaseClient
-        .from("profiles")
-        .update({
-
-            is_online:isOnline,
-
-            last_seen:
-                new Date().toISOString()
-
-        })
-        .eq(
-            "id",
-            currentUser.id
-        );
-
-    if(error)
-        console.error(error);
-
-}
-
-
-/* =========================================
-   PROFILE REALTIME
-========================================= */
-
-function subscribeProfiles(){
-
-    if(profileChannel){
-
-        supabaseClient
-        .removeChannel(
-            profileChannel
-        );
-
-    }
-
-    profileChannel =
-        supabaseClient
-        .channel(
-            "sobhan-profiles-" +
-            currentUser.id
-        )
-        .on(
-
-            "postgres_changes",
-
-            {
-                event:"*",
-                schema:"public",
-                table:"profiles"
-            },
-
-            async ()=>{
-                await loadUsers(
-                    document.getElementById(
-                        "searchInput"
-                    ).value.trim()
-                );
+            if(!running){
 
                 if(
-                    selectedUser
+                    !startScreen.classList.contains(
+                        "hidden"
+                    ) ||
+                    !gameOverScreen.classList.contains(
+                        "hidden"
+                    )
                 ){
 
-                    const { data } =
-                        await supabaseClient
-                        .from("profiles")
-                        .select("*")
-                        .eq(
-                            "id",
-                            selectedUser.id
-                        )
-                        .maybeSingle();
-
-                    if(data){
-
-                        selectedUser =
-                            data;
-
-                        document.getElementById(
-                            "chatName"
-                        ).textContent =
-                            data.full_name ||
-                            data.username ||
-                            "کاربر";
-
-                        document.getElementById(
-                            "chatStatus"
-                        ).textContent =
-                            data.is_online
-                            ? "آنلاین"
-                            : "آفلاین";
-
-                        setAvatar(
-                            document.getElementById(
-                                "chatAvatar"
-                            ),
-                            data
-                        );
-
-                    }
+                    startGame();
 
                 }
 
+            }else{
+
+                jump();
+
             }
-
-        )
-        .subscribe();
-
-}
-
-
-/* =========================================
-   PROFILE MODAL
-========================================= */
-
-function openProfile(){
-
-    if(!currentProfile)
-        return;
-
-    document.getElementById(
-        "profileFullName"
-    ).value =
-        currentProfile.full_name || "";
-
-    document.getElementById(
-        "profileUsername"
-    ).value =
-        currentProfile.username || "";
-
-    document.getElementById(
-        "profileAvatar"
-    ).value =
-        currentProfile.avatar_url || "";
-
-    document.getElementById(
-        "profileStatus"
-    ).value =
-        currentProfile.status || "";
-
-    document.getElementById(
-        "profileError"
-    ).textContent = "";
-
-    document.getElementById(
-        "profileModal"
-    ).style.display =
-        "flex";
-
-}
-
-
-function closeProfile(){
-
-    document.getElementById(
-        "profileModal"
-    ).style.display =
-        "none";
-
-}
-
-
-async function saveProfile(){
-
-    const fullName =
-        document.getElementById(
-            "profileFullName"
-        ).value.trim();
-
-    const username =
-        document.getElementById(
-            "profileUsername"
-        ).value.trim()
-        .toLowerCase()
-        .replace(/\s/g,"");
-
-    const avatarUrl =
-        document.getElementById(
-            "profileAvatar"
-        ).value.trim();
-
-    const status =
-        document.getElementById(
-            "profileStatus"
-        ).value.trim();
-
-    if(!fullName){
-
-        document.getElementById(
-            "profileError"
-        ).textContent =
-            "نام را وارد کنید.";
-
-        return;
-
-    }
-
-    const { data, error } =
-        await supabaseClient
-        .from("profiles")
-        .update({
-
-            full_name:fullName,
-
-            username:
-                username || null,
-
-            avatar_url:
-                avatarUrl || null,
-
-            status:
-                status ||
-                "سلام! من از واتساب سبحان استفاده می‌کنم."
-
-        })
-        .eq(
-            "id",
-            currentUser.id
-        )
-        .select()
-        .single();
-
-    if(error){
-
-        document.getElementById(
-            "profileError"
-        ).textContent =
-            translateError(error.message);
-
-        return;
-
-    }
-
-    currentProfile =
-        data;
-
-    updateMyUI();
-
-    closeProfile();
-
-    await loadUsers();
-
-}
-
-
-/* =========================================
-   LOGOUT
-========================================= */
-
-async function logout(){
-
-    await updateOnlineStatus(false);
-
-    await supabaseClient.auth.signOut();
-
-    selectedUser = null;
-
-    if(realtimeChannel){
-
-        await supabaseClient
-        .removeChannel(
-            realtimeChannel
-        );
-
-        realtimeChannel = null;
-
-    }
-
-    if(profileChannel){
-
-        await supabaseClient
-        .removeChannel(
-            profileChannel
-        );
-
-        profileChannel = null;
-
-    }
-
-    showAuth();
-
-}
-
-
-/* =========================================
-   PAGE CLOSE
-========================================= */
-
-window.addEventListener(
-    "beforeunload",
-    function(){
-
-        if(currentUser){
-
-            /*
-              تلاش برای ثبت آخرین وضعیت
-            */
-            supabaseClient
-            .from("profiles")
-            .update({
-                is_online:false,
-                last_seen:
-                    new Date().toISOString()
-            })
-            .eq(
-                "id",
-                currentUser.id
-            );
 
         }
 
@@ -2207,128 +1138,56 @@ window.addEventListener(
 );
 
 
-/* =========================================
-   HELPERS
-========================================= */
+/* MOBILE */
 
-function scrollMessages(){
+game.addEventListener(
+    "pointerdown",
+    event=>{
 
-    const box =
-        document.getElementById(
-            "messages"
-        );
+        if(
+            event.target.tagName === "BUTTON"
+        ){
 
-    box.scrollTop =
-        box.scrollHeight;
+            return;
 
-}
+        }
 
+        if(!running){
 
-function formatTime(date){
+            startGame();
 
-    try{
+        }else{
 
-        return new Date(date)
-            .toLocaleTimeString(
-                "fa-IR",
-                {
-                    hour:"2-digit",
-                    minute:"2-digit"
-                }
-            );
+            jump();
 
-    }catch{
-
-        return "";
+        }
 
     }
+);
+
+
+/* BUTTONS */
+
+startButton.onclick =
+    startGame;
+
+restartButton.onclick =
+    startGame;
+
+
+/* =========================
+   INITIAL GROUND
+========================= */
+
+for(
+    let i=0;
+    i<12;
+    i++
+){
+
+    createGroundLine();
 
 }
-
-
-function escapeHTML(text){
-
-    return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-function escapeAttribute(text){
-
-    return String(text)
-        .replace(/"/g,"%22")
-        .replace(/'/g,"%27");
-
-}
-
-
-function escapeFilter(text){
-
-    return String(text)
-        .replace(/[%_]/g,"");
-}
-
-
-function translateError(message){
-
-    if(!message)
-        return "خطای نامشخص";
-
-    if(
-        message.includes(
-            "Invalid login credentials"
-        )
-    )
-        return "ایمیل یا رمز عبور اشتباه است.";
-
-    if(
-        message.includes(
-            "User already registered"
-        )
-    )
-        return "این ایمیل قبلاً ثبت‌نام شده است.";
-
-    if(
-        message.includes(
-            "Email not confirmed"
-        )
-    )
-        return "ابتدا ایمیل خود را تأیید کنید.";
-
-    if(
-        message.includes(
-            "duplicate key"
-        )
-    )
-        return "این نام کاربری قبلاً استفاده شده است.";
-
-    return message;
-
-}
-
-
-function showMessageError(text){
-
-    document.getElementById(
-        "messages"
-    ).innerHTML =
-        `<div class="emptyChat">
-            ${escapeHTML(text)}
-        </div>`;
-
-}
-
-
-/* =========================================
-   START
-========================================= */
-
-checkSession();
 
 </script>
 
