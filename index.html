@@ -1,67 +1,2336 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sobhan Family Chat</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>واتساب سبحان</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:#0b141a;color:#e9edef;height:100vh;overflow:hidden}.hidden{display:none!important}
-#auth{height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at center,#17252d,#0b141a 65%)}.card{width:min(430px,100%);background:#202c33;border-radius:18px;padding:28px;box-shadow:0 15px 50px #0008}.logo{width:70px;height:70px;border-radius:50%;background:#00a884;display:grid;place-items:center;font-size:27px;font-weight:700;margin:0 auto 16px}.card h1{text-align:center;margin:0 0 8px}.sub{text-align:center;color:#8696a0;margin-bottom:22px}.tabs{display:flex;background:#111b21;border-radius:9px;padding:4px;margin-bottom:16px}.tabs button{flex:1;border:0;padding:10px;border-radius:7px;background:transparent;color:#aebac1;cursor:pointer}.tabs button.active{background:#00a884;color:#fff}.field{margin:10px 0}.field label{display:block;font-size:12px;color:#aebac1;margin-bottom:6px}.field input{width:100%;border:0;outline:0;border-radius:9px;background:#111b21;color:#fff;padding:12px}.primary{width:100%;border:0;border-radius:9px;padding:12px;background:#00a884;color:#fff;cursor:pointer;font-size:15px;margin-top:12px}.msg{min-height:24px;margin-top:10px;text-align:center;color:#ffb4a8;font-size:13px}
-#app{height:100vh;display:flex;background:#111b21}.sidebar{width:360px;border-left:1px solid #26343b;background:#111b21;display:flex;flex-direction:column}.topbar{height:70px;background:#202c33;padding:10px 15px;display:flex;align-items:center;justify-content:space-between}.avatar{width:44px;height:44px;border-radius:50%;background:#00a884;display:grid;place-items:center;font-weight:700}.top-actions{display:flex;gap:18px;font-size:22px;color:#d1d7db}.search{padding:10px}.search input{width:100%;padding:12px 15px;background:#202c33;color:#fff;border:0;border-radius:8px;outline:0}.members{overflow:auto;flex:1}.member{display:flex;align-items:center;gap:12px;padding:12px 15px;border-bottom:1px solid #202c33;cursor:pointer}.member:hover{background:#202c33}.member-info{flex:1}.member-name{font-size:15px}.member-sub{font-size:12px;color:#8696a0;margin-top:5px}.main{flex:1;display:flex;flex-direction:column;background:#0b141a}.header{height:70px;background:#202c33;padding:10px 16px;display:flex;align-items:center;gap:12px}.head-info{flex:1}.head-name{font-size:16px}.head-status{font-size:12px;color:#8696a0;margin-top:4px}.logout{border:0;background:transparent;color:#d1d7db;cursor:pointer;font-size:13px}.messages{flex:1;overflow:auto;padding:24px 6%;background:radial-gradient(circle at center,#17252d 0,#0b141a 70%)}.bubble{max-width:72%;padding:9px 12px;margin:8px 0;border-radius:8px;line-height:1.7;clear:both;word-wrap:break-word}.me{float:right;background:#005c4b}.other{float:left;background:#202c33}.sender{font-size:11px;color:#8bd3c1;margin-bottom:3px}.composer{display:flex;gap:10px;padding:10px;background:#202c33}.composer input{flex:1;border:0;outline:0;border-radius:9px;background:#2a3942;color:#fff;padding:13px}.send{width:50px;height:50px;border:0;border-radius:50%;background:#00a884;color:#fff;font-size:20px;cursor:pointer}.empty{margin:auto;text-align:center;color:#8696a0}.danger{color:#ff8f8f}
-@media(max-width:750px){.sidebar{width:100%}.main{display:none}.mobile-chat .sidebar{display:none}.mobile-chat .main{display:flex}}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Tahoma,Arial,sans-serif;
+}
+
+body{
+    background:#dfe5e8;
+    min-height:100vh;
+}
+
+button,input{
+    font-family:inherit;
+}
+
+.app{
+    width:100%;
+    height:100vh;
+    display:flex;
+    overflow:hidden;
+    background:#fff;
+}
+
+/* LOGIN */
+#authPage{
+    width:100%;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#075e54,#128c7e);
+}
+
+.authBox{
+    width:420px;
+    max-width:92%;
+    background:white;
+    border-radius:20px;
+    padding:35px 28px;
+    box-shadow:0 15px 50px rgba(0,0,0,.25);
+    text-align:center;
+}
+
+.logo{
+    width:75px;
+    height:75px;
+    margin:0 auto 15px;
+    border-radius:50%;
+    background:#25d366;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    font-size:38px;
+    font-weight:bold;
+}
+
+.authBox h1{
+    color:#075e54;
+    margin-bottom:8px;
+}
+
+.authBox p{
+    color:#777;
+    margin-bottom:25px;
+}
+
+.input{
+    width:100%;
+    border:1px solid #ddd;
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:12px;
+    outline:none;
+    font-size:15px;
+}
+
+.input:focus{
+    border-color:#128c7e;
+}
+
+.mainBtn{
+    width:100%;
+    border:0;
+    background:#128c7e;
+    color:#fff;
+    padding:14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+    margin-top:5px;
+}
+
+.mainBtn:hover{
+    background:#075e54;
+}
+
+.switchAuth{
+    margin-top:18px;
+    color:#128c7e;
+    cursor:pointer;
+    font-size:14px;
+}
+
+.error{
+    color:#d32f2f;
+    margin-top:12px;
+    font-size:14px;
+}
+
+/* APP */
+#appPage{
+    display:none;
+    width:100%;
+    height:100vh;
+}
+
+.sidebar{
+    width:360px;
+    min-width:300px;
+    background:#fff;
+    border-left:1px solid #ddd;
+    display:flex;
+    flex-direction:column;
+}
+
+.sidebarHeader{
+    height:70px;
+    background:#075e54;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 15px;
+}
+
+.myInfo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.avatar{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:#25d366;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    font-weight:bold;
+    overflow:hidden;
+}
+
+.avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.headerButtons{
+    display:flex;
+    gap:5px;
+}
+
+.iconBtn{
+    border:0;
+    background:transparent;
+    color:white;
+    font-size:22px;
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    border-radius:50%;
+}
+
+.iconBtn:hover{
+    background:rgba(255,255,255,.15);
+}
+
+.searchBox{
+    padding:10px;
+    background:#f0f2f5;
+}
+
+.searchInput{
+    width:100%;
+    border:0;
+    outline:none;
+    padding:12px 15px;
+    border-radius:20px;
+    background:white;
+    font-size:14px;
+}
+
+.users{
+    overflow-y:auto;
+    flex:1;
+}
+
+.user{
+    height:72px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:10px 14px;
+    cursor:pointer;
+    border-bottom:1px solid #eee;
+}
+
+.user:hover{
+    background:#f5f5f5;
+}
+
+.user.active{
+    background:#e9edef;
+}
+
+.userInfo{
+    flex:1;
+    min-width:0;
+}
+
+.userName{
+    font-size:15px;
+    font-weight:bold;
+    color:#222;
+    margin-bottom:5px;
+}
+
+.userStatus{
+    font-size:12px;
+    color:#777;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.onlineDot{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#25d366;
+    display:inline-block;
+    margin-left:4px;
+}
+
+/* CHAT */
+.chat{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    background:#efeae2;
+    position:relative;
+}
+
+.chatHeader{
+    height:70px;
+    background:#075e54;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    padding:10px 15px;
+    gap:12px;
+}
+
+.chatUser{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:1;
+}
+
+.chatName{
+    font-weight:bold;
+}
+
+.chatStatus{
+    font-size:12px;
+    margin-top:4px;
+    opacity:.8;
+}
+
+.backBtn{
+    display:none;
+}
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding:20px 7%;
+    background-color:#efeae2;
+    background-image:
+    radial-gradient(rgba(0,0,0,.035) 1px,transparent 1px);
+    background-size:18px 18px;
+}
+
+.emptyChat{
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#777;
+    font-size:15px;
+}
+
+.message{
+    display:flex;
+    margin-bottom:8px;
+}
+
+.message.mine{
+    justify-content:flex-start;
+}
+
+.message.theirs{
+    justify-content:flex-end;
+}
+
+.bubble{
+    max-width:70%;
+    padding:8px 10px 5px;
+    border-radius:8px;
+    font-size:14px;
+    line-height:1.6;
+    box-shadow:0 1px 1px rgba(0,0,0,.08);
+    word-break:break-word;
+}
+
+.mine .bubble{
+    background:#d9fdd3;
+    border-top-right-radius:2px;
+}
+
+.theirs .bubble{
+    background:#fff;
+    border-top-left-radius:2px;
+}
+
+.messageTime{
+    font-size:10px;
+    color:#777;
+    margin-right:8px;
+    float:left;
+    direction:ltr;
+}
+
+.check{
+    color:#53a8e2;
+    margin-right:3px;
+}
+
+.messageInputArea{
+    min-height:65px;
+    background:#f0f2f5;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 15px;
+}
+
+.messageInput{
+    flex:1;
+    border:0;
+    outline:none;
+    border-radius:25px;
+    padding:13px 18px;
+    font-size:14px;
+}
+
+.sendBtn{
+    width:48px;
+    height:48px;
+    border:0;
+    border-radius:50%;
+    background:#128c7e;
+    color:white;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.sendBtn:hover{
+    background:#075e54;
+}
+
+.noChat{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:#777;
+    text-align:center;
+}
+
+.noChat .bigLogo{
+    width:110px;
+    height:110px;
+    border-radius:50%;
+    background:#25d366;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:55px;
+    margin-bottom:20px;
+}
+
+.noChat h2{
+    color:#555;
+    margin-bottom:10px;
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:1000;
+}
+
+.modalBox{
+    width:420px;
+    max-width:92%;
+    background:#fff;
+    border-radius:15px;
+    padding:25px;
+}
+
+.modalBox h2{
+    margin-bottom:20px;
+    color:#075e54;
+}
+
+.modalActions{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.cancelBtn,
+.saveBtn,
+.logoutBtn{
+    flex:1;
+    border:0;
+    padding:12px;
+    border-radius:9px;
+    cursor:pointer;
+}
+
+.cancelBtn{
+    background:#eee;
+}
+
+.saveBtn{
+    background:#128c7e;
+    color:#fff;
+}
+
+.logoutBtn{
+    background:#d32f2f;
+    color:#fff;
+    margin-top:10px;
+}
+
+/* MOBILE */
+@media(max-width:750px){
+
+    .sidebar{
+        width:100%;
+        min-width:0;
+    }
+
+    .chat{
+        display:none;
+    }
+
+    #appPage.chatOpen .sidebar{
+        display:none;
+    }
+
+    #appPage.chatOpen .chat{
+        display:flex;
+        width:100%;
+    }
+
+    .backBtn{
+        display:block;
+    }
+
+    .messages{
+        padding:15px 4%;
+    }
+
+    .bubble{
+        max-width:85%;
+    }
+}
 </style>
 </head>
+
 <body>
-<section id="auth">
- <div class="card">
-  <div class="logo">S</div><h1>Sobhan Family Chat</h1><div class="sub">پیام‌رسان خصوصی خانواده</div>
-  <div class="tabs"><button id="tabLogin" class="active">ورود</button><button id="tabSignup">ثبت‌نام</button></div>
-  <form id="authForm">
-   <div class="field"><label>ایمیل</label><input id="email" type="email" required placeholder="name@example.com"></div>
-   <div class="field"><label>رمز عبور</label><input id="password" type="password" required minlength="6" placeholder="حداقل ۶ کاراکتر"></div>
-   <div class="field signupOnly hidden"><label>نام شما</label><input id="name" type="text" placeholder="مثلاً سبحان"></div>
-   <button class="primary" id="submitBtn" type="submit">ورود</button><div id="authMsg" class="msg"></div>
-  </form>
-  <div class="sub" style="margin:16px 0 0;font-size:11px">این نسخه برای اعضای مجاز خانواده است. ثبت‌نام عمومی را بعداً می‌توان از تنظیمات Auth بست.</div>
- </div>
-</section>
-<section id="app" class="hidden">
- <aside class="sidebar">
-  <div class="topbar"><div class="avatar" id="myAvatar">S</div><div class="top-actions"><span>⌕</span><span>⋮</span></div></div>
-  <div class="search"><input id="search" placeholder="جستجوی اعضای خانواده"></div>
-  <div class="members" id="members"></div>
- </aside>
- <main class="main">
-  <div class="header"><div class="avatar" id="headAvatar">👨‍👩‍👧‍👦</div><div class="head-info"><div class="head-name" id="headName">گروه خانواده ❤️</div><div class="head-status" id="headStatus">اتصال در حال بررسی...</div></div><button class="logout" id="logout">خروج</button></div>
-  <div id="messages" class="messages"><div class="empty">یک عضو خانواده را انتخاب کن.</div></div>
-  <div class="composer"><input id="text" placeholder="پیام خود را بنویسید..." disabled><button id="send" class="send" disabled>➤</button></div>
- </main>
-</section>
+
+<!-- AUTH -->
+<div id="authPage">
+
+    <div class="authBox">
+
+        <div class="logo">س</div>
+
+        <h1>واتساب سبحان</h1>
+        <p id="authDescription">وارد حساب خود شوید</p>
+
+        <div id="registerFields" style="display:none">
+
+            <input
+                id="fullName"
+                class="input"
+                type="text"
+                placeholder="نام شما"
+            >
+
+            <input
+                id="username"
+                class="input"
+                type="text"
+                placeholder="نام کاربری"
+            >
+
+        </div>
+
+        <input
+            id="email"
+            class="input"
+            type="email"
+            placeholder="ایمیل"
+            autocomplete="email"
+        >
+
+        <input
+            id="password"
+            class="input"
+            type="password"
+            placeholder="رمز عبور"
+            autocomplete="current-password"
+        >
+
+        <button id="authButton" class="mainBtn">
+            ورود
+        </button>
+
+        <div
+            id="switchAuth"
+            class="switchAuth"
+        >
+            حساب ندارید؟ ثبت‌نام کنید
+        </div>
+
+        <div id="authError" class="error"></div>
+
+    </div>
+
+</div>
+
+
+<!-- MAIN APP -->
+<div id="appPage">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebarHeader">
+
+            <div class="myInfo" onclick="openProfile()">
+
+                <div class="avatar" id="myAvatar">
+                    س
+                </div>
+
+                <div>
+                    <div id="myName">کاربر</div>
+                </div>
+
+            </div>
+
+            <div class="headerButtons">
+
+                <button
+                    class="iconBtn"
+                    onclick="openProfile()"
+                    title="پروفایل"
+                >
+                    ⚙
+                </button>
+
+                <button
+                    class="iconBtn"
+                    onclick="logout()"
+                    title="خروج"
+                >
+                    ↪
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="searchBox">
+
+            <input
+                id="searchInput"
+                class="searchInput"
+                type="text"
+                placeholder="🔎 جستجوی کاربر..."
+                oninput="searchUsers()"
+            >
+
+        </div>
+
+        <div id="usersList" class="users">
+
+        </div>
+
+    </aside>
+
+
+    <!-- CHAT -->
+    <main class="chat">
+
+        <div id="noChat" class="noChat">
+
+            <div class="bigLogo">س</div>
+
+            <h2>واتساب سبحان</h2>
+
+            <p>
+                یک کاربر را انتخاب کنید تا گفتگو شروع شود
+            </p>
+
+        </div>
+
+
+        <div
+            id="chatContent"
+            style="display:none;flex:1;flex-direction:column;"
+        >
+
+            <div class="chatHeader">
+
+                <button
+                    class="iconBtn backBtn"
+                    onclick="closeMobileChat()"
+                >
+                    ←
+                </button>
+
+                <div class="chatUser">
+
+                    <div
+                        class="avatar"
+                        id="chatAvatar"
+                    >
+                        س
+                    </div>
+
+                    <div>
+
+                        <div
+                            class="chatName"
+                            id="chatName"
+                        >
+                            کاربر
+                        </div>
+
+                        <div
+                            class="chatStatus"
+                            id="chatStatus"
+                        >
+                            آفلاین
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="messages"
+                class="messages"
+            >
+            </div>
+
+
+            <div class="messageInputArea">
+
+                <input
+                    id="messageInput"
+                    class="messageInput"
+                    type="text"
+                    placeholder="پیام خود را بنویسید..."
+                    autocomplete="off"
+                >
+
+                <button
+                    class="sendBtn"
+                    onclick="sendMessage()"
+                >
+                    ➤
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- PROFILE MODAL -->
+<div
+    id="profileModal"
+    class="modal"
+    onclick="if(event.target===this) closeProfile()"
+>
+
+    <div class="modalBox">
+
+        <h2>پروفایل من</h2>
+
+        <input
+            id="profileFullName"
+            class="input"
+            placeholder="نام"
+        >
+
+        <input
+            id="profileUsername"
+            class="input"
+            placeholder="نام کاربری"
+        >
+
+        <input
+            id="profileAvatar"
+            class="input"
+            placeholder="لینک عکس پروفایل (اختیاری)"
+        >
+
+        <input
+            id="profileStatus"
+            class="input"
+            placeholder="وضعیت"
+        >
+
+        <div class="modalActions">
+
+            <button
+                class="cancelBtn"
+                onclick="closeProfile()"
+            >
+                لغو
+            </button>
+
+            <button
+                class="saveBtn"
+                onclick="saveProfile()"
+            >
+                ذخیره
+            </button>
+
+        </div>
+
+        <button
+            class="logoutBtn"
+            onclick="logout()"
+        >
+            خروج از حساب
+        </button>
+
+        <div
+            id="profileError"
+            class="error"
+        ></div>
+
+    </div>
+
+</div>
+
+
 <script>
-const SUPABASE_URL = 'https://rahpltlgzcobmenuoiqd.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_2ZdKdM9fIF53_jnKrdgWnA_ixsn6hbA';
-const configured=!SUPABASE_URL.includes('PASTE_')&&!SUPABASE_KEY.includes('PASTE_');
-const sb=configured?supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true}}):null;
-let currentUser=null,currentConversation=null,realtimeChannel=null,membersCache=[];
-const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function setMsg(t,good=false){$('authMsg').textContent=t;$('authMsg').style.color=good?'#9be7cf':'#ffb4a8'}
-let mode='login';
-$('tabLogin').onclick=()=>setMode('login');$('tabSignup').onclick=()=>setMode('signup');
-function setMode(m){mode=m;$('tabLogin').classList.toggle('active',m==='login');$('tabSignup').classList.toggle('active',m==='signup');document.querySelectorAll('.signupOnly').forEach(x=>x.classList.toggle('hidden',m!=='signup'));$('submitBtn').textContent=m==='login'?'ورود':'ساخت حساب';setMsg('')}
-$('authForm').onsubmit=async e=>{e.preventDefault();if(!configured){setMsg('اول در ابتدای فایل index.html آدرس و Publishable Key مربوط به Supabase را وارد کن.');return}const email=$('email').value.trim(),password=$('password').value; if(mode==='login'){const {error}=await sb.auth.signInWithPassword({email,password});if(error){setMsg(error.message);return}}else{const name=$('name').value.trim();const {data,error}=await sb.auth.signUp({email,password,options:{data:{display_name:name}}});if(error){setMsg(error.message);return}if(!data.session){setMsg('حساب ساخته شد. ایمیل را تأیید کن و سپس وارد شو.',true);return}}await boot()};
-$('logout').onclick=async()=>{await sb.auth.signOut();location.reload()};
-$('search').oninput=()=>renderMembers($('search').value.trim().toLowerCase());
-$('send').onclick=sendMessage;$('text').addEventListener('keydown',e=>{if(e.key==='Enter')sendMessage()});
-async function boot(){if(!configured){$('auth').classList.remove('hidden');return}const {data}=await sb.auth.getSession();if(data.session){currentUser=data.session.user;$('auth').classList.add('hidden');$('app').classList.remove('hidden');await loadMembers();await openFamilyGroup()}else{$('auth').classList.remove('hidden')}}
-async function loadMembers(){const {data,error}=await sb.from('family_members').select('user_id,display_name,role').order('display_name');if(error){$('members').innerHTML='<div class="empty danger">'+esc(error.message)+'</div>';return}membersCache=data||[];$('myAvatar').textContent=(data?.find(x=>x.user_id===currentUser.id)?.display_name||currentUser.email||'S').slice(0,1).toUpperCase();renderMembers('')}
-function renderMembers(q){const list=membersCache.filter(m=>(m.display_name||'').toLowerCase().includes(q));$('members').innerHTML=list.map(m=>`<div class="member" onclick="openFamilyGroup()"><div class="avatar">${esc((m.display_name||'?').slice(0,1).toUpperCase())}</div><div class="member-info"><div class="member-name">${esc(m.display_name||'عضو خانواده')}</div><div class="member-sub">${m.role==='admin'?'مدیر خانواده':'عضو خانواده'}</div></div></div>`).join('')||'<div class="empty">عضوی پیدا نشد.</div>'}
-async function openFamilyGroup(){currentConversation='family';$('headName').textContent='گروه خانواده ❤️';$('headStatus').textContent='چت خصوصی اعضای مجاز';$('headAvatar').textContent='👨‍👩‍👧‍👦';$('text').disabled=false;$('send').disabled=false;await loadMessages();subscribeRealtime()}
-async function loadMessages(){const {data,error}=await sb.from('messages').select('id,sender_id,content,created_at').order('created_at',{ascending:true}).limit(500);if(error){$('messages').innerHTML='<div class="empty danger">'+esc(error.message)+'</div>';return}$('messages').innerHTML='';(data||[]).forEach(renderMessage);$('messages').scrollTop=$('messages').scrollHeight}
-function renderMessage(m){const sender=membersCache.find(x=>x.user_id===m.sender_id);const el=document.createElement('div');el.className='bubble '+(m.sender_id===currentUser.id?'me':'other');el.innerHTML=(m.sender_id!==currentUser.id?`<div class="sender">${esc(sender?.display_name||'عضو خانواده')}</div>`:'')+esc(m.content);$('messages').appendChild(el)}
-function subscribeRealtime(){if(realtimeChannel)sb.removeChannel(realtimeChannel);realtimeChannel=sb.channel('family-messages').on('postgres_changes',{event:'INSERT',schema:'public',table:'messages'},payload=>{if(payload.new.sender_id!==currentUser.id)renderMessage(payload.new);$('messages').scrollTop=$('messages').scrollHeight}).subscribe()}
-async function sendMessage(){const content=$('text').value.trim();if(!content)return;const {error}=await sb.from('messages').insert({sender_id:currentUser.id,content});if(error){alert(error.message);return}$('text').value=''}
-if(configured)sb.auth.onAuthStateChange((_e,s)=>{if(s&&!currentUser){currentUser=s.user;boot()}});boot();
+
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://rahpltlgzcobmenuoiqd.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_2ZdKdM9fIF53_jnKrdgWnA_ixsn6hbA";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let currentUser = null;
+let currentProfile = null;
+let selectedUser = null;
+let realtimeChannel = null;
+let profileChannel = null;
+let authMode = "login";
+
+
+/* =========================================
+   DOM
+========================================= */
+
+const authPage =
+    document.getElementById("authPage");
+
+const appPage =
+    document.getElementById("appPage");
+
+const authButton =
+    document.getElementById("authButton");
+
+const switchAuth =
+    document.getElementById("switchAuth");
+
+const registerFields =
+    document.getElementById("registerFields");
+
+const authDescription =
+    document.getElementById("authDescription");
+
+const authError =
+    document.getElementById("authError");
+
+const emailInput =
+    document.getElementById("email");
+
+const passwordInput =
+    document.getElementById("password");
+
+const fullNameInput =
+    document.getElementById("fullName");
+
+const usernameInput =
+    document.getElementById("username");
+
+
+/* =========================================
+   AUTH MODE
+========================================= */
+
+switchAuth.onclick = function(){
+
+    authError.textContent = "";
+
+    if(authMode === "login"){
+
+        authMode = "register";
+
+        registerFields.style.display = "block";
+
+        authButton.textContent = "ثبت‌نام";
+
+        authDescription.textContent =
+            "حساب جدید خود را بسازید";
+
+        switchAuth.textContent =
+            "حساب دارید؟ وارد شوید";
+
+    }else{
+
+        authMode = "login";
+
+        registerFields.style.display = "none";
+
+        authButton.textContent = "ورود";
+
+        authDescription.textContent =
+            "وارد حساب خود شوید";
+
+        switchAuth.textContent =
+            "حساب ندارید؟ ثبت‌نام کنید";
+    }
+
+};
+
+
+/* =========================================
+   AUTH BUTTON
+========================================= */
+
+authButton.onclick = async function(){
+
+    authError.textContent = "";
+
+    const email =
+        emailInput.value.trim();
+
+    const password =
+        passwordInput.value;
+
+    if(!email || !password){
+
+        authError.textContent =
+            "ایمیل و رمز عبور را وارد کنید.";
+
+        return;
+    }
+
+    authButton.disabled = true;
+
+    try{
+
+        if(authMode === "login"){
+
+            const { error } =
+                await supabaseClient.auth.signInWithPassword({
+                    email,
+                    password
+                });
+
+            if(error) throw error;
+
+        }else{
+
+            const fullName =
+                fullNameInput.value.trim();
+
+            const username =
+                usernameInput.value.trim()
+                    .toLowerCase()
+                    .replace(/\s/g,"");
+
+            if(!fullName || !username){
+
+                throw new Error(
+                    "نام و نام کاربری را وارد کنید."
+                );
+            }
+
+            const { data, error } =
+                await supabaseClient.auth.signUp({
+
+                    email,
+                    password,
+
+                    options:{
+                        data:{
+                            full_name:fullName,
+                            username:username
+                        }
+                    }
+
+                });
+
+            if(error) throw error;
+
+            if(data.user){
+
+                await createOrUpdateProfile(
+                    data.user,
+                    fullName,
+                    username
+                );
+            }
+
+            alert(
+                "ثبت‌نام انجام شد. اگر تأیید ایمیل فعال باشد، ایمیل خود را تأیید کنید."
+            );
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        authError.textContent =
+            translateError(error.message);
+
+    }finally{
+
+        authButton.disabled = false;
+
+    }
+
+};
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    async (event, session)=>{
+
+        if(session && session.user){
+
+            currentUser =
+                session.user;
+
+            await startApplication();
+
+        }else{
+
+            currentUser = null;
+
+            showAuth();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   INITIAL SESSION
+========================================= */
+
+async function checkSession(){
+
+    const { data } =
+        await supabaseClient.auth.getSession();
+
+    if(data.session){
+
+        currentUser =
+            data.session.user;
+
+        await startApplication();
+
+    }else{
+
+        showAuth();
+
+    }
+
+}
+
+
+/* =========================================
+   SHOW AUTH
+========================================= */
+
+function showAuth(){
+
+    authPage.style.display =
+        "flex";
+
+    appPage.style.display =
+        "none";
+
+}
+
+
+/* =========================================
+   START APP
+========================================= */
+
+async function startApplication(){
+
+    authPage.style.display =
+        "none";
+
+    appPage.style.display =
+        "flex";
+
+    await loadMyProfile();
+
+    await loadUsers();
+
+    subscribeMessages();
+
+    subscribeProfiles();
+
+    await updateOnlineStatus(true);
+
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+async function createOrUpdateProfile(
+    user,
+    fullName,
+    username
+){
+
+    const { error } =
+        await supabaseClient
+        .from("profiles")
+        .upsert({
+
+            id:user.id,
+
+            full_name:
+                fullName ||
+                user.user_metadata?.full_name ||
+                "کاربر",
+
+            username:
+                username ||
+                user.user_metadata?.username ||
+                null,
+
+            is_online:true,
+
+            last_seen:new Date().toISOString()
+
+        });
+
+    if(error){
+
+        console.error(
+            "Profile error:",
+            error
+        );
+
+    }
+
+}
+
+
+async function loadMyProfile(){
+
+    if(!currentUser) return;
+
+    let { data, error } =
+        await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id",currentUser.id)
+        .maybeSingle();
+
+    if(error){
+
+        console.error(error);
+
+        return;
+
+    }
+
+    if(!data){
+
+        await createOrUpdateProfile(
+
+            currentUser,
+
+            currentUser.user_metadata?.full_name ||
+                "کاربر",
+
+            currentUser.user_metadata?.username ||
+                null
+
+        );
+
+        const result =
+            await supabaseClient
+            .from("profiles")
+            .select("*")
+            .eq("id",currentUser.id)
+            .maybeSingle();
+
+        data =
+            result.data;
+    }
+
+    currentProfile =
+        data;
+
+    updateMyUI();
+
+}
+
+
+function updateMyUI(){
+
+    if(!currentProfile) return;
+
+    const name =
+        currentProfile.full_name ||
+        currentProfile.username ||
+        "کاربر";
+
+    document.getElementById(
+        "myName"
+    ).textContent = name;
+
+    setAvatar(
+        document.getElementById("myAvatar"),
+        currentProfile
+    );
+
+}
+
+
+/* =========================================
+   AVATAR
+========================================= */
+
+function setAvatar(element, profile){
+
+    if(!element) return;
+
+    if(profile && profile.avatar_url){
+
+        element.innerHTML =
+            `<img src="${escapeAttribute(profile.avatar_url)}"
+             onerror="this.parentElement.textContent='س'">`;
+
+    }else{
+
+        const name =
+            profile?.full_name ||
+            profile?.username ||
+            "س";
+
+        element.textContent =
+            name.charAt(0).toUpperCase();
+
+    }
+
+}
+
+
+/* =========================================
+   LOAD USERS
+========================================= */
+
+async function loadUsers(search=""){
+
+    if(!currentUser) return;
+
+    let query =
+        supabaseClient
+        .from("profiles")
+        .select("*")
+        .neq("id",currentUser.id)
+        .order("is_online",{ascending:false})
+        .order("full_name",{ascending:true})
+        .limit(100);
+
+    if(search){
+
+        query =
+            query.or(
+                `username.ilike.%${escapeFilter(search)}%,full_name.ilike.%${escapeFilter(search)}%`
+            );
+
+    }
+
+    const { data, error } =
+        await query;
+
+    if(error){
+
+        console.error(error);
+
+        return;
+
+    }
+
+    renderUsers(data || []);
+
+}
+
+
+function renderUsers(users){
+
+    const list =
+        document.getElementById("usersList");
+
+    if(!users.length){
+
+        list.innerHTML =
+            `<div style="padding:30px;text-align:center;color:#777">
+                کاربری پیدا نشد
+            </div>`;
+
+        return;
+    }
+
+    list.innerHTML = "";
+
+    users.forEach(user=>{
+
+        const div =
+            document.createElement("div");
+
+        div.className =
+            "user" +
+            (
+                selectedUser &&
+                selectedUser.id === user.id
+                ? " active"
+                : ""
+            );
+
+        const avatar =
+            document.createElement("div");
+
+        avatar.className =
+            "avatar";
+
+        setAvatar(avatar,user);
+
+        const info =
+            document.createElement("div");
+
+        info.className =
+            "userInfo";
+
+        const name =
+            document.createElement("div");
+
+        name.className =
+            "userName";
+
+        name.innerHTML =
+            (user.is_online
+                ? `<span class="onlineDot"></span>`
+                : "") +
+            escapeHTML(
+                user.full_name ||
+                user.username ||
+                "کاربر"
+            );
+
+        const status =
+            document.createElement("div");
+
+        status.className =
+            "userStatus";
+
+        status.textContent =
+            user.is_online
+            ? "آنلاین"
+            : user.status ||
+              "آخرین بازدید مشخص نیست";
+
+        info.appendChild(name);
+        info.appendChild(status);
+
+        div.appendChild(avatar);
+        div.appendChild(info);
+
+        div.onclick = () =>
+            openChat(user);
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+let searchTimer;
+
+function searchUsers(){
+
+    clearTimeout(searchTimer);
+
+    searchTimer =
+        setTimeout(()=>{
+
+            const value =
+                document.getElementById(
+                    "searchInput"
+                ).value.trim();
+
+            loadUsers(value);
+
+        },300);
+
+}
+
+
+/* =========================================
+   OPEN CHAT
+========================================= */
+
+async function openChat(user){
+
+    selectedUser =
+        user;
+
+    appPage.classList.add(
+        "chatOpen"
+    );
+
+    document.getElementById(
+        "noChat"
+    ).style.display = "none";
+
+    document.getElementById(
+        "chatContent"
+    ).style.display = "flex";
+
+    document.getElementById(
+        "chatName"
+    ).textContent =
+        user.full_name ||
+        user.username ||
+        "کاربر";
+
+    document.getElementById(
+        "chatStatus"
+    ).textContent =
+        user.is_online
+        ? "آنلاین"
+        : "آفلاین";
+
+    setAvatar(
+        document.getElementById(
+            "chatAvatar"
+        ),
+        user
+    );
+
+    await loadMessages();
+
+    await markMessagesRead();
+
+    document.getElementById(
+        "messageInput"
+    ).focus();
+
+}
+
+
+/* =========================================
+   CLOSE MOBILE CHAT
+========================================= */
+
+function closeMobileChat(){
+
+    appPage.classList.remove(
+        "chatOpen"
+    );
+
+    selectedUser = null;
+
+}
+
+
+/* =========================================
+   LOAD MESSAGES
+========================================= */
+
+async function loadMessages(){
+
+    if(!currentUser || !selectedUser)
+        return;
+
+    const { data, error } =
+        await supabaseClient
+        .from("messages")
+        .select("*")
+        .or(
+            `and(sender_id.eq.${currentUser.id},receiver_id.eq.${selectedUser.id}),and(sender_id.eq.${selectedUser.id},receiver_id.eq.${currentUser.id})`
+        )
+        .order("created_at",{ascending:true});
+
+    if(error){
+
+        console.error(
+            "Messages error:",
+            error
+        );
+
+        showMessageError(
+            "خطا در دریافت پیام‌ها"
+        );
+
+        return;
+
+    }
+
+    renderMessages(data || []);
+
+}
+
+
+/* =========================================
+   RENDER MESSAGES
+========================================= */
+
+function renderMessages(messages){
+
+    const box =
+        document.getElementById(
+            "messages"
+        );
+
+    box.innerHTML = "";
+
+    if(!messages.length){
+
+        box.innerHTML =
+            `<div class="emptyChat">
+                هنوز پیامی وجود ندارد.<br>
+                اولین پیام را بفرستید 👋
+            </div>`;
+
+        return;
+
+    }
+
+    messages.forEach(message=>{
+
+        addMessageToUI(
+            message,
+            false
+        );
+
+    });
+
+    scrollMessages();
+
+}
+
+
+/* =========================================
+   ADD MESSAGE
+========================================= */
+
+function addMessageToUI(
+    message,
+    scroll=true
+){
+
+    const box =
+        document.getElementById(
+            "messages"
+        );
+
+    const empty =
+        box.querySelector(
+            ".emptyChat"
+        );
+
+    if(empty)
+        empty.remove();
+
+    const wrapper =
+        document.createElement("div");
+
+    const mine =
+        message.sender_id ===
+        currentUser.id;
+
+    wrapper.className =
+        "message " +
+        (mine ? "mine" : "theirs");
+
+    const bubble =
+        document.createElement("div");
+
+    bubble.className =
+        "bubble";
+
+    const text =
+        document.createElement("span");
+
+    text.textContent =
+        message.message;
+
+    const time =
+        document.createElement("span");
+
+    time.className =
+        "messageTime";
+
+    time.textContent =
+        formatTime(
+            message.created_at
+        );
+
+    if(mine){
+
+        const check =
+            document.createElement("span");
+
+        check.className =
+            "check";
+
+        check.textContent =
+            message.is_read
+            ? "✓✓"
+            : "✓";
+
+        time.appendChild(check);
+
+    }
+
+    bubble.appendChild(text);
+    bubble.appendChild(time);
+
+    wrapper.appendChild(bubble);
+
+    box.appendChild(wrapper);
+
+    if(scroll)
+        scrollMessages();
+
+}
+
+
+/* =========================================
+   SEND MESSAGE
+========================================= */
+
+async function sendMessage(){
+
+    if(!currentUser ||
+       !selectedUser)
+        return;
+
+    const input =
+        document.getElementById(
+            "messageInput"
+        );
+
+    const text =
+        input.value.trim();
+
+    if(!text)
+        return;
+
+    input.disabled = true;
+
+    const { data, error } =
+        await supabaseClient
+        .from("messages")
+        .insert({
+
+            sender_id:
+                currentUser.id,
+
+            receiver_id:
+                selectedUser.id,
+
+            message:text,
+
+            is_read:false
+
+        })
+        .select()
+        .single();
+
+    input.disabled = false;
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "پیام ارسال نشد:\n" +
+            error.message
+        );
+
+        return;
+
+    }
+
+    input.value = "";
+
+    /*
+      Realtime معمولاً خودش پیام را
+      به صفحه اضافه می‌کند.
+    */
+
+    if(data){
+
+        const exists =
+            document.querySelector(
+                `[data-message-id="${data.id}"]`
+            );
+
+        if(!exists){
+
+            addMessageToUI(
+                data,
+                true
+            );
+
+        }
+
+    }
+
+    input.focus();
+
+}
+
+
+/* =========================================
+   ENTER SEND
+========================================= */
+
+document.getElementById(
+    "messageInput"
+).addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            sendMessage();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   REALTIME MESSAGES
+========================================= */
+
+function subscribeMessages(){
+
+    if(realtimeChannel){
+
+        supabaseClient
+        .removeChannel(
+            realtimeChannel
+        );
+
+    }
+
+    realtimeChannel =
+        supabaseClient
+        .channel(
+            "sobhan-messages-" +
+            currentUser.id
+        )
+        .on(
+
+            "postgres_changes",
+
+            {
+                event:"INSERT",
+                schema:"public",
+                table:"messages"
+            },
+
+            payload=>{
+
+                const message =
+                    payload.new;
+
+                if(!currentUser)
+                    return;
+
+                const related =
+                    (
+                        message.sender_id ===
+                        currentUser.id &&
+                        selectedUser &&
+                        message.receiver_id ===
+                        selectedUser.id
+                    )
+                    ||
+                    (
+                        message.receiver_id ===
+                        currentUser.id &&
+                        selectedUser &&
+                        message.sender_id ===
+                        selectedUser.id
+                    );
+
+                if(related){
+
+                    const duplicate =
+                        [...document.querySelectorAll(
+                            ".message"
+                        )].some(el=>{
+
+                            return el.dataset &&
+                                   el.dataset.id ==
+                                   message.id;
+
+                        });
+
+                    if(!duplicate){
+
+                        addMessageToUI(
+                            message,
+                            true
+                        );
+
+                    }
+
+                    if(
+                        message.receiver_id ===
+                        currentUser.id
+                    ){
+
+                        markMessagesRead();
+
+                    }
+
+                }
+
+            }
+
+        )
+        .subscribe();
+
+}
+
+
+/* =========================================
+   READ MESSAGES
+========================================= */
+
+async function markMessagesRead(){
+
+    if(!currentUser ||
+       !selectedUser)
+        return;
+
+    const { error } =
+        await supabaseClient
+        .from("messages")
+        .update({
+            is_read:true
+        })
+        .eq(
+            "sender_id",
+            selectedUser.id
+        )
+        .eq(
+            "receiver_id",
+            currentUser.id
+        )
+        .eq(
+            "is_read",
+            false
+        );
+
+    if(error)
+        console.error(error);
+
+}
+
+
+/* =========================================
+   ONLINE STATUS
+========================================= */
+
+async function updateOnlineStatus(isOnline){
+
+    if(!currentUser)
+        return;
+
+    const { error } =
+        await supabaseClient
+        .from("profiles")
+        .update({
+
+            is_online:isOnline,
+
+            last_seen:
+                new Date().toISOString()
+
+        })
+        .eq(
+            "id",
+            currentUser.id
+        );
+
+    if(error)
+        console.error(error);
+
+}
+
+
+/* =========================================
+   PROFILE REALTIME
+========================================= */
+
+function subscribeProfiles(){
+
+    if(profileChannel){
+
+        supabaseClient
+        .removeChannel(
+            profileChannel
+        );
+
+    }
+
+    profileChannel =
+        supabaseClient
+        .channel(
+            "sobhan-profiles-" +
+            currentUser.id
+        )
+        .on(
+
+            "postgres_changes",
+
+            {
+                event:"*",
+                schema:"public",
+                table:"profiles"
+            },
+
+            async ()=>{
+                await loadUsers(
+                    document.getElementById(
+                        "searchInput"
+                    ).value.trim()
+                );
+
+                if(
+                    selectedUser
+                ){
+
+                    const { data } =
+                        await supabaseClient
+                        .from("profiles")
+                        .select("*")
+                        .eq(
+                            "id",
+                            selectedUser.id
+                        )
+                        .maybeSingle();
+
+                    if(data){
+
+                        selectedUser =
+                            data;
+
+                        document.getElementById(
+                            "chatName"
+                        ).textContent =
+                            data.full_name ||
+                            data.username ||
+                            "کاربر";
+
+                        document.getElementById(
+                            "chatStatus"
+                        ).textContent =
+                            data.is_online
+                            ? "آنلاین"
+                            : "آفلاین";
+
+                        setAvatar(
+                            document.getElementById(
+                                "chatAvatar"
+                            ),
+                            data
+                        );
+
+                    }
+
+                }
+
+            }
+
+        )
+        .subscribe();
+
+}
+
+
+/* =========================================
+   PROFILE MODAL
+========================================= */
+
+function openProfile(){
+
+    if(!currentProfile)
+        return;
+
+    document.getElementById(
+        "profileFullName"
+    ).value =
+        currentProfile.full_name || "";
+
+    document.getElementById(
+        "profileUsername"
+    ).value =
+        currentProfile.username || "";
+
+    document.getElementById(
+        "profileAvatar"
+    ).value =
+        currentProfile.avatar_url || "";
+
+    document.getElementById(
+        "profileStatus"
+    ).value =
+        currentProfile.status || "";
+
+    document.getElementById(
+        "profileError"
+    ).textContent = "";
+
+    document.getElementById(
+        "profileModal"
+    ).style.display =
+        "flex";
+
+}
+
+
+function closeProfile(){
+
+    document.getElementById(
+        "profileModal"
+    ).style.display =
+        "none";
+
+}
+
+
+async function saveProfile(){
+
+    const fullName =
+        document.getElementById(
+            "profileFullName"
+        ).value.trim();
+
+    const username =
+        document.getElementById(
+            "profileUsername"
+        ).value.trim()
+        .toLowerCase()
+        .replace(/\s/g,"");
+
+    const avatarUrl =
+        document.getElementById(
+            "profileAvatar"
+        ).value.trim();
+
+    const status =
+        document.getElementById(
+            "profileStatus"
+        ).value.trim();
+
+    if(!fullName){
+
+        document.getElementById(
+            "profileError"
+        ).textContent =
+            "نام را وارد کنید.";
+
+        return;
+
+    }
+
+    const { data, error } =
+        await supabaseClient
+        .from("profiles")
+        .update({
+
+            full_name:fullName,
+
+            username:
+                username || null,
+
+            avatar_url:
+                avatarUrl || null,
+
+            status:
+                status ||
+                "سلام! من از واتساب سبحان استفاده می‌کنم."
+
+        })
+        .eq(
+            "id",
+            currentUser.id
+        )
+        .select()
+        .single();
+
+    if(error){
+
+        document.getElementById(
+            "profileError"
+        ).textContent =
+            translateError(error.message);
+
+        return;
+
+    }
+
+    currentProfile =
+        data;
+
+    updateMyUI();
+
+    closeProfile();
+
+    await loadUsers();
+
+}
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+async function logout(){
+
+    await updateOnlineStatus(false);
+
+    await supabaseClient.auth.signOut();
+
+    selectedUser = null;
+
+    if(realtimeChannel){
+
+        await supabaseClient
+        .removeChannel(
+            realtimeChannel
+        );
+
+        realtimeChannel = null;
+
+    }
+
+    if(profileChannel){
+
+        await supabaseClient
+        .removeChannel(
+            profileChannel
+        );
+
+        profileChannel = null;
+
+    }
+
+    showAuth();
+
+}
+
+
+/* =========================================
+   PAGE CLOSE
+========================================= */
+
+window.addEventListener(
+    "beforeunload",
+    function(){
+
+        if(currentUser){
+
+            /*
+              تلاش برای ثبت آخرین وضعیت
+            */
+            supabaseClient
+            .from("profiles")
+            .update({
+                is_online:false,
+                last_seen:
+                    new Date().toISOString()
+            })
+            .eq(
+                "id",
+                currentUser.id
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   HELPERS
+========================================= */
+
+function scrollMessages(){
+
+    const box =
+        document.getElementById(
+            "messages"
+        );
+
+    box.scrollTop =
+        box.scrollHeight;
+
+}
+
+
+function formatTime(date){
+
+    try{
+
+        return new Date(date)
+            .toLocaleTimeString(
+                "fa-IR",
+                {
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            );
+
+    }catch{
+
+        return "";
+
+    }
+
+}
+
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+function escapeAttribute(text){
+
+    return String(text)
+        .replace(/"/g,"%22")
+        .replace(/'/g,"%27");
+
+}
+
+
+function escapeFilter(text){
+
+    return String(text)
+        .replace(/[%_]/g,"");
+}
+
+
+function translateError(message){
+
+    if(!message)
+        return "خطای نامشخص";
+
+    if(
+        message.includes(
+            "Invalid login credentials"
+        )
+    )
+        return "ایمیل یا رمز عبور اشتباه است.";
+
+    if(
+        message.includes(
+            "User already registered"
+        )
+    )
+        return "این ایمیل قبلاً ثبت‌نام شده است.";
+
+    if(
+        message.includes(
+            "Email not confirmed"
+        )
+    )
+        return "ابتدا ایمیل خود را تأیید کنید.";
+
+    if(
+        message.includes(
+            "duplicate key"
+        )
+    )
+        return "این نام کاربری قبلاً استفاده شده است.";
+
+    return message;
+
+}
+
+
+function showMessageError(text){
+
+    document.getElementById(
+        "messages"
+    ).innerHTML =
+        `<div class="emptyChat">
+            ${escapeHTML(text)}
+        </div>`;
+
+}
+
+
+/* =========================================
+   START
+========================================= */
+
+checkSession();
+
 </script>
+
 </body>
 </html>
