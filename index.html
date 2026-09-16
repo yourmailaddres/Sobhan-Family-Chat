@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobhan Chat</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Tahoma,Arial,sans-serif;background:#0b141a;color:#e9edef}body{overflow:hidden}.app{height:100vh;display:flex;max-width:1500px;margin:auto;background:#111b21}.sidebar{width:360px;background:#111b21;border-left:1px solid #26353d;display:flex;flex-direction:column}.top{height:70px;background:#202c33;display:flex;align-items:center;justify-content:space-between;padding:10px 14px}.avatar{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:#00a884;color:#fff;font-weight:700}.icons{display:flex;gap:18px;font-size:24px}.icon{color:#d1d7db;cursor:pointer}.search{padding:10px;background:#111b21}.search input{width:100%;padding:12px 15px;border:0;border-radius:8px;background:#202c33;color:#fff;outline:none}.chat-list{overflow:auto}.chat{height:78px;padding:10px 14px;display:flex;gap:12px;align-items:center;border-bottom:1px solid #202c33;cursor:pointer}.chat:hover,.chat.active{background:#202c33}.chat .info{flex:1}.name{font-size:16px}.preview{color:#8696a0;font-size:13px;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.time{color:#8696a0;font-size:11px;align-self:flex-start}.main{flex:1;display:flex;flex-direction:column;background:#0b141a;min-width:0}.welcome{margin:auto;text-align:center;color:#8696a0;padding:25px}.welcome h1{color:#e9edef;font-size:30px;margin-bottom:12px}.welcome p{line-height:2}.header{display:none;height:70px;background:#202c33;align-items:center;gap:12px;padding:10px 16px}.back{display:none;font-size:32px;cursor:pointer}.headinfo{flex:1}.status{font-size:12px;color:#8696a0;margin-top:4px}.messages{display:none;flex:1;overflow:auto;padding:25px 7%;background:radial-gradient(circle at center,#17252d 0,#0b141a 70%)}.bubble{max-width:70%;padding:9px 12px;margin:7px 0;border-radius:8px;line-height:1.7;white-space:pre-wrap;clear:both}.me{float:right;background:#005c4b;border-top-right-radius:2px}.them{float:left;background:#202c33;border-top-left-radius:2px}.ai{background:#183027;border:1px solid #1ca88955}.composer{display:none;gap:10px;padding:10px 16px;background:#202c33}.composer input{flex:1;border:0;outline:0;background:#2a3942;color:#fff;border-radius:9px;padding:13px 16px;font-size:15px}.send{width:48px;height:48px;border:0;border-radius:50%;background:#00a884;color:#fff;font-size:20px;cursor:pointer}.empty{padding:30px;text-align:center;color:#8696a0}@media(max-width:700px){.sidebar{width:100%}.main{display:none}.app.open .sidebar{display:none}.app.open .main{display:flex}.back{display:block}.messages{padding:18px 4%}.bubble{max-width:85%}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<aside class="sidebar">
+<div class="top"><div class="avatar">S</div><div class="icons"><span class="icon">⌕</span><span class="icon">⋮</span></div></div>
+<div class="search"><input id="search" placeholder="جستجوی گفتگو"></div>
+<div class="chat-list">
+<div class="chat" data-name="هوش مصنوعی" data-ai="1" onclick="openChat(this)"><div class="avatar">AI</div><div class="info"><div class="name">هوش مصنوعی 🤖</div><div class="preview">دستیار هوشمند Sobhan Chat</div></div><div class="time">اکنون</div></div>
+<div class="chat" data-name="یادداشت‌های من" onclick="openChat(this)"><div class="avatar">ش</div><div class="info"><div class="name">یادداشت‌های من</div><div class="preview">گفتگوی شخصی</div></div><div class="time">—</div></div>
+</div></aside>
+<main class="main">
+<div class="welcome" id="welcome"><h1>Sobhan Chat</h1><p>یک گفتگو را انتخاب کن تا شروع کنیم.</p></div>
+<div class="header" id="header"><span class="back" onclick="closeChat()">‹</span><div class="avatar" id="headAvatar">AI</div><div class="headinfo"><div id="headName">هوش مصنوعی</div><div class="status" id="status">آنلاین</div></div></div>
+<div class="messages" id="messages"></div>
+<div class="composer" id="composer"><input id="msg" placeholder="پیام خود را بنویسید..." autocomplete="off"><button class="send" onclick="sendMessage()">➤</button></div>
+</main></div>
+<script>
+let currentKey='', currentAI=false;
+const app=document.getElementById('app'), welcome=document.getElementById('welcome'), header=document.getElementById('header'), messages=document.getElementById('messages'), composer=document.getElementById('composer'), msg=document.getElementById('msg');
+function openChat(el){currentAI=el.dataset.ai==='1';currentKey='sobhan_'+el.dataset.name;app.classList.add('open');welcome.style.display='none';header.style.display='flex';messages.style.display='block';composer.style.display='flex';document.getElementById('headName').textContent=el.dataset.name;document.getElementById('headAvatar').textContent=currentAI?'AI':'ش';messages.innerHTML='';let data=JSON.parse(localStorage.getItem(currentKey)||'[]');if(!data.length){addBubble(currentAI?'سلام 👋 من دستیار Sobhan Chat هستم. پیامت رو بفرست.':'این گفتگوی شخصی توست. پیام‌ها روی همین مرورگر ذخیره می‌شوند.','them',false)}else data.forEach(x=>addBubble(x.text,x.who,false));msg.focus()}
+function closeChat(){app.classList.remove('open')}
+function addBubble(text,who,saveIt=true){let d=document.createElement('div');d.className='bubble '+who+(who==='ai'?' ai':'');d.textContent=text;messages.appendChild(d);messages.scrollTop=messages.scrollHeight;if(saveIt)save(text,who)}
+function save(text,who){if(!currentKey)return;let a=JSON.parse(localStorage.getItem(currentKey)||'[]');a.push({text,who});localStorage.setItem(currentKey,JSON.stringify(a))}
+function aiReply(t){let x=t.toLowerCase();if(/سلام|hello|hi/.test(x))return'سلام داداش 👋 خوش اومدی! چه کمکی می‌خوای؟';if(/اسمت|نامت/.test(x))return'من دستیار هوش مصنوعی Sobhan Chat هستم 🤖';if(/کمک|راهنما/.test(x))return'حتماً. درخواستت رو واضح بنویس تا قدم‌به‌قدم راهنماییت کنم.';if(/مرسی|ممنون/.test(x))return'خواهش می‌کنم ❤️';return'پیامت دریافت شد ✅ این نسخه رابط و چت محلی را دارد. برای هوش مصنوعی واقعی باید در مرحله بعد به یک API امن در سرور وصلش کنیم.'}
+function sendMessage(){let t=msg.value.trim();if(!t)return;addBubble(t,'me');msg.value='';if(currentAI)setTimeout(()=>addBubble(aiReply(t),'them'),450)}
+msg.addEventListener('keydown',e=>{if(e.key==='Enter')sendMessage()});document.getElementById('search').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('.chat').forEach(c=>c.style.display=c.dataset.name.toLowerCase().includes(q)?'flex':'none')});
+</script></body></html>
