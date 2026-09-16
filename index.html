@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
@@ -14,91 +14,187 @@
 }
 
 body{
-    overflow:hidden;
+    font-family:Arial,sans-serif;
     background:#f7f7f7;
-    font-family:Arial,Tahoma,sans-serif;
-    touch-action:none;
-}
-
-#game{
-    position:relative;
-    width:100vw;
-    height:100vh;
-    overflow:hidden;
-    background:#f7f7f7;
-}
-
-/* HEADER */
-
-#header{
-    position:absolute;
-    top:18px;
-    left:0;
-    width:100%;
+    min-height:100vh;
     display:flex;
     justify-content:center;
-    gap:35px;
+    align-items:center;
+    overflow:hidden;
+    transition:.5s;
+}
+
+body.night{
+    background:#111827;
+}
+
+.game{
+    width:min(1100px,96vw);
+    height:min(650px,94vh);
+    background:#fff;
+    border:3px solid #222;
+    border-radius:22px;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 20px 60px #0003;
+    transition:.5s;
+}
+
+body.night .game{
+    background:#172033;
+    border-color:#777;
+}
+
+.top{
+    height:85px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 22px;
+    position:relative;
     z-index:20;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+    color:#222;
+}
+
+body.night .logo{
+    color:#fff;
+}
+
+.scoreBox{
+    font-size:20px;
     font-weight:bold;
-    font-size:18px;
-    color:#555;
+    direction:ltr;
 }
 
-#score,
-#highScore{
-    min-width:130px;
-    text-align:center;
+body.night .scoreBox{
+    color:#fff;
 }
 
-/* SKY */
+.controls{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
 
-#sky{
+.btn{
+    border:0;
+    background:#222;
+    color:#fff;
+    border-radius:12px;
+    padding:10px 13px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+body.night .btn{
+    background:#eee;
+    color:#111;
+}
+
+.volumeBox{
     position:absolute;
-    inset:0;
-    background:linear-gradient(
-        #f7f7f7 0%,
-        #f7f7f7 72%,
-        #eeeeee 72%,
-        #eeeeee 100%
-    );
+    top:75px;
+    left:20px;
+    background:#fff;
+    border:2px solid #222;
+    border-radius:14px;
+    padding:12px;
+    display:none;
+    z-index:50;
+    box-shadow:0 8px 25px #0003;
 }
 
-/* SUN */
+body.night .volumeBox{
+    background:#222b3d;
+    border-color:#777;
+}
 
-#sun{
+.volumeBox.show{
+    display:block;
+}
+
+.volumeBox label{
+    display:block;
+    margin-bottom:7px;
+    font-weight:bold;
+}
+
+#volume{
+    width:150px;
+}
+
+.sky{
+    position:absolute;
+    left:0;
+    right:0;
+    top:85px;
+    bottom:75px;
+    overflow:hidden;
+}
+
+.sun{
     position:absolute;
     width:70px;
     height:70px;
     border-radius:50%;
-    background:#ffd84d;
-    right:12%;
-    top:15%;
-    box-shadow:0 0 35px #ffd84d88;
+    background:#ffd83d;
+    top:35px;
+    right:90px;
+    box-shadow:0 0 35px #ffd83d88;
 }
 
-/* CLOUDS */
+.moon{
+    position:absolute;
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:#f5f5f5;
+    top:35px;
+    right:90px;
+    box-shadow:0 0 30px #fff8;
+    display:none;
+}
+
+body.night .sun{
+    display:none;
+}
+
+body.night .moon{
+    display:block;
+}
 
 .cloud{
     position:absolute;
-    width:100px;
-    height:25px;
+    width:110px;
+    height:30px;
+    background:#fff;
     border-radius:30px;
-    background:#ddd;
-    opacity:.65;
+    opacity:.8;
+    animation:cloudMove 35s linear infinite;
 }
 
 .cloud:before,
 .cloud:after{
     content:"";
     position:absolute;
+    background:#fff;
     border-radius:50%;
-    background:#ddd;
 }
 
 .cloud:before{
     width:45px;
     height:45px;
-    left:18px;
+    left:20px;
     top:-20px;
 }
 
@@ -106,560 +202,773 @@ body{
     width:55px;
     height:55px;
     right:15px;
-    top:-30px;
+    top:-28px;
 }
 
-.c1{
-    top:20%;
-    left:15%;
+.cloud1{
+    top:75px;
+    left:-150px;
 }
 
-.c2{
-    top:34%;
-    left:55%;
+.cloud2{
+    top:155px;
+    left:-350px;
+    animation-delay:-15s;
     transform:scale(.7);
 }
 
-.c3{
-    top:12%;
-    left:75%;
-    transform:scale(.5);
+@keyframes cloudMove{
+    from{transform:translateX(0)}
+    to{transform:translateX(1300px)}
 }
 
-/* GROUND */
-
-#ground{
+.ground{
     position:absolute;
+    bottom:0;
     left:0;
-    bottom:22%;
     width:100%;
-    height:4px;
-    background:#555;
+    height:75px;
+    border-top:4px solid #333;
 }
 
-#groundLines{
+body.night .ground{
+    border-color:#ddd;
+}
+
+.groundLine{
     position:absolute;
-    left:0;
-    bottom:calc(22% - 25px);
     width:100%;
-    height:35px;
-    overflow:hidden;
+    height:8px;
+    top:18px;
+    background:repeating-linear-gradient(
+        90deg,
+        #333 0px,
+        #333 45px,
+        transparent 45px,
+        transparent 80px
+    );
+    animation:groundMove .45s linear infinite;
 }
 
-.line{
-    position:absolute;
-    height:3px;
-    background:#777;
+body.night .groundLine{
+    background:repeating-linear-gradient(
+        90deg,
+        #ddd 0px,
+        #ddd 45px,
+        transparent 45px,
+        transparent 80px
+    );
 }
 
-/* PLAYER */
+@keyframes groundMove{
+    from{transform:translateX(0)}
+    to{transform:translateX(-80px)}
+}
 
-#dino{
+.dino{
     position:absolute;
-    width:58px;
+    bottom:73px;
+    left:100px;
+    width:55px;
     height:65px;
-    bottom:calc(22% + 5px);
-    left:12%;
     z-index:10;
 }
 
-.dino-body{
+.dinoBody{
     position:absolute;
     width:38px;
-    height:40px;
-    background:#333;
-    right:5px;
-    bottom:5px;
-    border-radius:5px 12px 4px 4px;
-}
-
-.dino-head{
-    position:absolute;
-    width:38px;
-    height:30px;
-    background:#333;
+    height:42px;
     right:0;
-    top:0;
-    border-radius:7px 10px 2px 2px;
+    bottom:10px;
+    background:#222;
+    border-radius:8px 13px 5px 5px;
 }
 
-.dino-head:after{
-    content:"";
+.dinoHead{
+    position:absolute;
+    width:40px;
+    height:32px;
+    right:12px;
+    top:0;
+    background:#222;
+    border-radius:8px 12px 3px 3px;
+}
+
+.eye{
     position:absolute;
     width:5px;
     height:5px;
-    background:white;
-    border-radius:50%;
-    right:8px;
+    background:#fff;
+    right:9px;
     top:7px;
-}
-
-.dino-neck{
-    position:absolute;
-    width:12px;
-    height:25px;
-    background:#333;
-    right:27px;
-    top:20px;
-}
-
-.leg{
-    position:absolute;
-    width:8px;
-    height:25px;
-    background:#333;
-    bottom:0;
-}
-
-.leg1{
-    right:28px;
-}
-
-.leg2{
-    right:10px;
+    border-radius:50%;
 }
 
 .tail{
     position:absolute;
-    width:35px;
-    height:8px;
-    background:#333;
+    width:27px;
+    height:12px;
+    background:#222;
     left:0;
-    bottom:22px;
-    transform:rotate(-18deg);
-    transform-origin:right;
+    bottom:28px;
+    transform:rotate(-25deg);
+    border-radius:10px;
 }
 
-/* CACTUS */
-
-.cactus{
+.leg{
     position:absolute;
-    bottom:calc(22% + 5px);
-    width:25px;
-    height:55px;
+    width:9px;
+    height:23px;
+    background:#222;
+    bottom:0;
+    border-radius:0 0 5px 5px;
+}
+
+.leg1{right:9px}
+.leg2{right:28px}
+
+.dino.jump{
+    animation:jump .65s ease-out;
+}
+
+@keyframes jump{
+    0%{bottom:73px}
+    45%{bottom:235px}
+    100%{bottom:73px}
+}
+
+.obstacle{
+    position:absolute;
+    bottom:73px;
+    right:-80px;
     z-index:9;
 }
 
-.cactus-main{
+.cactus{
+    width:30px;
+    height:65px;
+    background:#198754;
+    border-radius:5px 5px 2px 2px;
+}
+
+.cactus:before,
+.cactus:after{
+    content:"";
     position:absolute;
+    background:#198754;
     width:15px;
-    height:55px;
-    background:#333;
-    left:5px;
-    bottom:0;
-    border-radius:3px;
+    border-radius:8px;
 }
 
-.cactus-arm{
-    position:absolute;
-    width:11px;
+.cactus:before{
     height:30px;
-    background:#333;
-    border-radius:3px;
+    left:-12px;
+    top:22px;
 }
 
-.cactus-arm.left{
-    left:-3px;
-    top:25px;
+.cactus:after{
+    height:24px;
+    right:-10px;
+    top:10px;
 }
-
-.cactus-arm.right{
-    right:-3px;
-    top:12px;
-}
-
-/* BIRD */
 
 .bird{
-    position:absolute;
-    width:45px;
-    height:25px;
-    z-index:8;
+    width:58px;
+    height:30px;
 }
 
-.bird-body{
+.birdBody{
     position:absolute;
-    width:18px;
-    height:10px;
+    width:35px;
+    height:18px;
     background:#555;
-    left:13px;
+    border-radius:50%;
     top:8px;
+    left:10px;
 }
 
-.wing{
+.birdWing{
     position:absolute;
-    width:22px;
-    height:8px;
-    border-top:4px solid #555;
-}
-
-.wing.left{
+    width:28px;
+    height:12px;
+    background:#555;
     left:0;
     top:2px;
-    transform:rotate(20deg);
+    transform:rotate(25deg);
 }
 
-.wing.right{
+.birdHead{
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:#555;
     right:0;
     top:2px;
-    transform:rotate(-20deg);
+    border-radius:50%;
 }
 
-/* START SCREEN */
+.birdEye{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:#fff;
+    right:5px;
+    top:5px;
+    border-radius:50%;
+}
 
-#startScreen,
-#gameOver{
+.startScreen,
+.gameOverScreen{
     position:absolute;
     inset:0;
-    z-index:50;
+    background:#0008;
     display:flex;
     justify-content:center;
     align-items:center;
-    flex-direction:column;
-    background:#f7f7f7dd;
-    backdrop-filter:blur(4px);
+    z-index:100;
 }
 
-.title{
-    font-size:55px;
-    font-weight:900;
+.card{
+    background:#fff;
     color:#222;
-    margin-bottom:10px;
+    padding:30px;
+    width:min(430px,90%);
+    border-radius:22px;
+    text-align:center;
+    box-shadow:0 15px 50px #0006;
 }
 
-.subtitle{
-    color:#666;
-    margin-bottom:25px;
-    font-size:18px;
+body.night .card{
+    background:#202b3d;
+    color:#fff;
 }
 
-button{
+.card h1{
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.card p{
+    margin:10px 0;
+    line-height:1.8;
+}
+
+.startBtn{
+    margin-top:15px;
     border:0;
-    background:#333;
-    color:white;
-    padding:14px 32px;
-    border-radius:10px;
-    font-size:18px;
+    background:#111;
+    color:#fff;
+    padding:15px 35px;
+    border-radius:14px;
+    font-size:20px;
+    font-weight:bold;
     cursor:pointer;
 }
 
-button:active{
-    transform:scale(.96);
+body.night .startBtn{
+    background:#fff;
+    color:#111;
 }
 
 .hidden{
     display:none!important;
 }
 
-#finalScore{
-    font-size:20px;
-    margin-bottom:20px;
-    color:#444;
+.bottomInfo{
+    position:absolute;
+    bottom:12px;
+    left:20px;
+    right:20px;
+    text-align:center;
+    font-size:13px;
+    color:#777;
+    z-index:20;
 }
 
-/* MOBILE */
-
-#mobileHint{
-    position:absolute;
-    bottom:30px;
-    width:100%;
-    text-align:center;
-    color:#888;
-    font-size:14px;
-    z-index:30;
+body.night .bottomInfo{
+    color:#bbb;
 }
 
 @media(max-width:600px){
+    .game{
+        width:100vw;
+        height:100vh;
+        border-radius:0;
+        border:0;
+    }
 
-    #header{
+    .top{
+        height:75px;
+        padding:12px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .scoreBox{
+        font-size:16px;
+    }
+
+    .btn{
+        padding:8px 9px;
         font-size:14px;
-        gap:10px;
     }
 
-    #score,
-    #highScore{
-        min-width:105px;
+    .dino{
+        left:55px;
     }
 
-    .title{
-        font-size:40px;
+    .sun,.moon{
+        right:35px;
     }
 
-    #mobileHint{
-        display:block;
+    .sky{
+        top:75px;
     }
-}
 
-@media(min-width:601px){
-    #mobileHint{
-        display:none;
+    .ground{
+        height:65px;
     }
-}
 
-/* NIGHT */
-
-.night #sky{
-    background:linear-gradient(
-        #182235 0%,
-        #182235 72%,
-        #111820 72%,
-        #111820 100%
-    );
-}
-
-.night #sun{
-    background:#eee;
-    box-shadow:0 0 20px #fff8;
-}
-
-.night .cloud{
-    background:#303b4d;
-}
-
-.night .cloud:before,
-.night .cloud:after{
-    background:#303b4d;
-}
-
-.night #ground{
-    background:#aaa;
-}
-
-.night #groundLines .line{
-    background:#777;
-}
-
-.night .title{
-    color:white;
-}
-
-.night #startScreen,
-.night #gameOver{
-    background:#182235dd;
-}
-
-.night .subtitle,
-.night #finalScore{
-    color:#ddd;
-}
-
-.night #mobileHint{
-    color:#aaa;
+    .dino,
+    .obstacle{
+        bottom:63px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div id="game">
+<div class="game">
 
-    <div id="sky"></div>
+    <div class="top">
 
-    <div id="sun"></div>
+        <div class="logo">
+            🦖 SOBHAN DINO
+        </div>
 
-    <div class="cloud c1"></div>
-    <div class="cloud c2"></div>
-    <div class="cloud c3"></div>
+        <div class="scoreBox">
+            SCORE: <span id="score">00000</span>
+            &nbsp;&nbsp;
+            HI: <span id="highScore">00000</span>
+        </div>
 
-    <div id="header">
-        <div id="score">امتیاز: 00000</div>
-        <div id="highScore">رکورد: 00000</div>
+        <div class="controls">
+
+            <button class="btn" id="soundBtn" onclick="toggleSound()">
+                🔊
+            </button>
+
+            <button class="btn" onclick="toggleVolume()">
+                🎚️
+            </button>
+
+            <button class="btn" onclick="toggleNight()">
+                🌙
+            </button>
+
+        </div>
+
+        <div class="volumeBox" id="volumeBox">
+            <label>ولوم آهنگ</label>
+            <input
+                id="volume"
+                type="range"
+                min="0"
+                max="100"
+                value="35"
+                oninput="changeVolume(this.value)"
+            >
+        </div>
+
     </div>
 
-    <div id="ground"></div>
-    <div id="groundLines"></div>
+    <div class="sky">
 
-    <!-- DINO -->
+        <div class="sun"></div>
+        <div class="moon"></div>
 
-    <div id="dino">
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
 
-        <div class="tail"></div>
+        <div id="obstacles"></div>
 
-        <div class="dino-body"></div>
+        <div class="dino" id="dino">
 
-        <div class="dino-neck"></div>
+            <div class="dinoHead">
+                <div class="eye"></div>
+            </div>
 
-        <div class="dino-head"></div>
+            <div class="dinoBody"></div>
 
-        <div class="leg leg1"></div>
-        <div class="leg leg2"></div>
+            <div class="tail"></div>
+
+            <div class="leg leg1"></div>
+            <div class="leg leg2"></div>
+
+        </div>
+
+        <div class="ground">
+            <div class="groundLine"></div>
+        </div>
 
     </div>
 
-    <div id="mobileHint">
-        برای پرش روی صفحه ضربه بزن
+    <div class="bottomInfo">
+        Space / ↑ / لمس صفحه = پرش
     </div>
+
 
     <!-- START -->
 
-    <div id="startScreen">
+    <div class="startScreen" id="startScreen">
 
-        <div class="title">
-            🦖 DINO
+        <div class="card">
+
+            <h1>🦖 SOBHAN DINO</h1>
+
+            <p>
+                آماده‌ای رکورد بزنی؟ 🔥
+            </p>
+
+            <p>
+                با پرش از کاکتوس‌ها و پرنده‌ها عبور کن.
+            </p>
+
+            <button class="startBtn" onclick="startGame()">
+                ▶ شروع بازی
+            </button>
+
         </div>
-
-        <div class="subtitle">
-            بازی Dino - ساخته شده برای Sobhan
-        </div>
-
-        <button id="startButton">
-            شروع بازی
-        </button>
 
     </div>
 
+
     <!-- GAME OVER -->
 
-    <div id="gameOver" class="hidden">
+    <div class="gameOverScreen hidden" id="gameOverScreen">
 
-        <div class="title">
-            GAME OVER
+        <div class="card">
+
+            <h1>💥 GAME OVER</h1>
+
+            <p>
+                امتیاز شما:
+                <strong id="finalScore">0</strong>
+            </p>
+
+            <p>
+                رکورد:
+                <strong id="finalHighScore">0</strong>
+            </p>
+
+            <button class="startBtn" onclick="restartGame()">
+                🔄 دوباره بازی کن
+            </button>
+
         </div>
-
-        <div id="finalScore">
-            امتیاز: 0
-        </div>
-
-        <button id="restartButton">
-            دوباره بازی کن
-        </button>
 
     </div>
 
 </div>
 
 
+<!-- آهنگ اصلی -->
+
+<audio
+    id="bgMusic"
+    loop
+    preload="auto"
+>
+    <source
+        src="https://dl.musicdel.ir/Music/1404/06/Jafar-Dodakh%20-musicdel.ir.mp3"
+        type="audio/mpeg"
+    >
+</audio>
+
+
 <script>
 
 /* =========================
-   GAME VARIABLES
+   SETTINGS
 ========================= */
 
-const game =
-document.getElementById("game");
+const bgMusic = document.getElementById("bgMusic");
+
+let soundEnabled = true;
+let volume = 0.35;
+
+let gameRunning = false;
+let gameOver = false;
+
+let score = 0;
+
+let highScore =
+    Number(localStorage.getItem("sobhanDinoHighScore")) || 0;
+
+let speed = 6;
+
+let obstacleTimer = null;
+let scoreTimer = null;
 
 const dino =
-document.getElementById("dino");
+    document.getElementById("dino");
 
-const scoreText =
-document.getElementById("score");
+const obstacles =
+    document.getElementById("obstacles");
 
-const highScoreText =
-document.getElementById("highScore");
+const scoreElement =
+    document.getElementById("score");
+
+const highScoreElement =
+    document.getElementById("highScore");
 
 const startScreen =
-document.getElementById("startScreen");
+    document.getElementById("startScreen");
 
 const gameOverScreen =
-document.getElementById("gameOver");
+    document.getElementById("gameOverScreen");
 
 const finalScore =
-document.getElementById("finalScore");
+    document.getElementById("finalScore");
 
-const startButton =
-document.getElementById("startButton");
+const finalHighScore =
+    document.getElementById("finalHighScore");
 
-const restartButton =
-document.getElementById("restartButton");
+const soundBtn =
+    document.getElementById("soundBtn");
 
-const groundLines =
-document.getElementById("groundLines");
+highScoreElement.textContent =
+    String(highScore).padStart(5,"0");
 
-
-let running=false;
-
-let score=0;
-
-let highScore=
-Number(localStorage.getItem("sobhanDinoHighScore") || 0);
-
-let speed=7;
-
-let gravity=.8;
-
-let velocityY=0;
-
-let dinoY=0;
-
-let jumping=false;
-
-let lastTime=0;
-
-let obstacleTimer=0;
-
-let birdTimer=0;
-
-let groundTimer=0;
-
-let nightTimer=0;
-
-let obstacles=[];
-
-let birds=[];
+bgMusic.volume = volume;
 
 
 /* =========================
-   HIGH SCORE
+   AUDIO ENGINE
 ========================= */
 
-function updateHighScore(){
+let audioContext = null;
 
-    highScoreText.textContent =
-        "رکورد: " +
-        String(highScore).padStart(5,"0");
+function initAudio(){
+
+    if(!audioContext){
+
+        audioContext =
+            new (window.AudioContext ||
+                 window.webkitAudioContext)();
+
+    }
+
+    if(audioContext.state === "suspended"){
+        audioContext.resume();
+    }
+}
+
+
+/* صدای پرش */
+
+function jumpSound(){
+
+    if(!soundEnabled) return;
+
+    initAudio();
+
+    const oscillator =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+    oscillator.type = "square";
+
+    oscillator.frequency.setValueAtTime(
+        520,
+        audioContext.currentTime
+    );
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+        850,
+        audioContext.currentTime + 0.12
+    );
+
+    gain.gain.setValueAtTime(
+        0.001,
+        audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.13,
+        audioContext.currentTime + 0.02
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioContext.currentTime + 0.16
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime + 0.17
+    );
+}
+
+
+/* صدای Game Over */
+
+function gameOverSound(){
+
+    if(!soundEnabled) return;
+
+    initAudio();
+
+    const oscillator =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+    oscillator.type = "sawtooth";
+
+    oscillator.frequency.setValueAtTime(
+        280,
+        audioContext.currentTime
+    );
+
+    oscillator.frequency.exponentialRampToValueAtTime(
+        70,
+        audioContext.currentTime + 0.55
+    );
+
+    gain.gain.setValueAtTime(
+        0.001,
+        audioContext.currentTime
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.25,
+        audioContext.currentTime + 0.03
+    );
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.001,
+        audioContext.currentTime + 0.6
+    );
+
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+
+    oscillator.start();
+
+    oscillator.stop(
+        audioContext.currentTime + 0.62
+    );
+}
+
+
+/* =========================
+   SOUND BUTTON
+========================= */
+
+function toggleSound(){
+
+    soundEnabled = !soundEnabled;
+
+    if(soundEnabled){
+
+        soundBtn.textContent = "🔊";
+
+        if(gameRunning){
+
+            bgMusic.play().catch(()=>{});
+
+        }
+
+    }else{
+
+        soundBtn.textContent = "🔇";
+
+        bgMusic.pause();
+
+    }
+}
+
+
+/* =========================
+   VOLUME
+========================= */
+
+function toggleVolume(){
+
+    document
+        .getElementById("volumeBox")
+        .classList.toggle("show");
 
 }
 
-updateHighScore();
+function changeVolume(value){
+
+    volume =
+        Number(value) / 100;
+
+    bgMusic.volume =
+        soundEnabled ? volume : 0;
+
+}
 
 
 /* =========================
-   START
+   NIGHT MODE
+========================= */
+
+function toggleNight(){
+
+    document.body.classList.toggle("night");
+
+}
+
+
+/* =========================
+   START GAME
 ========================= */
 
 function startGame(){
+
+    initAudio();
+
+    gameRunning = true;
+    gameOver = false;
+
+    score = 0;
+    speed = 6;
+
+    scoreElement.textContent = "00000";
 
     startScreen.classList.add("hidden");
 
     gameOverScreen.classList.add("hidden");
 
-    running=true;
+    obstacles.innerHTML = "";
 
-    score=0;
+    if(soundEnabled){
 
-    speed=7;
+        bgMusic.volume = volume;
 
-    velocityY=0;
+        bgMusic.currentTime = 0;
 
-    dinoY=0;
+        bgMusic.play().catch(()=>{});
 
-    jumping=false;
+    }
 
-    obstacleTimer=0;
+    startScore();
 
-    birdTimer=0;
-
-    nightTimer=0;
-
-    obstacles.forEach(
-        x=>x.remove()
-    );
-
-    birds.forEach(
-        x=>x.remove()
-    );
-
-    obstacles=[];
-
-    birds=[];
-
-    game.classList.remove("night");
-
-    updateScore();
-
-    lastTime=performance.now();
-
-    requestAnimationFrame(gameLoop);
+    createObstacle();
 
 }
 
@@ -668,12 +977,41 @@ function startGame(){
    SCORE
 ========================= */
 
-function updateScore(){
+function startScore(){
 
-    scoreText.textContent =
-        "امتیاز: " +
-        String(Math.floor(score))
-        .padStart(5,"0");
+    clearInterval(scoreTimer);
+
+    scoreTimer = setInterval(()=>{
+
+        if(!gameRunning) return;
+
+        score++;
+
+        scoreElement.textContent =
+            String(score).padStart(5,"0");
+
+        if(score > highScore){
+
+            highScore = score;
+
+            localStorage.setItem(
+                "sobhanDinoHighScore",
+                highScore
+            );
+
+            highScoreElement.textContent =
+                String(highScore).padStart(5,"0");
+        }
+
+        /* افزایش سرعت */
+
+        if(score % 100 === 0){
+
+            speed += 0.7;
+
+        }
+
+    },100);
 
 }
 
@@ -682,102 +1020,175 @@ function updateScore(){
    JUMP
 ========================= */
 
+let jumping = false;
+
 function jump(){
 
-    if(!running){
-        return;
+    if(!gameRunning) return;
+
+    if(jumping) return;
+
+    jumping = true;
+
+    jumpSound();
+
+    dino.classList.add("jump");
+
+    setTimeout(()=>{
+
+        dino.classList.remove("jump");
+
+        jumping = false;
+
+    },650);
+
+}
+
+
+/* =========================
+   KEYBOARD
+========================= */
+
+document.addEventListener(
+    "keydown",
+    function(e){
+
+        if(
+            e.code === "Space" ||
+            e.code === "ArrowUp"
+        ){
+
+            e.preventDefault();
+
+            jump();
+
+        }
+
+    }
+);
+
+
+/* =========================
+   MOBILE TOUCH
+========================= */
+
+document.addEventListener(
+    "touchstart",
+    function(e){
+
+        if(!gameRunning) return;
+
+        if(
+            e.target.closest(".btn") ||
+            e.target.closest(".volumeBox")
+        ){
+
+            return;
+
+        }
+
+        jump();
+
+    },
+    {passive:true}
+);
+
+
+/* =========================
+   OBSTACLES
+========================= */
+
+function createObstacle(){
+
+    if(!gameRunning) return;
+
+    const obstacle =
+        document.createElement("div");
+
+    obstacle.className = "obstacle";
+
+    const isBird =
+        Math.random() < 0.22;
+
+    if(isBird){
+
+        obstacle.innerHTML = `
+            <div class="bird">
+                <div class="birdWing"></div>
+                <div class="birdBody"></div>
+                <div class="birdHead">
+                    <div class="birdEye"></div>
+                </div>
+            </div>
+        `;
+
+        obstacle.style.bottom =
+            (145 + Math.random()*65) + "px";
+
+    }else{
+
+        obstacle.innerHTML = `
+            <div class="cactus"></div>
+        `;
+
+        obstacle.style.bottom =
+            "73px";
+
     }
 
-    if(!jumping){
+    obstacles.appendChild(obstacle);
 
-        velocityY=16;
+    let position = -80;
 
-        jumping=true;
+    const move =
+        setInterval(()=>{
 
-    }
+            if(!gameRunning){
 
-}
+                clearInterval(move);
 
+                obstacle.remove();
 
-/* =========================
-   CREATE CACTUS
-========================= */
+                return;
 
-function createCactus(){
+            }
 
-    const cactus =
-        document.createElement("div");
+            position += speed;
 
-    cactus.className="cactus";
+            obstacle.style.right =
+                position + "px";
 
-    cactus.innerHTML=`
-        <div class="cactus-main"></div>
-        <div class="cactus-arm left"></div>
-        <div class="cactus-arm right"></div>
-    `;
+            if(checkCollision(dino,obstacle)){
 
-    cactus.style.left =
-        window.innerWidth + 40 + "px";
+                clearInterval(move);
 
-    game.appendChild(cactus);
+                endGame();
 
-    obstacles.push(cactus);
+                return;
 
-}
+            }
 
+            if(position > window.innerWidth + 150){
 
-/* =========================
-   CREATE BIRD
-========================= */
+                clearInterval(move);
 
-function createBird(){
+                obstacle.remove();
 
-    const bird =
-        document.createElement("div");
+            }
 
-    bird.className="bird";
+        },20);
 
-    bird.innerHTML=`
-        <div class="bird-body"></div>
-        <div class="wing left"></div>
-        <div class="wing right"></div>
-    `;
+    const nextTime =
+        Math.max(
+            700,
+            1500 - speed*50
+        );
 
-    const height =
-        30 +
-        Math.random()*100;
-
-    bird.style.left =
-        window.innerWidth + 40 + "px";
-
-    bird.style.bottom =
-        (22 + height/10) + "%";
-
-    game.appendChild(bird);
-
-    birds.push(bird);
-
-}
-
-
-/* =========================
-   GROUND
-========================= */
-
-function createGroundLine(){
-
-    const line =
-        document.createElement("div");
-
-    line.className="line";
-
-    line.style.width =
-        (20 + Math.random()*70) + "px";
-
-    line.style.left =
-        window.innerWidth + "px";
-
-    groundLines.appendChild(line);
+    obstacleTimer =
+        setTimeout(
+            createObstacle,
+            nextTime + Math.random()*800
+        );
 
 }
 
@@ -786,21 +1197,21 @@ function createGroundLine(){
    COLLISION
 ========================= */
 
-function collision(a,b){
+function checkCollision(a,b){
 
-    const ar =
+    const r1 =
         a.getBoundingClientRect();
 
-    const br =
+    const r2 =
         b.getBoundingClientRect();
 
-    const padding=8;
+    const padding = 9;
 
     return !(
-        ar.right-padding < br.left ||
-        ar.left+padding > br.right ||
-        ar.bottom-padding < br.top ||
-        ar.top+padding > br.bottom
+        r1.right - padding < r2.left ||
+        r1.left + padding > r2.right ||
+        r1.bottom - padding < r2.top ||
+        r1.top + padding > r2.bottom
     );
 
 }
@@ -812,28 +1223,25 @@ function collision(a,b){
 
 function endGame(){
 
-    running=false;
+    if(!gameRunning) return;
 
-    if(
-        Math.floor(score) >
-        highScore
-    ){
+    gameRunning = false;
 
-        highScore =
-            Math.floor(score);
+    gameOver = true;
 
-        localStorage.setItem(
-            "sobhanDinoHighScore",
-            highScore
-        );
+    clearInterval(scoreTimer);
 
-        updateHighScore();
+    clearTimeout(obstacleTimer);
 
-    }
+    bgMusic.pause();
+
+    gameOverSound();
 
     finalScore.textContent =
-        "امتیاز: " +
-        Math.floor(score);
+        score;
+
+    finalHighScore.textContent =
+        highScore;
 
     gameOverScreen.classList.remove(
         "hidden"
@@ -843,351 +1251,40 @@ function endGame(){
 
 
 /* =========================
-   GAME LOOP
+   RESTART
 ========================= */
 
-function gameLoop(time){
+function restartGame(){
 
-    if(!running){
-        return;
-    }
+    obstacles.innerHTML = "";
 
-    const delta =
-        Math.min(
-            (time-lastTime)/16.67,
-            2
-        );
+    dino.classList.remove("jump");
 
-    lastTime=time;
+    jumping = false;
 
-
-    /* SCORE */
-
-    score += .12 * delta;
-
-    updateScore();
-
-
-    /* SPEED */
-
-    speed +=
-        .0008 * delta;
-
-
-    /* DINO PHYSICS */
-
-    if(jumping){
-
-        velocityY -=
-            gravity * delta;
-
-        dinoY +=
-            velocityY * delta;
-
-
-        if(dinoY <= 0){
-
-            dinoY=0;
-
-            velocityY=0;
-
-            jumping=false;
-
-        }
-
-    }
-
-    dino.style.transform =
-        `translateY(${-dinoY}px)`;
-
-
-    /* OBSTACLES */
-
-    obstacleTimer -= delta;
-
-    if(obstacleTimer <= 0){
-
-        createCactus();
-
-        obstacleTimer =
-            75 +
-            Math.random()*80 -
-            Math.min(speed*2,35);
-
-    }
-
-
-    /* BIRDS */
-
-    birdTimer -= delta;
-
-    if(
-        score > 100 &&
-        birdTimer <= 0
-    ){
-
-        createBird();
-
-        birdTimer =
-            180 +
-            Math.random()*220;
-
-    }
-
-
-    /* MOVE CACTUS */
-
-    obstacles =
-        obstacles.filter(
-            cactus=>{
-
-                const x =
-                    parseFloat(
-                        cactus.style.left
-                    );
-
-                const newX =
-                    x -
-                    speed*delta;
-
-                cactus.style.left =
-                    newX + "px";
-
-
-                if(
-                    collision(
-                        dino,
-                        cactus
-                    )
-                ){
-
-                    endGame();
-
-                }
-
-
-                if(newX < -80){
-
-                    cactus.remove();
-
-                    return false;
-
-                }
-
-                return true;
-
-            }
-        );
-
-
-    /* MOVE BIRDS */
-
-    birds =
-        birds.filter(
-            bird=>{
-
-                const x =
-                    parseFloat(
-                        bird.style.left
-                    );
-
-                const newX =
-                    x -
-                    speed*delta*1.15;
-
-                bird.style.left =
-                    newX + "px";
-
-
-                if(
-                    collision(
-                        dino,
-                        bird
-                    )
-                ){
-
-                    endGame();
-
-                }
-
-
-                if(newX < -80){
-
-                    bird.remove();
-
-                    return false;
-
-                }
-
-                return true;
-
-            }
-        );
-
-
-    /* GROUND LINES */
-
-    groundTimer -= delta;
-
-    if(groundTimer <= 0){
-
-        createGroundLine();
-
-        groundTimer=20;
-
-    }
-
-
-    Array.from(
-        groundLines.children
-    ).forEach(
-        line=>{
-
-            const x =
-                parseFloat(
-                    line.style.left
-                );
-
-            const newX =
-                x -
-                speed*delta;
-
-            line.style.left =
-                newX+"px";
-
-
-            if(newX < -150){
-
-                line.remove();
-
-            }
-
-        }
-    );
-
-
-    /* DAY / NIGHT */
-
-    nightTimer +=
-        delta;
-
-    if(
-        Math.floor(score)%500 === 0 &&
-        Math.floor(score)>0
-    ){
-
-        game.classList.add("night");
-
-    }
-
-    if(
-        Math.floor(score)%500 === 250
-    ){
-
-        game.classList.remove("night");
-
-    }
-
-
-    requestAnimationFrame(
-        gameLoop
-    );
+    startGame();
 
 }
 
 
 /* =========================
-   CONTROLS
+   PREVENT LONG PRESS
 ========================= */
 
 document.addEventListener(
-    "keydown",
-    event=>{
-
-        if(
-            event.code === "Space" ||
-            event.code === "ArrowUp"
-        ){
-
-            event.preventDefault();
-
-            if(!running){
-
-                if(
-                    !startScreen.classList.contains(
-                        "hidden"
-                    ) ||
-                    !gameOverScreen.classList.contains(
-                        "hidden"
-                    )
-                ){
-
-                    startGame();
-
-                }
-
-            }else{
-
-                jump();
-
-            }
-
-        }
-
-    }
+    "contextmenu",
+    e => e.preventDefault()
 );
-
-
-/* MOBILE */
-
-game.addEventListener(
-    "pointerdown",
-    event=>{
-
-        if(
-            event.target.tagName === "BUTTON"
-        ){
-
-            return;
-
-        }
-
-        if(!running){
-
-            startGame();
-
-        }else{
-
-            jump();
-
-        }
-
-    }
-);
-
-
-/* BUTTONS */
-
-startButton.onclick =
-    startGame;
-
-restartButton.onclick =
-    startGame;
 
 
 /* =========================
-   INITIAL GROUND
+   INITIAL
 ========================= */
 
-for(
-    let i=0;
-    i<12;
-    i++
-){
+bgMusic.volume = volume;
 
-    createGroundLine();
-
-}
+highScoreElement.textContent =
+    String(highScore).padStart(5,"0");
 
 </script>
 
