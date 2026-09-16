@@ -3,25 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
-<title>Sobhan Dino | Pug62</title>
+<title>Sobhan Dino — Pug62</title>
 
 <style>
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
-  -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
+  user-select:none;
 }
 
 body{
   font-family:Tahoma,Arial,sans-serif;
-  background:#050816;
+  min-height:100vh;
+  overflow:hidden;
+  background:#07111f;
+  color:white;
 }
 
 /* =========================
@@ -31,16 +28,13 @@ body{
 .gift-screen{
   position:fixed;
   inset:0;
-  z-index:9999;
+  z-index:1000;
   display:flex;
-  align-items:center;
   justify-content:center;
-  padding:20px;
-  overflow:hidden;
+  align-items:center;
   background:
-    radial-gradient(circle at 50% 15%,#7c3aed55,transparent 30%),
-    radial-gradient(circle at 15% 90%,#ec489944,transparent 30%),
-    linear-gradient(135deg,#030712,#111827,#030712);
+    radial-gradient(circle at 50% 30%,#243b68 0%,#0b1730 40%,#030711 100%);
+  overflow:hidden;
 }
 
 .stars{
@@ -48,38 +42,34 @@ body{
   inset:0;
   background-image:
     radial-gradient(circle,#fff 1px,transparent 1px),
-    radial-gradient(circle,#fff 1px,transparent 1px);
-  background-size:80px 80px,130px 130px;
-  background-position:10px 20px,50px 70px;
-  opacity:.25;
-  animation:starsMove 15s linear infinite;
+    radial-gradient(circle,#7dd3fc 1px,transparent 1px);
+  background-size:90px 90px,130px 130px;
+  opacity:.35;
+  animation:starsMove 20s linear infinite;
 }
 
 @keyframes starsMove{
   from{transform:translateY(0)}
-  to{transform:translateY(80px)}
+  to{transform:translateY(90px)}
 }
 
 .gift-card{
   position:relative;
-  z-index:2;
-  width:min(520px,94vw);
-  padding:42px 28px;
+  width:min(92%,500px);
+  padding:45px 28px;
   text-align:center;
-  border-radius:32px;
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:30px;
+  background:rgba(10,20,40,.72);
   backdrop-filter:blur(20px);
-  box-shadow:
-    0 30px 100px rgba(0,0,0,.65),
-    inset 0 1px rgba(255,255,255,.2);
-  animation:cardIn .8s cubic-bezier(.2,.8,.2,1);
+  box-shadow:0 30px 100px rgba(0,0,0,.55);
+  animation:giftIn .8s ease;
 }
 
-@keyframes cardIn{
+@keyframes giftIn{
   from{
     opacity:0;
-    transform:translateY(50px) scale(.88);
+    transform:translateY(40px) scale(.9);
   }
   to{
     opacity:1;
@@ -88,69 +78,67 @@ body{
 }
 
 .gift-icon{
-  font-size:90px;
-  display:block;
-  filter:drop-shadow(0 15px 25px rgba(0,0,0,.5));
+  font-size:80px;
   animation:giftFloat 2s ease-in-out infinite;
+  filter:drop-shadow(0 10px 25px rgba(255,200,0,.35));
 }
 
 @keyframes giftFloat{
-  0%,100%{
-    transform:translateY(0) rotate(-3deg);
-  }
-  50%{
-    transform:translateY(-14px) rotate(3deg);
-  }
+  0%,100%{transform:translateY(0) rotate(-3deg)}
+  50%{transform:translateY(-12px) rotate(3deg)}
 }
 
 .gift-card h1{
-  margin-top:15px;
-  color:#fff;
   font-size:32px;
-  font-weight:900;
+  margin:18px 0 10px;
 }
 
 .gift-card h2{
-  margin-top:10px;
   color:#fbbf24;
-  font-size:25px;
+  font-size:20px;
+  margin-bottom:18px;
 }
 
 .gift-card p{
-  margin:18px auto;
-  max-width:420px;
-  color:#ddd;
+  color:#cbd5e1;
   line-height:2;
   font-size:15px;
 }
 
-.creator{
-  color:#aaa!important;
-  font-size:13px!important;
+.gift-coins{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin:20px 0;
+  padding:10px 18px;
+  border-radius:50px;
+  background:rgba(251,191,36,.12);
+  border:1px solid rgba(251,191,36,.3);
+  color:#fbbf24;
+  font-weight:bold;
 }
 
 .gift-button{
   width:100%;
-  margin-top:8px;
-  padding:17px;
   border:0;
-  border-radius:17px;
+  padding:16px;
+  border-radius:16px;
+  color:#07111f;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);
+  font-size:17px;
+  font-weight:bold;
   cursor:pointer;
-  color:#fff;
-  font-size:18px;
-  font-weight:900;
-  background:linear-gradient(135deg,#f59e0b,#ef4444);
-  box-shadow:0 12px 35px rgba(239,68,68,.3);
+  box-shadow:0 10px 30px rgba(245,158,11,.25);
   transition:.2s;
 }
 
 .gift-button:hover{
-  transform:translateY(-3px);
-  box-shadow:0 18px 45px rgba(239,68,68,.4);
+  transform:translateY(-2px);
+  box-shadow:0 15px 40px rgba(245,158,11,.4);
 }
 
-.gift-button:active{
-  transform:scale(.97);
+.hidden{
+  display:none!important;
 }
 
 /* =========================
@@ -158,32 +146,30 @@ body{
 ========================= */
 
 .game{
-  position:fixed;
-  inset:0;
+  position:relative;
+  width:100%;
+  height:100vh;
   overflow:hidden;
-  background:
-    linear-gradient(#bfe9ff 0%,#e9f8ff 65%,#fff 100%);
-  transition:background .7s;
+  background:linear-gradient(#7dd3fc,#dff6ff);
+  transition:.4s;
 }
 
-body.night .game{
-  background:
-    linear-gradient(#071225 0%,#111c32 65%,#182438 100%);
+.game.night{
+  background:linear-gradient(#071225,#122342);
 }
 
 /* HEADER */
 
 .header{
   position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:80px;
+  top:15px;
+  left:15px;
+  right:15px;
+  z-index:50;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:12px 25px;
-  z-index:100;
+  gap:10px;
 }
 
 .brand{
@@ -193,52 +179,59 @@ body.night .game{
 }
 
 .brand-icon{
-  font-size:30px;
+  width:45px;
+  height:45px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  background:rgba(255,255,255,.5);
+  backdrop-filter:blur(10px);
+  font-size:25px;
 }
 
-.brand-name{
-  color:#172033;
-  font-weight:1000;
-  font-size:21px;
-  letter-spacing:.5px;
+.brand-text h3{
+  font-size:16px;
 }
 
-body.night .brand-name{
-  color:#fff;
+.brand-text span{
+  font-size:10px;
+  opacity:.65;
 }
 
 .scores{
   display:flex;
-  gap:10px;
+  gap:8px;
 }
 
-.score-card{
-  min-width:110px;
-  padding:9px 13px;
-  border-radius:13px;
-  background:rgba(255,255,255,.7);
-  border:1px solid rgba(0,0,0,.08);
+.score-box,
+.coin-card{
+  min-width:75px;
+  padding:8px 12px;
   text-align:center;
-  direction:ltr;
-  box-shadow:0 7px 20px rgba(0,0,0,.08);
+  border-radius:13px;
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(10px);
+  color:#0f172a;
 }
 
-body.night .score-card{
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  border-color:#ffffff18;
-}
-
-.score-title{
+.score-box small{
   display:block;
-  font-size:10px;
+  font-size:9px;
   opacity:.6;
-  margin-bottom:3px;
 }
 
-.score-number{
-  font-size:17px;
-  font-weight:900;
+.score-box b,
+.coin-card b{
+  font-size:15px;
+}
+
+.coin-card{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  color:#92400e;
 }
 
 .actions{
@@ -251,10 +244,10 @@ body.night .score-card{
   height:42px;
   border:0;
   border-radius:13px;
-  background:rgba(255,255,255,.8);
+  background:rgba(255,255,255,.45);
+  backdrop-filter:blur(10px);
   cursor:pointer;
-  font-size:18px;
-  box-shadow:0 7px 20px rgba(0,0,0,.1);
+  font-size:19px;
   transition:.2s;
 }
 
@@ -262,169 +255,335 @@ body.night .score-card{
   transform:translateY(-2px);
 }
 
-body.night .action{
-  background:#ffffff12;
-  color:#fff;
-}
-
-/* VOLUME */
-
-.volume{
-  position:absolute;
-  top:70px;
-  left:25px;
-  padding:14px;
-  width:190px;
-  border-radius:16px;
-  background:#fff;
-  box-shadow:0 15px 35px #0003;
-  display:none;
-  z-index:200;
-}
-
-.volume.show{
-  display:block;
-}
-
-body.night .volume{
-  background:#1d293d;
-  color:#fff;
-}
-
-.volume input{
-  width:100%;
-  margin-top:10px;
-}
-
 /* WORLD */
 
 .world{
   position:absolute;
-  inset:80px 0 75px;
+  inset:0;
   overflow:hidden;
 }
 
-/* SUN */
-
-.sun{
+.sun,
+.moon{
   position:absolute;
-  top:35px;
-  right:10%;
+  right:12%;
+  top:17%;
   width:75px;
   height:75px;
   border-radius:50%;
-  background:#ffd84a;
-  box-shadow:0 0 55px #ffd84a99;
+}
+
+.sun{
+  background:#fde68a;
+  box-shadow:0 0 70px #fde68a;
 }
 
 .moon{
   display:none;
-  position:absolute;
-  top:35px;
-  right:10%;
-  width:65px;
-  height:65px;
-  border-radius:50%;
-  background:#f8fafc;
-  box-shadow:0 0 45px #fff8;
+  background:#e2e8f0;
+  box-shadow:0 0 50px rgba(226,232,240,.5);
 }
 
-body.night .sun{
+.night .sun{
   display:none;
 }
 
-body.night .moon{
+.night .moon{
   display:block;
 }
 
-/* CLOUDS */
-
 .cloud{
   position:absolute;
-  width:130px;
-  height:35px;
-  border-radius:40px;
-  background:#fff;
-  opacity:.72;
-  animation:cloudMove 35s linear infinite;
+  width:100px;
+  height:30px;
+  border-radius:50px;
+  background:rgba(255,255,255,.65);
 }
 
 .cloud:before,
 .cloud:after{
   content:"";
   position:absolute;
+  background:inherit;
   border-radius:50%;
-  background:#fff;
 }
 
 .cloud:before{
-  width:50px;
-  height:50px;
-  left:20px;
-  top:-25px;
+  width:45px;
+  height:45px;
+  left:18px;
+  bottom:0;
 }
 
 .cloud:after{
-  width:60px;
-  height:60px;
-  right:18px;
-  top:-32px;
+  width:55px;
+  height:55px;
+  right:12px;
+  bottom:0;
 }
 
-.cloud.one{
-  top:85px;
-  left:-180px;
+.cloud1{
+  top:18%;
+  left:8%;
+  animation:cloudMove 30s linear infinite;
 }
 
-.cloud.two{
-  top:175px;
-  left:-400px;
+.cloud2{
+  top:30%;
+  left:45%;
   transform:scale(.7);
-  animation-delay:-13s;
+  opacity:.5;
+  animation:cloudMove 45s linear infinite reverse;
 }
 
 @keyframes cloudMove{
-  from{transform:translateX(0)}
-  to{transform:translateX(1400px)}
-}
-
-/* MOUNTAINS */
-
-.mountains{
-  position:absolute;
-  bottom:65px;
-  left:0;
-  width:100%;
-  height:180px;
-  opacity:.35;
+  from{transform:translateX(-120px)}
+  to{transform:translateX(calc(100vw + 150px))}
 }
 
 .mountain{
   position:absolute;
-  bottom:0;
+  bottom:90px;
   width:0;
   height:0;
-  border-left:130px solid transparent;
-  border-right:130px solid transparent;
-  border-bottom:180px solid #80a9bb;
+  border-left:150px solid transparent;
+  border-right:150px solid transparent;
+  border-bottom:170px solid rgba(71,85,105,.35);
 }
 
-.mountain.m1{left:4%}
-.mountain.m2{
-  left:28%;
-  transform:scale(.8);
-}
-.mountain.m3{
-  left:55%;
-  transform:scale(1.1);
-}
-.mountain.m4{
-  left:82%;
-  transform:scale(.7);
+.m1{left:0}
+.m2{left:220px;transform:scale(1.2)}
+.m3{right:80px;transform:scale(.9)}
+
+.night .mountain{
+  border-bottom-color:rgba(15,23,42,.65);
 }
 
-body.night .mountain{
-  border-bottom-color:#27364e;
+/* GAME AREA */
+
+#obstacles{
+  position:absolute;
+  inset:0;
+}
+
+.obstacle{
+  position:absolute;
+  right:-80px;
+  bottom:90px;
+  animation:obstacleMove linear forwards;
+}
+
+@keyframes obstacleMove{
+  from{right:-90px}
+  to{right:calc(100% + 100px)}
+}
+
+.cactus{
+  width:28px;
+  height:65px;
+  background:linear-gradient(90deg,#166534,#22c55e);
+  border-radius:8px 8px 4px 4px;
+  box-shadow:inset -5px 0 rgba(0,0,0,.15);
+}
+
+.cactus:before,
+.cactus:after{
+  content:"";
+  position:absolute;
+  width:18px;
+  height:32px;
+  background:#16a34a;
+  border-radius:8px;
+}
+
+.cactus:before{
+  left:-14px;
+  top:22px;
+}
+
+.cactus:after{
+  right:-14px;
+  top:10px;
+}
+
+.bird{
+  width:48px;
+  height:20px;
+  bottom:180px;
+  background:transparent;
+}
+
+.bird:before,
+.bird:after{
+  content:"";
+  position:absolute;
+  width:24px;
+  height:12px;
+  border-top:4px solid #334155;
+}
+
+.bird:before{
+  left:0;
+  transform:rotate(25deg);
+}
+
+.bird:after{
+  right:0;
+  transform:rotate(-25deg);
+}
+
+/* DINO */
+
+#dino{
+  position:absolute;
+  left:110px;
+  bottom:90px;
+  width:65px;
+  height:70px;
+  z-index:20;
+  transition:filter .25s;
+}
+
+.dino-head{
+  position:absolute;
+  top:0;
+  right:0;
+  width:47px;
+  height:42px;
+  border-radius:8px 12px 4px 5px;
+  background:#334155;
+}
+
+.dino-body{
+  position:absolute;
+  bottom:0;
+  right:10px;
+  width:42px;
+  height:42px;
+  border-radius:8px;
+  background:#334155;
+}
+
+.dino-leg{
+  position:absolute;
+  bottom:0;
+  width:9px;
+  height:24px;
+  background:#1e293b;
+  border-radius:0 0 5px 5px;
+}
+
+.leg1{right:15px}
+.leg2{right:37px}
+
+.dino-eye{
+  position:absolute;
+  top:10px;
+  right:10px;
+  width:7px;
+  height:7px;
+  background:white;
+  border-radius:50%;
+}
+
+.dino-mouth{
+  position:absolute;
+  right:7px;
+  top:27px;
+  width:26px;
+  height:3px;
+  background:#0f172a;
+}
+
+.dino-tail{
+  position:absolute;
+  left:0;
+  bottom:17px;
+  width:30px;
+  height:12px;
+  background:#334155;
+  transform:rotate(-20deg);
+  border-radius:8px;
+}
+
+/* SKINS */
+
+.skin-fire .dino-head,
+.skin-fire .dino-body,
+.skin-fire .dino-tail{
+  background:linear-gradient(135deg,#ef4444,#f97316,#facc15);
+}
+
+.skin-fire .dino-leg{
+  background:#b91c1c;
+}
+
+.skin-fire{
+  filter:drop-shadow(0 0 10px rgba(249,115,22,.8));
+}
+
+.skin-neon .dino-head,
+.skin-neon .dino-body,
+.skin-neon .dino-tail{
+  background:linear-gradient(135deg,#06b6d4,#8b5cf6,#ec4899);
+}
+
+.skin-neon .dino-leg{
+  background:#7c3aed;
+}
+
+.skin-neon{
+  filter:drop-shadow(0 0 13px #22d3ee);
+}
+
+.skin-gold .dino-head,
+.skin-gold .dino-body,
+.skin-gold .dino-tail{
+  background:linear-gradient(135deg,#fff7ae,#fbbf24,#b45309);
+}
+
+.skin-gold .dino-leg{
+  background:#92400e;
+}
+
+.skin-gold{
+  filter:drop-shadow(0 0 15px rgba(251,191,36,.9));
+}
+
+.skin-diamond .dino-head,
+.skin-diamond .dino-body,
+.skin-diamond .dino-tail{
+  background:linear-gradient(135deg,#e0f2fe,#38bdf8,#2563eb);
+}
+
+.skin-diamond .dino-leg{
+  background:#1d4ed8;
+}
+
+.skin-diamond{
+  filter:drop-shadow(0 0 16px rgba(56,189,248,1));
+}
+
+/* JUMP */
+
+.jumping{
+  animation:jump .65s cubic-bezier(.2,.8,.3,1);
+}
+
+@keyframes jump{
+  0%{bottom:90px}
+  45%{bottom:260px}
+  100%{bottom:90px}
+}
+
+.dust{
+  position:absolute;
+  bottom:85px;
+  left:95px;
+  width:45px;
+  height:12px;
+  border-radius:50%;
+  background:rgba(100,116,139,.3);
 }
 
 /* GROUND */
@@ -433,424 +592,290 @@ body.night .mountain{
   position:absolute;
   bottom:0;
   left:0;
-  right:0;
-  height:75px;
-  background:
-    linear-gradient(#d8c79b,#c4af78);
-  border-top:4px solid #594f37;
-}
-
-body.night .ground{
-  background:linear-gradient(#26313c,#1c2530);
-  border-color:#718096;
-}
-
-.ground-lines{
-  position:absolute;
-  top:19px;
   width:100%;
-  height:7px;
-  background:repeating-linear-gradient(
-    90deg,
-    #685d40 0 50px,
-    transparent 50px 85px
-  );
-  animation:groundMove .5s linear infinite;
+  height:90px;
+  border-top:4px solid #475569;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #94a3b8 0,
+      #94a3b8 30px,
+      #64748b 30px,
+      #64748b 60px
+    );
 }
 
-body.night .ground-lines{
-  background:repeating-linear-gradient(
-    90deg,
-    #8794a5 0 50px,
-    transparent 50px 85px
-  );
+.night .ground{
+  border-color:#1e293b;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #334155 0,
+      #334155 30px,
+      #1e293b 30px,
+      #1e293b 60px
+    );
 }
 
-@keyframes groundMove{
-  from{transform:translateX(0)}
-  to{transform:translateX(-85px)}
-}
+/* FOOTER */
 
-/* =========================
-   DINO
-========================= */
-
-.dino{
+.footer{
   position:absolute;
-  left:110px;
-  bottom:75px;
-  width:68px;
-  height:78px;
-  z-index:50;
-}
-
-.dino-shadow{
-  position:absolute;
-  bottom:-8px;
-  left:2px;
-  width:62px;
-  height:10px;
-  background:#0003;
-  border-radius:50%;
-  filter:blur(3px);
-}
-
-.dino-head{
-  position:absolute;
-  right:8px;
-  top:0;
-  width:48px;
-  height:38px;
-  background:#1f2937;
-  border-radius:9px 16px 5px 5px;
-}
-
-.dino-head:after{
-  content:"";
-  position:absolute;
-  right:-10px;
-  bottom:5px;
-  width:15px;
-  height:6px;
-  background:#1f2937;
-}
-
-.dino-eye{
-  position:absolute;
-  right:9px;
-  top:8px;
-  width:6px;
-  height:6px;
-  background:#fff;
-  border-radius:50%;
-}
-
-.dino-body{
-  position:absolute;
-  right:0;
-  bottom:12px;
-  width:45px;
-  height:48px;
-  background:#1f2937;
-  border-radius:10px 14px 6px 6px;
-}
-
-.dino-belly{
-  position:absolute;
-  right:7px;
-  bottom:18px;
-  width:25px;
-  height:27px;
-  background:#374151;
-  border-radius:50%;
-}
-
-.dino-tail{
-  position:absolute;
+  bottom:8px;
   left:0;
-  bottom:37px;
-  width:33px;
-  height:13px;
-  background:#1f2937;
-  transform:rotate(-27deg);
-  border-radius:10px;
-}
-
-.dino-leg{
-  position:absolute;
-  bottom:0;
-  width:10px;
-  height:26px;
-  background:#1f2937;
-  border-radius:0 0 6px 6px;
-}
-
-.dino-leg.one{right:8px}
-.dino-leg.two{right:31px}
-
-.dino.jump{
-  animation:dinoJump .68s cubic-bezier(.2,.7,.3,1);
-}
-
-@keyframes dinoJump{
-  0%{bottom:75px}
-  42%{bottom:255px}
-  100%{bottom:75px}
-}
-
-/* DUST */
-
-.dust{
-  position:absolute;
-  left:95px;
-  bottom:77px;
-  width:10px;
-  height:10px;
-  border-radius:50%;
-  background:#a88958;
-  opacity:0;
+  width:100%;
   z-index:30;
+  text-align:center;
+  font-size:10px;
+  color:white;
+  opacity:.65;
 }
 
-.running .dust{
-  animation:dust .7s infinite;
-}
-
-@keyframes dust{
-  0%{
-    opacity:.7;
-    transform:translate(0,0) scale(.5);
-  }
-  100%{
-    opacity:0;
-    transform:translate(-55px,8px) scale(1.5);
-  }
-}
-
-/* =========================
-   CACTUS
-========================= */
-
-.obstacle{
-  position:absolute;
-  right:-120px;
-  bottom:75px;
-  z-index:40;
-}
-
-.cactus{
-  position:relative;
-  width:34px;
-  height:76px;
-  border-radius:8px 8px 3px 3px;
-  background:linear-gradient(90deg,#087f43,#19a85e);
-  box-shadow:inset 5px 0 rgba(255,255,255,.1);
-}
-
-.cactus:before,
-.cactus:after{
-  content:"";
-  position:absolute;
-  background:#119452;
-  border-radius:10px;
-}
-
-.cactus:before{
-  width:17px;
-  height:35px;
-  left:-14px;
-  top:29px;
-}
-
-.cactus:after{
-  width:17px;
-  height:29px;
-  right:-12px;
-  top:12px;
-}
-
-/* =========================
-   BIRD
-========================= */
-
-.bird{
-  position:relative;
-  width:70px;
-  height:35px;
-  animation:birdFly .35s infinite alternate;
-}
-
-@keyframes birdFly{
-  from{transform:translateY(0)}
-  to{transform:translateY(-5px)}
-}
-
-.bird-body{
-  position:absolute;
-  left:12px;
-  top:10px;
-  width:40px;
-  height:20px;
-  border-radius:50%;
-  background:#4b5563;
-}
-
-.bird-head{
-  position:absolute;
-  right:0;
-  top:3px;
-  width:23px;
-  height:23px;
-  border-radius:50%;
-  background:#374151;
-}
-
-.bird-eye{
-  position:absolute;
-  right:6px;
-  top:5px;
-  width:4px;
-  height:4px;
-  border-radius:50%;
-  background:#fff;
-}
-
-.bird-wing{
-  position:absolute;
-  left:0;
-  top:2px;
-  width:30px;
-  height:14px;
-  background:#374151;
-  transform:rotate(25deg);
-}
-
-/* =========================
-   GAME OVER
-========================= */
+/* GAME OVER */
 
 .game-over{
   position:absolute;
   inset:0;
-  z-index:500;
+  z-index:200;
   display:flex;
-  align-items:center;
   justify-content:center;
-  background:rgba(0,0,0,.58);
-  backdrop-filter:blur(5px);
+  align-items:center;
+  background:rgba(2,6,23,.55);
+  backdrop-filter:blur(8px);
 }
 
-.over-card{
-  width:min(430px,90%);
+.game-over-card{
+  width:min(90%,400px);
   padding:35px 25px;
   text-align:center;
-  border-radius:27px;
-  background:#fff;
-  box-shadow:0 30px 80px #0008;
-  animation:overIn .4s ease;
+  border-radius:25px;
+  background:rgba(15,23,42,.9);
+  border:1px solid rgba(255,255,255,.1);
 }
 
-@keyframes overIn{
-  from{
-    opacity:0;
-    transform:scale(.8);
-  }
-  to{
-    opacity:1;
-    transform:scale(1);
-  }
+.game-over-card h2{
+  font-size:30px;
+  margin-bottom:10px;
 }
 
-.over-card h1{
-  font-size:38px;
-  margin-bottom:15px;
-}
-
-.over-card p{
-  margin:10px;
-  font-size:17px;
+.final-score{
+  color:#fbbf24;
+  margin-bottom:20px;
 }
 
 .restart{
-  margin-top:16px;
+  width:100%;
+  padding:14px;
   border:0;
-  border-radius:15px;
-  padding:15px 35px;
-  background:#111827;
-  color:#fff;
-  font-size:18px;
-  font-weight:900;
+  border-radius:14px;
+  background:#fbbf24;
+  color:#111827;
+  font-weight:bold;
   cursor:pointer;
 }
 
-.hidden{
-  display:none!important;
+/* =========================
+   SHOP
+========================= */
+
+.shop-overlay{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+  background:rgba(2,6,23,.7);
+  backdrop-filter:blur(10px);
 }
 
-.footer{
+.shop-card{
+  position:relative;
+  width:min(95%,650px);
+  max-height:90vh;
+  overflow:auto;
+  padding:25px;
+  border-radius:25px;
+  background:linear-gradient(145deg,#101b31,#07111f);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+}
+
+.shop-close{
   position:absolute;
-  bottom:12px;
-  left:0;
-  right:0;
-  text-align:center;
-  color:#555;
-  font-size:12px;
-  z-index:80;
+  left:15px;
+  top:15px;
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:50%;
+  background:#1e293b;
+  color:white;
+  font-size:22px;
+  cursor:pointer;
 }
 
-body.night .footer{
-  color:#aab4c4;
+.shop-title{
+  text-align:center;
+  font-size:25px;
+  margin-bottom:8px;
 }
+
+.shop-subtitle{
+  text-align:center;
+  color:#94a3b8;
+  font-size:12px;
+  margin-bottom:20px;
+}
+
+.shop-balance{
+  width:max-content;
+  margin:0 auto 20px;
+  padding:9px 18px;
+  border-radius:50px;
+  color:#fbbf24;
+  background:rgba(251,191,36,.1);
+  border:1px solid rgba(251,191,36,.2);
+  font-weight:bold;
+}
+
+.skins{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.skin-card{
+  padding:15px;
+  border-radius:18px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  text-align:center;
+  transition:.2s;
+}
+
+.skin-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,255,255,.2);
+}
+
+.skin-preview{
+  height:90px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:50px;
+  margin-bottom:7px;
+}
+
+.skin-card h3{
+  font-size:15px;
+  margin-bottom:5px;
+}
+
+.skin-price{
+  color:#fbbf24;
+  font-size:12px;
+  margin-bottom:10px;
+}
+
+.skin-btn{
+  width:100%;
+  padding:9px;
+  border:0;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold;
+  background:#334155;
+  color:white;
+}
+
+.skin-btn.buy{
+  background:#f59e0b;
+  color:#111827;
+}
+
+.skin-btn.equipped{
+  background:#16a34a;
+}
+
+.skin-btn:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  top:25px;
+  left:50%;
+  transform:translateX(-50%) translateY(-100px);
+  z-index:2000;
+  padding:13px 20px;
+  border-radius:50px;
+  background:#0f172a;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 15px 40px rgba(0,0,0,.4);
+  color:white;
+  font-size:13px;
+  transition:.4s;
+  white-space:nowrap;
+}
+
+.toast.show{
+  transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
 
 @media(max-width:650px){
 
   .header{
-    height:70px;
-    padding:9px 10px;
+    top:10px;
+    left:8px;
+    right:8px;
   }
 
-  .brand-name{
+  .brand-text{
     display:none;
   }
 
-  .brand-icon{
-    font-size:26px;
+  .scores{
+    gap:4px;
   }
 
-  .score-card{
-    min-width:72px;
-    padding:7px;
+  .score-box,
+  .coin-card{
+    min-width:58px;
+    padding:7px 8px;
   }
 
-  .score-title{
-    font-size:8px;
-  }
-
-  .score-number{
-    font-size:13px;
+  .actions{
+    gap:4px;
   }
 
   .action{
-    width:36px;
-    height:36px;
-    font-size:15px;
+    width:37px;
+    height:37px;
+    font-size:16px;
   }
 
-  .world{
-    inset:70px 0 65px;
-  }
-
-  .dino{
+  #dino{
     left:55px;
-    bottom:65px;
   }
 
-  .ground{
-    height:65px;
+  .dust{
+    left:40px;
   }
 
-  .obstacle{
-    bottom:65px;
-  }
-
-  .dino-shadow{
-    bottom:-8px;
+  .skins{
+    grid-template-columns:1fr 1fr;
   }
 
   .gift-card{
-    padding:32px 20px;
-  }
-
-  .gift-icon{
-    font-size:75px;
-  }
-
-  .gift-card h1{
-    font-size:26px;
-  }
-
-  .gift-card h2{
-    font-size:21px;
+    padding:35px 20px;
   }
 }
 </style>
@@ -859,7 +884,7 @@ body.night .footer{
 <body>
 
 <!-- =========================
-     GIFT SCREEN
+     GIFT
 ========================= -->
 
 <section class="gift-screen" id="giftScreen">
@@ -868,28 +893,29 @@ body.night .footer{
 
   <div class="gift-card">
 
-    <span class="gift-icon">🎁</span>
+    <div class="gift-icon">🎁</div>
 
     <h1>یک هدیه برای شما</h1>
 
     <h2>اعضای چنل Pug62 ❤️</h2>
 
     <p>
-      این بازی کوچک با عشق از طرف سبحان
-      برای اعضای چنل Pug62 ساخته شده است.
-      آماده‌ای رکورد خودت را بزنی؟ 🦖🔥
+      این بازی به عنوان یک هدیه کوچک از طرف
+      <b>سبحان</b>
+      برای اعضای دوست‌داشتنی چنل
+      <b>Pug62</b>
+      ساخته شده است.
     </p>
 
-    <p class="creator">
-      ساخته شده توسط سبحان
-    </p>
+    <div class="gift-coins">
+      🪙 هدیه ورود: ۵ سکه
+    </div>
 
     <button class="gift-button" onclick="openGame()">
       🎁 دریافت هدیه و ورود به بازی
     </button>
 
   </div>
-
 </section>
 
 
@@ -903,31 +929,39 @@ body.night .footer{
 
     <div class="brand">
       <div class="brand-icon">🦖</div>
-      <div class="brand-name">SOBHAN DINO</div>
+      <div class="brand-text">
+        <h3>SOBHAN DINO</h3>
+        <span>Pug62 Edition</span>
+      </div>
     </div>
 
     <div class="scores">
 
-      <div class="score-card">
-        <span class="score-title">SCORE</span>
-        <span class="score-number" id="score">00000</span>
+      <div class="score-box">
+        <small>SCORE</small>
+        <b id="score">0</b>
       </div>
 
-      <div class="score-card">
-        <span class="score-title">BEST</span>
-        <span class="score-number" id="best">00000</span>
+      <div class="score-box">
+        <small>BEST</small>
+        <b id="best">0</b>
+      </div>
+
+      <div class="coin-card">
+        🪙
+        <b id="coins">5</b>
       </div>
 
     </div>
 
     <div class="actions">
 
-      <button class="action" id="soundButton" onclick="toggleSound()">
-        🔊
+      <button class="action" onclick="openShop()" title="فروشگاه">
+        🛒
       </button>
 
-      <button class="action" onclick="toggleVolume()">
-        🎚️
+      <button class="action" id="soundButton" onclick="toggleSound()">
+        🔊
       </button>
 
       <button class="action" onclick="toggleNight()">
@@ -936,74 +970,48 @@ body.night .footer{
 
     </div>
 
-    <div class="volume" id="volumeBox">
-
-      <b>🔊 میزان صدا</b>
-
-      <input
-        type="range"
-        min="0"
-        max="100"
-        value="35"
-        id="volumeSlider"
-      >
-
-    </div>
-
   </header>
 
 
-  <section class="world" id="world">
+  <div class="world">
 
     <div class="sun"></div>
     <div class="moon"></div>
 
-    <div class="cloud one"></div>
-    <div class="cloud two"></div>
+    <div class="cloud cloud1"></div>
+    <div class="cloud cloud2"></div>
 
-    <div class="mountains">
-      <div class="mountain m1"></div>
-      <div class="mountain m2"></div>
-      <div class="mountain m3"></div>
-      <div class="mountain m4"></div>
-    </div>
+    <div class="mountain m1"></div>
+    <div class="mountain m2"></div>
+    <div class="mountain m3"></div>
 
     <div id="obstacles"></div>
 
-
-    <!-- DINO -->
-
-    <div class="dino" id="dino">
+    <div id="dino">
 
       <div class="dino-head">
         <div class="dino-eye"></div>
+        <div class="dino-mouth"></div>
       </div>
 
       <div class="dino-body"></div>
 
-      <div class="dino-belly"></div>
+      <div class="dino-leg leg1"></div>
+      <div class="dino-leg leg2"></div>
 
       <div class="dino-tail"></div>
 
-      <div class="dino-leg one"></div>
-      <div class="dino-leg two"></div>
-
-      <div class="dino-shadow"></div>
-
     </div>
-
 
     <div class="dust"></div>
 
-    <div class="ground">
-      <div class="ground-lines"></div>
-    </div>
+  </div>
 
-  </section>
 
+  <div class="ground"></div>
 
   <div class="footer">
-    Space / ↑ / لمس صفحه = پرش
+    SOBHAN • PUG62 • 🦖 RUN FOR COINS
   </div>
 
 
@@ -1011,19 +1019,14 @@ body.night .footer{
 
   <div class="game-over hidden" id="gameOver">
 
-    <div class="over-card">
+    <div class="game-over-card">
 
-      <h1>💥 Game Over</h1>
+      <h2>💥 Game Over</h2>
 
-      <p>
-        امتیاز:
+      <div class="final-score">
+        امتیاز شما:
         <b id="finalScore">0</b>
-      </p>
-
-      <p>
-        بهترین رکورد:
-        <b id="finalBest">0</b>
-      </p>
+      </div>
 
       <button class="restart" onclick="restartGame()">
         🔄 دوباره بازی کن
@@ -1037,344 +1040,691 @@ body.night .footer{
 
 
 <!-- =========================
-     MUSIC
+     SHOP
 ========================= -->
 
-<audio id="music" loop preload="auto">
-  <source
-    src="https://dl.musicdel.ir/Music/1404/06/Jafar-Dodakh%20-musicdel.ir.mp3"
-    type="audio/mpeg"
-  >
+<div class="shop-overlay hidden" id="shopOverlay">
+
+  <div class="shop-card">
+
+    <button class="shop-close" onclick="closeShop()">×</button>
+
+    <div class="shop-title">
+      🛒 فروشگاه اسکین
+    </div>
+
+    <div class="shop-subtitle">
+      دایناسور خودت را شخصی‌سازی کن
+    </div>
+
+    <div class="shop-balance">
+      🪙 موجودی:
+      <span id="shopCoins">5</span>
+    </div>
+
+    <div class="skins" id="skins"></div>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast"></div>
+
+
+<!-- AUDIO -->
+
+<audio
+  id="music"
+  loop
+  preload="auto"
+  src="https://dl.musicdel.ir/Music/1404/06/Jafar-Dodakh%20-musicdel.ir.mp3">
 </audio>
+
+<audio id="jumpSound"></audio>
+<audio id="gameOverSound"></audio>
 
 
 <script>
 
-/* =========================
+/* =====================================
    VARIABLES
-========================= */
+===================================== */
 
-const music =
-  document.getElementById("music");
+const giftScreen = document.getElementById("giftScreen");
+const game = document.getElementById("game");
+const dino = document.getElementById("dino");
+const obstacles = document.getElementById("obstacles");
 
-const giftScreen =
-  document.getElementById("giftScreen");
+const scoreEl = document.getElementById("score");
+const bestEl = document.getElementById("best");
 
-const game =
-  document.getElementById("game");
+const coinsEl = document.getElementById("coins");
+const shopCoinsEl = document.getElementById("shopCoins");
 
-const dino =
-  document.getElementById("dino");
+const gameOverEl = document.getElementById("gameOver");
+const finalScoreEl = document.getElementById("finalScore");
 
-const obstacles =
-  document.getElementById("obstacles");
-
-const scoreEl =
-  document.getElementById("score");
-
-const bestEl =
-  document.getElementById("best");
-
-const gameOver =
-  document.getElementById("gameOver");
-
-let running = false;
-let jumping = false;
+const music = document.getElementById("music");
+const soundButton = document.getElementById("soundButton");
 
 let score = 0;
+let running = false;
+let jumping = false;
+let soundEnabled = true;
+let night = false;
 
-let best =
-  Number(localStorage.getItem("sobhanDinoBest")) || 0;
-
-let speed = 6;
-
-let scoreTimer = null;
 let obstacleTimer = null;
-
-let soundOn = true;
-
-let volume = .35;
-
-let audioContext = null;
+let scoreTimer = null;
 
 
-/* =========================
-   INITIAL
-========================= */
+/* =====================================
+   COINS / SKINS
+===================================== */
 
-bestEl.textContent =
-  String(best).padStart(5,"0");
+let coins = Number(
+  localStorage.getItem("sobhanDinoCoins")
+);
 
-music.volume = volume;
+if(!Number.isFinite(coins)){
+  coins = 0;
+}
+
+let ownedSkins;
+
+try{
+  ownedSkins = JSON.parse(
+    localStorage.getItem("sobhanDinoSkins")
+  ) || ["classic"];
+}catch{
+  ownedSkins = ["classic"];
+}
+
+if(!ownedSkins.includes("classic")){
+  ownedSkins.push("classic");
+}
+
+let currentSkin =
+  localStorage.getItem("sobhanDinoCurrentSkin")
+  || "classic";
 
 
-/* =========================
+/* SKIN LIST */
+
+const skins = [
+
+  {
+    id:"classic",
+    name:"Classic Dino",
+    price:0,
+    icon:"🦖",
+    cls:""
+  },
+
+  {
+    id:"fire",
+    name:"Fire Dino",
+    price:5,
+    icon:"🔥",
+    cls:"skin-fire"
+  },
+
+  {
+    id:"neon",
+    name:"Neon Dino",
+    price:10,
+    icon:"⚡",
+    cls:"skin-neon"
+  },
+
+  {
+    id:"gold",
+    name:"Golden Dino",
+    price:25,
+    icon:"👑",
+    cls:"skin-gold"
+  },
+
+  {
+    id:"diamond",
+    name:"Diamond Dino",
+    price:50,
+    icon:"💎",
+    cls:"skin-diamond"
+  }
+
+];
+
+
+/* =====================================
+   SAVE
+===================================== */
+
+function saveEconomy(){
+
+  localStorage.setItem(
+    "sobhanDinoCoins",
+    String(coins)
+  );
+
+  localStorage.setItem(
+    "sobhanDinoSkins",
+    JSON.stringify(ownedSkins)
+  );
+
+  localStorage.setItem(
+    "sobhanDinoCurrentSkin",
+    currentSkin
+  );
+
+}
+
+
+/* =====================================
+   UPDATE COINS
+===================================== */
+
+function updateCoins(){
+
+  coinsEl.textContent = coins;
+  shopCoinsEl.textContent = coins;
+
+}
+
+
+/* =====================================
+   GIFT
+===================================== */
+
+function claimGift(){
+
+  const alreadyClaimed =
+    localStorage.getItem("sobhanDinoGiftClaimed");
+
+  if(alreadyClaimed !== "1"){
+
+    coins += 5;
+
+    localStorage.setItem(
+      "sobhanDinoGiftClaimed",
+      "1"
+    );
+
+    saveEconomy();
+
+    updateCoins();
+
+    showToast("🎉 شما ۵ سکه هدیه گرفتید!");
+
+  }
+
+}
+
+
+/* =====================================
+   APPLY SKIN
+===================================== */
+
+function applySkin(){
+
+  dino.classList.remove(
+    "skin-fire",
+    "skin-neon",
+    "skin-gold",
+    "skin-diamond"
+  );
+
+  const skin =
+    skins.find(s => s.id === currentSkin);
+
+  if(skin && skin.cls){
+    dino.classList.add(skin.cls);
+  }
+
+}
+
+
+/* =====================================
+   SHOP
+===================================== */
+
+function openShop(){
+
+  renderShop();
+
+  document
+    .getElementById("shopOverlay")
+    .classList.remove("hidden");
+
+}
+
+function closeShop(){
+
+  document
+    .getElementById("shopOverlay")
+    .classList.add("hidden");
+
+}
+
+
+/* =====================================
+   RENDER SHOP
+===================================== */
+
+function renderShop(){
+
+  const container =
+    document.getElementById("skins");
+
+  container.innerHTML = "";
+
+  skins.forEach(skin => {
+
+    const owned =
+      ownedSkins.includes(skin.id);
+
+    const equipped =
+      currentSkin === skin.id;
+
+    let buttonText = "";
+    let buttonClass = "";
+
+    if(equipped){
+
+      buttonText = "✓ فعال";
+      buttonClass = "equipped";
+
+    }else if(owned){
+
+      buttonText = "انتخاب";
+      buttonClass = "";
+
+    }else{
+
+      buttonText =
+        skin.price === 0
+        ? "رایگان"
+        : `خرید 🪙 ${skin.price}`;
+
+      buttonClass =
+        skin.price === 0 ? "" : "buy";
+
+    }
+
+    const cannotBuy =
+      !owned &&
+      skin.price > coins;
+
+    const card =
+      document.createElement("div");
+
+    card.className = "skin-card";
+
+    card.innerHTML = `
+
+      <div class="skin-preview">
+        ${skin.icon}
+      </div>
+
+      <h3>${skin.name}</h3>
+
+      <div class="skin-price">
+        ${
+          skin.price === 0
+          ? "رایگان"
+          : "🪙 " + skin.price + " سکه"
+        }
+      </div>
+
+      <button
+        class="skin-btn ${buttonClass}"
+        ${equipped || cannotBuy ? "disabled" : ""}
+        onclick="buyOrEquipSkin('${skin.id}')"
+      >
+        ${buttonText}
+      </button>
+
+    `;
+
+    container.appendChild(card);
+
+  });
+
+  updateCoins();
+
+}
+
+
+/* =====================================
+   BUY / EQUIP
+===================================== */
+
+function buyOrEquipSkin(id){
+
+  const skin =
+    skins.find(s => s.id === id);
+
+  if(!skin) return;
+
+
+  /* Already owned */
+
+  if(ownedSkins.includes(id)){
+
+    currentSkin = id;
+
+    saveEconomy();
+    applySkin();
+    renderShop();
+
+    showToast(
+      `🦖 ${skin.name} فعال شد!`
+    );
+
+    return;
+  }
+
+
+  /* Not enough coins */
+
+  if(coins < skin.price){
+
+    showToast("❌ سکه کافی نداری!");
+
+    return;
+  }
+
+
+  /* BUY */
+
+  coins -= skin.price;
+
+  ownedSkins.push(id);
+
+  currentSkin = id;
+
+  saveEconomy();
+
+  updateCoins();
+
+  applySkin();
+
+  renderShop();
+
+  showToast(
+    `🎉 ${skin.name} خریداری شد!`
+  );
+
+}
+
+
+/* =====================================
+   TOAST
+===================================== */
+
+let toastTimer;
+
+function showToast(message){
+
+  const toast =
+    document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer =
+    setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    },2500);
+
+}
+
+
+/* =====================================
    OPEN GAME
-========================= */
+===================================== */
 
 function openGame(){
 
-  initAudio();
+  claimGift();
 
   giftScreen.classList.add("hidden");
 
   game.classList.remove("hidden");
 
+  updateCoins();
+
+  applySkin();
+
   startGame();
+
+  initAudio();
 
 }
 
 
-/* =========================
+/* =====================================
    AUDIO
-========================= */
+===================================== */
 
 function initAudio(){
 
-  if(!audioContext){
+  if(!soundEnabled) return;
 
-    audioContext =
-      new (window.AudioContext ||
-      window.webkitAudioContext)();
+  music.volume = .35;
 
-  }
-
-  if(audioContext.state === "suspended"){
-    audioContext.resume();
-  }
+  music.play().catch(() => {});
 
 }
 
 
 function sound(type){
 
-  if(!soundOn) return;
-
-  initAudio();
-
-  const osc =
-    audioContext.createOscillator();
-
-  const gain =
-    audioContext.createGain();
-
-  const now =
-    audioContext.currentTime;
-
-  osc.connect(gain);
-
-  gain.connect(audioContext.destination);
-
+  if(!soundEnabled) return;
 
   if(type === "jump"){
 
-    osc.type = "square";
+    const audio =
+      new Audio(
+        "https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg"
+      );
 
-    osc.frequency.setValueAtTime(
-      480,now
-    );
+    audio.volume = .5;
 
-    osc.frequency.exponentialRampToValueAtTime(
-      850,now+.12
-    );
-
-    gain.gain.setValueAtTime(
-      .001,now
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .14,now+.02
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .001,now+.17
-    );
-
-    osc.start(now);
-
-    osc.stop(now+.18);
+    audio.play().catch(() => {});
 
   }
 
+  if(type === "gameover"){
 
-  if(type === "over"){
+    const audio =
+      new Audio(
+        "https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"
+      );
 
-    osc.type = "sawtooth";
+    audio.volume = .5;
 
-    osc.frequency.setValueAtTime(
-      300,now
-    );
-
-    osc.frequency.exponentialRampToValueAtTime(
-      55,now+.65
-    );
-
-    gain.gain.setValueAtTime(
-      .001,now
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .25,now+.03
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-      .001,now+.7
-    );
-
-    osc.start(now);
-
-    osc.stop(now+.7);
+    audio.play().catch(() => {});
 
   }
 
 }
 
 
-/* =========================
+/* =====================================
+   SOUND TOGGLE
+===================================== */
+
+function toggleSound(){
+
+  soundEnabled = !soundEnabled;
+
+  if(soundEnabled){
+
+    soundButton.textContent = "🔊";
+
+    music.play().catch(() => {});
+
+  }else{
+
+    soundButton.textContent = "🔇";
+
+    music.pause();
+
+  }
+
+}
+
+
+/* =====================================
+   NIGHT
+===================================== */
+
+function toggleNight(){
+
+  night = !night;
+
+  game.classList.toggle("night",night);
+
+}
+
+
+/* =====================================
    START GAME
-========================= */
+===================================== */
 
 function startGame(){
 
-  running = true;
+  clearInterval(scoreTimer);
+  clearInterval(obstacleTimer);
 
   score = 0;
-
-  speed = 6;
-
+  running = true;
   jumping = false;
 
-  scoreEl.textContent = "00000";
+  scoreEl.textContent = "0";
+
+  gameOverEl.classList.add("hidden");
 
   obstacles.innerHTML = "";
 
-  gameOver.classList.add("hidden");
+  const best =
+    Number(
+      localStorage.getItem("sobhanDinoBest")
+    ) || 0;
 
-  game.classList.add("running");
-
-
-  if(soundOn){
-
-    music.volume = volume;
-
-    music.currentTime = 0;
-
-    music.play().catch(()=>{});
-
-  }
+  bestEl.textContent = best;
 
 
-  clearInterval(scoreTimer);
-
-  scoreTimer =
-    setInterval(()=>{
-
-      if(!running) return;
-
-      score++;
-
-      scoreEl.textContent =
-        String(score).padStart(5,"0");
-
-
-      if(score > best){
-
-        best = score;
-
-        localStorage.setItem(
-          "sobhanDinoBest",
-          best
-        );
-
-        bestEl.textContent =
-          String(best).padStart(5,"0");
-
-      }
-
-
-      if(score % 100 === 0){
-
-        speed += .6;
-
-      }
-
-    },100);
-
-
-  createObstacle();
-
-}
-
-
-/* =========================
-   JUMP
-========================= */
-
-function jump(){
-
-  if(!running) return;
-
-  if(jumping) return;
-
-  jumping = true;
-
-  sound("jump");
-
-  dino.classList.remove("jump");
-
-  void dino.offsetWidth;
-
-  dino.classList.add("jump");
-
-
-  setTimeout(()=>{
-
-    dino.classList.remove("jump");
-
-    jumping = false;
-
-  },680);
-
-}
-
-
-/* =========================
-   KEYBOARD
-========================= */
-
-document.addEventListener("keydown",(e)=>{
-
-  if(
-    e.code === "Space" ||
-    e.code === "ArrowUp"
-  ){
-
-    e.preventDefault();
-
-    jump();
-
-  }
-
-});
-
-
-/* =========================
-   TOUCH
-========================= */
-
-document.addEventListener(
-  "touchstart",
-  (e)=>{
+  scoreTimer = setInterval(() => {
 
     if(!running) return;
 
+    score++;
+
+    scoreEl.textContent = score;
+
+
+    /* EVERY 100 SCORE = 1 COIN */
+
+    if(score % 100 === 0){
+
+      coins++;
+
+      saveEconomy();
+
+      updateCoins();
+
+      showToast("🪙 +۱ سکه برای ۱۰۰ امتیاز!");
+
+    }
+
+
+  },100);
+
+
+  obstacleTimer =
+    setInterval(() => {
+
+      if(running){
+        createObstacle();
+      }
+
+    },1200);
+
+}
+
+
+/* =====================================
+   JUMP
+===================================== */
+
+function jump(){
+
+  if(!running || jumping) return;
+
+  jumping = true;
+
+  dino.classList.add("jumping");
+
+  sound("jump");
+
+  setTimeout(() => {
+
+    dino.classList.remove("jumping");
+
+    jumping = false;
+
+  },650);
+
+}
+
+
+/* =====================================
+   KEYBOARD
+===================================== */
+
+document.addEventListener(
+  "keydown",
+  e => {
+
     if(
-      e.target.closest(".action") ||
-      e.target.closest(".volume")
+      e.code === "Space" ||
+      e.code === "ArrowUp"
     ){
 
-      return;
+      e.preventDefault();
 
+      jump();
+
+    }
+
+  }
+);
+
+
+/* =====================================
+   TOUCH
+===================================== */
+
+document.addEventListener(
+  "touchstart",
+  e => {
+
+    if(
+      e.target.closest(".shop-card") ||
+      e.target.closest(".gift-card") ||
+      e.target.closest(".action") ||
+      e.target.closest("button")
+    ){
+      return;
     }
 
     jump();
@@ -1384,149 +1734,116 @@ document.addEventListener(
 );
 
 
-/* =========================
-   OBSTACLES
-========================= */
+/* =====================================
+   CREATE OBSTACLE
+===================================== */
 
 function createObstacle(){
-
-  if(!running) return;
-
 
   const obstacle =
     document.createElement("div");
 
-  obstacle.className =
-    "obstacle";
-
+  obstacle.className = "obstacle";
 
   const isBird =
-    Math.random() < .22;
-
+    Math.random() < .18;
 
   if(isBird){
 
-    obstacle.innerHTML = `
-
-      <div class="bird">
-
-        <div class="bird-wing"></div>
-
-        <div class="bird-body"></div>
-
-        <div class="bird-head">
-
-          <div class="bird-eye"></div>
-
-        </div>
-
-      </div>
-
-    `;
+    obstacle.classList.add("bird");
 
     obstacle.style.bottom =
-      (145 + Math.random()*65) + "px";
+      (160 + Math.random()*80) + "px";
 
   }else{
 
-    obstacle.innerHTML =
-      `<div class="cactus"></div>`;
+    const cactus =
+      document.createElement("div");
 
-    obstacle.style.bottom =
-      "75px";
+    cactus.className = "cactus";
+
+    obstacle.appendChild(cactus);
+
+    obstacle.style.bottom = "90px";
 
   }
 
 
+  const duration =
+    Math.max(
+      1.7,
+      2.8 - score / 800
+    );
+
+  obstacle.style.animationDuration =
+    duration + "s";
+
   obstacles.appendChild(obstacle);
 
 
-  let position = -120;
+  setTimeout(() => {
 
+    if(obstacle.parentNode){
+      obstacle.remove();
+    }
 
-  const move =
-    setInterval(()=>{
-
-      if(!running){
-
-        clearInterval(move);
-
-        obstacle.remove();
-
-        return;
-
-      }
-
-
-      position += speed;
-
-      obstacle.style.right =
-        position + "px";
-
-
-      if(collision(dino,obstacle)){
-
-        clearInterval(move);
-
-        endGame();
-
-        return;
-
-      }
-
-
-      if(position >
-        window.innerWidth + 180){
-
-        clearInterval(move);
-
-        obstacle.remove();
-
-      }
-
-    },20);
-
-
-  obstacleTimer =
-    setTimeout(
-      createObstacle,
-      Math.max(
-        650,
-        1500 - speed*45
-      ) + Math.random()*750
-    );
+  },(duration + .5)*1000);
 
 }
 
 
-/* =========================
+/* =====================================
    COLLISION
-========================= */
+===================================== */
 
-function collision(a,b){
+function collision(){
 
-  const A =
-    a.getBoundingClientRect();
+  if(!running) return;
 
-  const B =
-    b.getBoundingClientRect();
+  const d =
+    dino.getBoundingClientRect();
 
-  const padding = 10;
+  const all =
+    document.querySelectorAll(".obstacle");
 
+  for(const obstacle of all){
 
-  return !(
-    A.right-padding < B.left ||
-    A.left+padding > B.right ||
-    A.bottom-padding < B.top ||
-    A.top+padding > B.bottom
-  );
+    const o =
+      obstacle.getBoundingClientRect();
+
+    const padding = 8;
+
+    if(
+      d.left + padding < o.right &&
+      d.right - padding > o.left &&
+      d.top + padding < o.bottom &&
+      d.bottom - padding > o.top
+    ){
+
+      endGame();
+
+      return;
+
+    }
+
+  }
 
 }
 
 
-/* =========================
-   GAME OVER
-========================= */
+/* =====================================
+   COLLISION LOOP
+===================================== */
+
+setInterval(
+  collision,
+  30
+);
+
+
+/* =====================================
+   END GAME
+===================================== */
 
 function endGame(){
 
@@ -1535,116 +1852,50 @@ function endGame(){
   running = false;
 
   clearInterval(scoreTimer);
+  clearInterval(obstacleTimer);
 
-  clearTimeout(obstacleTimer);
+  finalScoreEl.textContent = score;
 
-  game.classList.remove("running");
+  const oldBest =
+    Number(
+      localStorage.getItem("sobhanDinoBest")
+    ) || 0;
 
-  music.pause();
+  if(score > oldBest){
 
-  sound("over");
+    localStorage.setItem(
+      "sobhanDinoBest",
+      score
+    );
 
+    bestEl.textContent = score;
 
-  document.getElementById(
-    "finalScore"
-  ).textContent = score;
+  }
 
+  gameOverEl.classList.remove("hidden");
 
-  document.getElementById(
-    "finalBest"
-  ).textContent = best;
-
-
-  gameOver.classList.remove("hidden");
+  sound("gameover");
 
 }
 
 
-/* =========================
+/* =====================================
    RESTART
-========================= */
+===================================== */
 
 function restartGame(){
-
-  obstacles.innerHTML = "";
-
-  gameOver.classList.add("hidden");
 
   startGame();
 
 }
 
 
-/* =========================
-   SOUND TOGGLE
-========================= */
+/* =====================================
+   INITIALIZE
+===================================== */
 
-function toggleSound(){
-
-  soundOn = !soundOn;
-
-
-  document.getElementById(
-    "soundButton"
-  ).textContent =
-    soundOn ? "🔊" : "🔇";
-
-
-  if(soundOn){
-
-    music.volume = volume;
-
-    if(running){
-      music.play().catch(()=>{});
-    }
-
-  }else{
-
-    music.pause();
-
-  }
-
-}
-
-
-/* =========================
-   VOLUME
-========================= */
-
-function toggleVolume(){
-
-  document
-    .getElementById("volumeBox")
-    .classList.toggle("show");
-
-}
-
-
-document
-  .getElementById("volumeSlider")
-  .addEventListener(
-    "input",
-    function(){
-
-      volume =
-        Number(this.value)/100;
-
-      music.volume =
-        soundOn ? volume : 0;
-
-    }
-  );
-
-
-/* =========================
-   NIGHT
-========================= */
-
-function toggleNight(){
-
-  document.body.classList.toggle("night");
-
-}
+updateCoins();
+applySkin();
 
 </script>
 
